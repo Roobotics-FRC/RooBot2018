@@ -9,6 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'org.hidetake:gradle-ssh-plugin:2.7.0'
+        classpath 'commons-io:commons-io:2.4'
     }
 }
 apply plugin: 'java'
@@ -18,12 +19,11 @@ apply plugin: 'eclipse'
 apply plugin: 'checkstyle'
 apply plugin: 'org.hidetake.ssh'
 
-
 def robotClass = 'org.usfirst.frc.team4373.robot.Robot'
 
 repositories {
     mavenCentral()
-    maven { url 'http://first.wpi.edu/FRC/roborio/maven/development' }
+    maven { url 'http://first.wpi.edu/FRC/roborio/maven/release/development' }
     maven { url 'https://raw.githubusercontent.com/Roobotics-FRC/RooMaven/master' }
 }
 
@@ -78,9 +78,9 @@ def switchTo4373() {
         String res = stdInput.readLine()
         network = res.substring(23)
         curNetProc.waitFor()
-        if (network != '4373_') {
+        if (network != '4373') {
             println 'Connecting to 4373…'
-            Process setProc = Runtime.getRuntime().exec('networksetup -setairportnetwork en0 4373_ robotics')
+            Process setProc = Runtime.getRuntime().exec('networksetup -setairportnetwork en0 4373 robotics')
             setProc.waitFor()
             println 'Connected to 4373'
         } else {
@@ -90,7 +90,7 @@ def switchTo4373() {
 }
 
 def switchBack() {
-    if (isMacOS && network != '4373_') {
+    if (isMacOS && network != '4373') {
         println 'Reconnecting to ' + network + '…'
         Process resetProc = Runtime.getRuntime().exec('networksetup -setairportnetwork en0 ' + network)
         resetProc.waitFor()
@@ -104,13 +104,12 @@ task loadLibraries << {
     ssh.settings {
         knownHosts = allowAnyHosts
     }
-    println 'Sending library directories over SSH…'
+    println 'Sending library directories and JRE over SSH…'
     ssh.run {
         session(remotes.roborioAdmin) {
+            put from: "${gradle.wpilibAntDir}/zulu-jre_1.8.0-131_cortexa9-vfpv3.ipk", into: '/tmp'
+            execute "sed -i -e \'s/^StartupDLLs/;StartupDLLs/\' /etc/natinst/share/ni-rt.ini; opkg remove zulu-jre*; opkg install /tmp/zulu-jre_1.8.0-131_cortexa9-vfpv3.ipk; rm /tmp/zulu-jre_1.8.0-131_cortexa9-vfpv3.ipk"
             put from: fileTree(dir: gradle.wpilibLibDir), into: '/usr/local/frc/lib'
-            execute "killall -q netconsole-host || :"
-            put from: "${gradle.wpilibAntDir}/netconsole-host", into: '/usr/local/frc/bin'
-            execute "chmod a+x /usr/local/frc/bin/netconsole-host"
         }
     }
     println 'Finished loading libraries'
@@ -125,9 +124,11 @@ task deploy(dependsOn: ':build') << {
     }
     println 'Sending compiled code over SSH and restarting robot code…'
     ssh.run {
+        session(remotes.roborioAdmin) {
+            execute "echo '/usr/local/frc/JRE/bin/java -Djava.library.path=/usr/local/frc/lib -jar /home/lvuser/FRCUserProgram.jar' > /home/lvuser/robotCommand && chmod +x /home/lvuser/robotCommand"
+        }
         session(remotes.roborioStandard) {
             put from: files(jar.getArchivePath().absolutePath), into: '/home/lvuser/FRCUserProgram.jar'
-            execute "echo '/usr/local/frc/bin/netconsole-host /usr/local/frc/JRE/bin/java -Djava.library.path=/usr/local/frc/lib/ -jar /home/lvuser/FRCUserProgram.jar' > robotCommand && chmod +x robotCommand"
             execute ". /etc/profile.d/natinst-path.sh; /usr/local/frc/bin/frcKillRobot.sh -t -r"
             execute "sync"
         }
