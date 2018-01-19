@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
 /**
  * This is the main robot class.
@@ -21,6 +22,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auton Mode Selector", autonChooser);
 
         OI.getOI().getGyro().calibrate();
+        Drivetrain2017.getInstance();
     }
 
     @Override
