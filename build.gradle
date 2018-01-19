@@ -25,7 +25,6 @@ repositories {
     mavenCentral()
     maven { url 'http://first.wpi.edu/FRC/roborio/maven/release' }
     maven { url 'https://raw.githubusercontent.com/Open-RIO/Maven-Mirror/master/m2' }
-    //maven { url 'http://dev.imjac.in/maven/' }
     maven { url 'https://raw.githubusercontent.com/Roobotics-FRC/RooMaven/master' }
 }
 
@@ -36,21 +35,7 @@ dependencies {
             'edu.wpi.first.ntcore:ntcore-java:4.0.0',
             'org.opencv:opencv-java:3.2.0',
             'edu.wpi.first.cscore:cscore-java:1.1.0',
-//            'edu.wpi.first.wpiutil:wpiutil-java:3.0.0',
-//            'edu.wpi.first.wpilibj:wpilibj-jniShared:2018.1.1:linuxathena',
-//            'org.opencv:opencv-jni:3.2.0:linuxathena',
-//            'org.opencv:opencv-cpp:3.2.0:linuxathena@zip',
-//            'edu.wpi.first.hal:hal:2018.1.1:linuxathena@zip',
-//            'edu.wpi.first.wpiutil:wpiutil-cpp:3.0.0:linuxathena@zip',
-//            'edu.wpi.first.ntcore:ntcore-cpp:4.0.0:linuxathena@zip',
-//            'edu.wpi.first.cscore:cscore-cpp:4.0.0:linuxathena@zip'
-
-//            'edu.wpi.first.wpilib.networktables.java:NetworkTables:3.1.7:arm',
-//            'org.opencv:opencv-java:3.2.0',
-//            'edu.wpi.cscore.java:cscore:1.0.2:arm',
-//            'edu.wpi.first.wpilibj:wpilibj-java:2018.1.1',
-//            'com.ctr-electronics:TalonSRXLibJava:4.4.1.8'
-            //TODO: Do we need the TalonSRX library here (or any others?)
+            // TODO: Add TalonSRX library
     )
 }
 
