@@ -1,8 +1,7 @@
 package org.usfirst.frc.team4373.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.commands.teleop.DrivetrainCommand2017;
@@ -12,6 +11,10 @@ public class Drivetrain2017 extends Subsystem {
     private WPI_TalonSRX left2;
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
+
+    // Conversion factors to inches or inches/second
+    public static final double POSITION_CONVERSION_FACTOR = 6 * Math.PI / 4096;
+    public static final double VELOCITY_CONVERSION_FACTOR = 10 * 6 * Math.PI / 4096;
 
     private Drivetrain2017() {
         left1 = new WPI_TalonSRX(3);
@@ -25,6 +28,12 @@ public class Drivetrain2017 extends Subsystem {
         right2.setNeutralMode(NeutralMode.Brake);
 
         left1.setInverted(true);
+
+        right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
+        right1.setSensorPhase(false);
+
+        left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
+        left1.setSensorPhase(false);
     }
 
     private static Drivetrain2017 instance;
@@ -66,6 +75,14 @@ public class Drivetrain2017 extends Subsystem {
     public void setBoth(double power) {
         setLeft(power);
         setRight(power);
+    }
+
+    public int[] getRightEncoder() {
+        return new int[]{right1.getSelectedSensorPosition(0), right1.getSelectedSensorVelocity(0)};
+    }
+
+    public int[] getLeftEncoder() {
+        return new int[]{left1.getSelectedSensorPosition(0), left1.getSelectedSensorVelocity(0)};
     }
 
     @Override
