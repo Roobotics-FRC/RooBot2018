@@ -21,7 +21,30 @@ public class DrivetrainCommand2017 extends Command {
 
     @Override
     protected void execute() {
-        drivetrain.setBoth(OI.getOI().getDriveJoystick().getAxis(1));
+        double twistAxis = OI.getOI().getDriveJoystick().getAxis(1);
+        double horizontalAxis = OI.getOI().getDriveJoystick().getAxis(0);
+        double forwardAxis = OI.getOI().getDriveJoystick().getAxis(2);
+
+        double right = forwardAxis;
+        double left = forwardAxis;
+        if (twistAxis == 0 && forwardAxis != 0) { // Just forward
+            drivetrain.setLeft(left);
+            drivetrain.setRight(right);
+        } else if (twistAxis != 0 && forwardAxis != 0) { // Twist and forward
+            if (twistAxis > 0) {
+                right -= twistAxis;
+            } else if (twistAxis < 0) {
+                left -= Math.abs(twistAxis);
+            }
+            drivetrain.setRight(right);
+            drivetrain.setLeft(left);
+        } else if (twistAxis != 0 && forwardAxis == 0) { // Just twist
+            drivetrain.setRight(-twistAxis);
+            drivetrain.setLeft(twistAxis);
+        } else {
+            drivetrain.setBoth(0);
+        }
+        drivetrain.setMiddle(horizontalAxis);
         SmartDashboard.putNumber("L Pos", drivetrain.getLeftEncoder()[0]);
         SmartDashboard.putNumber("L Vel", drivetrain.getLeftEncoder()[1]);
         SmartDashboard.putNumber("L Pos (in)", drivetrain.getLeftEncoder()[0]
@@ -29,7 +52,6 @@ public class DrivetrainCommand2017 extends Command {
         SmartDashboard.putNumber("L Vel (in∕s)", drivetrain.getLeftEncoder()[1]
                 * Drivetrain2017.VELOCITY_CONVERSION_FACTOR);
     }
-
 
     @Override
     protected boolean isFinished() {
