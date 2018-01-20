@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team4373.robot.commands.auton.DriveStraightAuton;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
 /**
@@ -19,7 +18,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         autonChooser = new SendableChooser();
         autonChooser.addDefault("Disabled", "disabled");
-        autonChooser.addObject("Drive Straight", "driveStraight");
         SmartDashboard.putData("Auton Mode Selector", autonChooser);
 
         OI.getOI().getGyro().calibrate();
@@ -44,9 +42,6 @@ public class Robot extends IterativeRobot {
         String command = (String) autonChooser.getSelected();
 
         switch (command) {
-            case "driveStraight":
-                autonCommand = new DriveStraightAuton();
-                break;
             default:
                 autonCommand = null;
         }
