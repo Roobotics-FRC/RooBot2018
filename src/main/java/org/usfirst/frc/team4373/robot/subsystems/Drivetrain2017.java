@@ -13,6 +13,7 @@ public class Drivetrain2017 extends Subsystem {
     private WPI_TalonSRX right2;
 
     // Conversion factors to inches or inches/second
+    // wheels are 6 inches in diameter, 4096 units = 1 revolution, velocity is in units/0.1sec
     public static final double POSITION_CONVERSION_FACTOR = 6 * Math.PI / 4096;
     public static final double VELOCITY_CONVERSION_FACTOR = 10 * 6 * Math.PI / 4096;
 
