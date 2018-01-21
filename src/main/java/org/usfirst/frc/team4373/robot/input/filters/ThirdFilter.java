@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4373.robot.input.filter;
+package org.usfirst.frc.team4373.robot.input.filters;
 
 /**
  * ThirdFilter simply divides input by 3.

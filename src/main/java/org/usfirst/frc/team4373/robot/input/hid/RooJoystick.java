@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4373.robot.input.hid;
 
 import edu.wpi.first.wpilibj.Joystick;
-import org.usfirst.frc.team4373.robot.input.filter.DoubleTypeFilter;
+import org.usfirst.frc.team4373.robot.input.filters.DoubleTypeFilter;
 
 /**
  * This class extends the WPILib Joystick class

@@ -2,7 +2,7 @@ package org.usfirst.frc.team4373.robot;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import org.usfirst.frc.team4373.robot.input.filter.FineGrainedPiecewiseFilter;
+import org.usfirst.frc.team4373.robot.input.filters.FineGrainedPiecewiseFilter;
 import org.usfirst.frc.team4373.robot.input.hid.RooJoystick;
 
 /**

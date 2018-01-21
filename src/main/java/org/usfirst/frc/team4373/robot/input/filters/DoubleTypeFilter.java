@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4373.robot.input.filter;
+package org.usfirst.frc.team4373.robot.input.filters;
 
 /**
  * Created by derros on 11/17/17.

@@ -4,9 +4,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc.team4373.robot.commands.teleop.DrivetrainCommand2017;
+import org.usfirst.frc.team4373.robot.commands.teleop.ExperimentalDriveCommand;
 
-public class Drivetrain2017 extends Subsystem {
+public class ExperimentalRooDriveTrain extends Subsystem {
     private WPI_TalonSRX left1;
     private WPI_TalonSRX left2;
     private WPI_TalonSRX right1;
@@ -19,7 +19,7 @@ public class Drivetrain2017 extends Subsystem {
     public static final double POSITION_CONVERSION_FACTOR = 6 * Math.PI / 4096;
     public static final double VELOCITY_CONVERSION_FACTOR = 10 * 6 * Math.PI / 4096;
 
-    private Drivetrain2017() {
+    private ExperimentalRooDriveTrain() {
         this.left1 = new WPI_TalonSRX(3);
         this.left2 = new WPI_TalonSRX(5);
         this.right1 = new WPI_TalonSRX(4);
@@ -48,10 +48,10 @@ public class Drivetrain2017 extends Subsystem {
         this.left1.setSensorPhase(false);
     }
 
-    private static Drivetrain2017 instance;
+    private static ExperimentalRooDriveTrain instance;
 
-    public static Drivetrain2017 getInstance() {
-        return instance == null ? instance = new Drivetrain2017() : instance;
+    public static ExperimentalRooDriveTrain getInstance() {
+        return instance == null ? instance = new ExperimentalRooDriveTrain() : instance;
     }
 
     /**
@@ -94,6 +94,14 @@ public class Drivetrain2017 extends Subsystem {
     }
 
     /**
+     * Stops the drive train.
+     */
+    public void stop() {
+        this.setBoth(0);
+        this.setMiddle(0);
+    }
+
+    /**
      * Sets stuff.
      * @param power things.
      */
@@ -112,6 +120,6 @@ public class Drivetrain2017 extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new DrivetrainCommand2017());
+        setDefaultCommand(new ExperimentalDriveCommand());
     }
 }

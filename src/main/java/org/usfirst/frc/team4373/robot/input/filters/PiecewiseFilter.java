@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4373.robot.input.filter;
+package org.usfirst.frc.team4373.robot.input.filters;
 
 /**
  * Piecewise linear function for more granular joystick control.

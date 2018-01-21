@@ -1,5 +1,5 @@
 
-package org.usfirst.frc.team4373.robot.input.filter;
+package org.usfirst.frc.team4373.robot.input.filters;
 
 /**
  * CubeFilter cubes input numbers.
