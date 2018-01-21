@@ -77,7 +77,7 @@ public class Drivetrain2017 extends Subsystem {
         } else if (power < -1) {
             power = -1;
         }
-        this.right1.set(power);
+        this.right1.set(-power);
     }
 
     /**
