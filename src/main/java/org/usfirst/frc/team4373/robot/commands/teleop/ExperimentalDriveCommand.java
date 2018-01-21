@@ -12,6 +12,9 @@ public class ExperimentalDriveCommand extends Command {
     private OI oi;
     private RooJoystick joystick;
 
+    /**
+     * Teleop command for controlling driveTrain via RooJoystick on Testing bot.
+     */
     public ExperimentalDriveCommand() {
         super("ExperimentalDriveCommand");
         requires(driveTrain = ExperimentalRooDriveTrain.getInstance());
@@ -27,9 +30,9 @@ public class ExperimentalDriveCommand extends Command {
     @Override
     protected void execute() {
         // get all the data
-        double jX = this.joystick.getX(),
-                jY = this.joystick.getY(),
-                twist = this.joystick.getZ();
+        double jX = this.joystick.getX();
+        double jY = this.joystick.getY();
+        double twist = this.joystick.getZ();
 
         if (DoubleComparator.eq(twist, 0.0d)) {
             // if we are driving, just use middle to move left/right
