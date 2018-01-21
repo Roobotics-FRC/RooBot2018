@@ -11,6 +11,9 @@ public class RooCamera {
     private static RooCamera rooCamera = null;
     private CameraServer server;
 
+    /**
+     * RooCamera() initializer.
+     */
     private RooCamera() {
         this.server = CameraServer.getInstance();
         this.server.addAxisCamera(CAM_ADDR);
@@ -21,6 +24,9 @@ public class RooCamera {
         return this.server;
     }
 
+    /**
+     * Gets a RooCamera.
+     */
     public static RooCamera getRooCamera() {
         synchronized (RooCamera.class) {
             if (rooCamera == null) {
