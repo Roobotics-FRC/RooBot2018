@@ -16,6 +16,10 @@ public final class DoubleComparator implements Comparator<Double> {
         isReversed = reverse;
     }
 
+    public DoubleComparator() {
+        super();
+    }
+
     public static boolean eq(double o1, double o2) {
         return (o1 <= o2 + eps) && (o1 >= o2 - eps);
     }

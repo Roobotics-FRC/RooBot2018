@@ -3,7 +3,6 @@ package org.usfirst.frc.team4373.robot;
 import org.junit.After;
 import org.junit.Before;
 
-import static org.junit.Assert.*;
 
 /**
  * Created by derros on 1/21/18.
