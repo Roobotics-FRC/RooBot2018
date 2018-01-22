@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.commands.teleop.DrivetrainCommand2017;
 
 public class Drivetrain2017 extends Subsystem {
-    private WPI_TalonSRX left1;
     private WPI_TalonSRX left2;
+    private WPI_TalonSRX left1;
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
     private WPI_TalonSRX middle1;
@@ -38,14 +38,15 @@ public class Drivetrain2017 extends Subsystem {
         this.left2.follow(left1);
         this.middle2.follow(middle1);
 
+        this.right1.setInverted(true);
+        this.right2.setInverted(true);
         this.middle1.setInverted(true);
         this.middle2.setInverted(true);
 
-        this.right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
-        this.right1.setSensorPhase(false);
-
         this.left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.left1.setSensorPhase(false);
+        this.right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
+        this.right1.setSensorPhase(false);
     }
 
     private static Drivetrain2017 instance;

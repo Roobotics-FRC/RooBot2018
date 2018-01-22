@@ -21,9 +21,9 @@ public class DrivetrainCommand2017 extends Command {
 
     @Override
     protected void execute() {
-        double twistAxis = OI.getOI().getDriveJoystick().getAxis(1);
+        double twistAxis = OI.getOI().getDriveJoystick().getAxis(2);
         double horizontalAxis = OI.getOI().getDriveJoystick().getAxis(0);
-        double forwardAxis = OI.getOI().getDriveJoystick().getAxis(2);
+        double forwardAxis = OI.getOI().getDriveJoystick().getAxis(1);
 
         double right = forwardAxis;
         double left = forwardAxis;
