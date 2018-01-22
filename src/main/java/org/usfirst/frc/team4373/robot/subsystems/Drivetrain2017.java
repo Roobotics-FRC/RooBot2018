@@ -16,7 +16,13 @@ public class Drivetrain2017 extends Subsystem {
 
     // Conversion factors to inches or inches/second
     // wheels are 6 inches in diameter, 4096 units = 1 revolution, velocity is in units/0.1sec
+    /*
+    When a double is multiplied by this constant, it is converted from 'units' to inches.
+     */
     public static final double POSITION_CONVERSION_FACTOR = 6 * Math.PI / 4096;
+    /*
+    When a double is multiplied by this constant, it is converted from 'units'/0.1s to inches/s
+     */
     public static final double VELOCITY_CONVERSION_FACTOR = 10 * 6 * Math.PI / 4096;
 
     private Drivetrain2017() {
@@ -34,8 +40,8 @@ public class Drivetrain2017 extends Subsystem {
         this.middle1.setNeutralMode(NeutralMode.Brake);
         this.middle2.setNeutralMode(NeutralMode.Brake);
 
-        this.right2.follow(right1);
         this.left2.follow(left1);
+        this.right2.follow(right1);
         this.middle2.follow(middle1);
 
         this.middle1.setInverted(true);
