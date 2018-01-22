@@ -45,11 +45,11 @@ public class DrivetrainCommand2017 extends Command {
             drivetrain.setBoth(0);
         }
         drivetrain.setMiddle(horizontalAxis);
-        SmartDashboard.putNumber("L Pos", drivetrain.getLeftEncoder()[0]);
-        SmartDashboard.putNumber("L Vel", drivetrain.getLeftEncoder()[1]);
-        SmartDashboard.putNumber("L Pos (in)", drivetrain.getLeftEncoder()[0]
+        SmartDashboard.putNumber("L Pos", drivetrain.getLeftPosition());
+        SmartDashboard.putNumber("L Vel", drivetrain.getLeftVelocity());
+        SmartDashboard.putNumber("L Pos (in)", drivetrain.getLeftPosition()
                 * Drivetrain2017.POSITION_CONVERSION_FACTOR);
-        SmartDashboard.putNumber("L Vel (in∕s)", drivetrain.getLeftEncoder()[1]
+        SmartDashboard.putNumber("L Vel (in∕s)", drivetrain.getLeftVelocity()
                 * Drivetrain2017.VELOCITY_CONVERSION_FACTOR);
     }
 

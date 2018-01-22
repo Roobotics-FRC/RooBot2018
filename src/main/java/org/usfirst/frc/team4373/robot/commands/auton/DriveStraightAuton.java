@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
@@ -41,7 +42,7 @@ public class DriveStraightAuton extends PIDCommand {
 
             @Override
             public double pidGet() {
-                return drivetrain.getLeftEncoder()[0] / Drivetrain2017.POSITION_CONVERSION_FACTOR;
+                return drivetrain.getLeftPosition() / Drivetrain2017.POSITION_CONVERSION_FACTOR;
             }
         };
         distanceOutput = output -> {
@@ -72,6 +73,16 @@ public class DriveStraightAuton extends PIDCommand {
     protected void usePIDOutput(double output) {
         this.drivetrain.setRight(robotSpeed - output);
         this.drivetrain.setLeft(robotSpeed + output);
+    }
+
+    @Override
+    protected void execute() {
+        SmartDashboard.putNumber("L Pos", drivetrain.getLeftPosition());
+        SmartDashboard.putNumber("L Vel", drivetrain.getLeftVelocity());
+        SmartDashboard.putNumber("L Pos (in)", drivetrain.getLeftPosition()
+                * Drivetrain2017.POSITION_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("L Vel (in∕s)", drivetrain.getLeftVelocity()
+                * Drivetrain2017.VELOCITY_CONVERSION_FACTOR);
     }
 
     @Override
