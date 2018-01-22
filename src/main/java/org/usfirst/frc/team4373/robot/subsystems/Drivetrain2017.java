@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.commands.teleop.DrivetrainCommand2017;
 
 public class Drivetrain2017 extends Subsystem {
-    private WPI_TalonSRX left2;
     private WPI_TalonSRX left1;
+    private WPI_TalonSRX left2;
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
     private WPI_TalonSRX middle1;
@@ -109,12 +109,28 @@ public class Drivetrain2017 extends Subsystem {
         setRight(power);
     }
 
+    public int[] getLeftEncoder() {
+        return new int[]{left1.getSelectedSensorPosition(0), left1.getSelectedSensorVelocity(0)};
+    }
+
+    public int getLeftPosition() {
+        return left1.getSelectedSensorPosition(0);
+    }
+
+    public int getLeftVelocity() {
+        return left1.getSelectedSensorVelocity(0);
+    }
+
     public int[] getRightEncoder() {
         return new int[]{right1.getSelectedSensorPosition(0), right1.getSelectedSensorVelocity(0)};
     }
 
-    public int[] getLeftEncoder() {
-        return new int[]{left1.getSelectedSensorPosition(0), left1.getSelectedSensorVelocity(0)};
+    public int getRightPosition() {
+        return right1.getSelectedSensorPosition(0);
+    }
+
+    public int getRightVelocity() {
+        return right1.getSelectedSensorVelocity(0);
     }
 
     @Override
