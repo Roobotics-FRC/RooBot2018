@@ -9,6 +9,11 @@ import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
 public class DriveStraightAuton extends PIDCommand {
+
+    PIDController distancePIDController;
+    PIDSource distanceSource;
+    PIDOutput distanceOutput;
+
     private static double kP = 0.0100d;
     private static double kI = 0.0000d;
     private static double kD = 0.0010d;
@@ -23,6 +28,30 @@ public class DriveStraightAuton extends PIDCommand {
     public DriveStraightAuton() {
         super("DriveStraightAuton", kP, kI, kD);
         requires(this.drivetrain = Drivetrain2017.getInstance());
+        distanceSource = new PIDSource() {
+            @Override
+            public void setPIDSourceType(PIDSourceType pidSource) {
+                return;
+            }
+
+            @Override
+            public PIDSourceType getPIDSourceType() {
+                return null;
+            }
+
+            @Override
+            public double pidGet() {
+                return drivetrain.getLeftEncoder()[0] / Drivetrain2017.POSITION_CONVERSION_FACTOR;
+            }
+        };
+        distanceOutput = output -> {
+            System.out.println(output);
+            this.robotSpeed = output;
+        };
+        this.distancePIDController = new PIDController(kP, kI, kD, distanceSource, distanceOutput);
+        this.distancePIDController.setOutputRange(-0.5, 0.5);
+        // Our setpoint is how far we want to move, in inches
+        this.distancePIDController.setSetpoint(240);
     }
 
     @Override
@@ -39,19 +68,10 @@ public class DriveStraightAuton extends PIDCommand {
         return OI.getOI().getAngleRelative();
     }
 
-    // @Override
-    // protected void execute() {
-    //     this.drivetrain.setRight(ROBOT_SPEED + pidOutput);
-    //     this.drivetrain.setLeft(-ROBOT_SPEED - pidOutput);
-    // }
-
     @Override
     protected void usePIDOutput(double output) {
         this.drivetrain.setRight(robotSpeed - output);
         this.drivetrain.setLeft(robotSpeed + output);
-        // this.drivetrain.setRight(ROBOT_SPEED);
-        // this.drivetrain.setLeft(ROBOT_SPEED);
-        // this.pidOutput = output;
     }
 
     @Override
