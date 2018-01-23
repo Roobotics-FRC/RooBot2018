@@ -109,20 +109,12 @@ public class Drivetrain2017 extends Subsystem {
         setRight(power);
     }
 
-    public int[] getLeftEncoder() {
-        return new int[]{left1.getSelectedSensorPosition(0), left1.getSelectedSensorVelocity(0)};
-    }
-
     public int getLeftPosition() {
         return left1.getSelectedSensorPosition(0);
     }
 
     public int getLeftVelocity() {
         return left1.getSelectedSensorVelocity(0);
-    }
-
-    public int[] getRightEncoder() {
-        return new int[]{right1.getSelectedSensorPosition(0), right1.getSelectedSensorVelocity(0)};
     }
 
     public int getRightPosition() {

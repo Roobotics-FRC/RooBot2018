@@ -24,7 +24,7 @@ public class DriveStraightAuton extends PIDCommand {
     private Drivetrain2017 drivetrain;
 
     /**
-     * Does stuff.
+     * Constructs a new DriveStraightAuton command and initializes the secondary PID controller.
      */
     public DriveStraightAuton() {
         super("DriveStraightAuton", kP, kI, kD);
@@ -42,7 +42,7 @@ public class DriveStraightAuton extends PIDCommand {
 
             @Override
             public double pidGet() {
-                return drivetrain.getLeftPosition() / Drivetrain2017.POSITION_CONVERSION_FACTOR;
+                return drivetrain.getLeftPosition() * Drivetrain2017.POSITION_CONVERSION_FACTOR;
             }
         };
         distanceOutput = output -> {
@@ -51,8 +51,9 @@ public class DriveStraightAuton extends PIDCommand {
         };
         this.distancePIDController = new PIDController(kP, kI, kD, distanceSource, distanceOutput);
         this.distancePIDController.setOutputRange(-0.5, 0.5);
-        // Our setpoint is how far we want to move, in inches
-        this.distancePIDController.setSetpoint(240);
+        // The second addend is the number of inches we want the robot to move
+        this.distancePIDController.setSetpoint(drivetrain.getLeftPosition()
+                * Drivetrain2017.POSITION_CONVERSION_FACTOR + 240);
     }
 
     @Override
@@ -93,12 +94,14 @@ public class DriveStraightAuton extends PIDCommand {
     @Override
     protected void interrupted() {
         this.getPIDController().reset();
+        this.distancePIDController.reset();
         this.drivetrain.setBoth(0);
     }
 
     @Override
     protected void end() {
         this.getPIDController().reset();
+        this.distancePIDController.reset();
         this.drivetrain.setBoth(0);
     }
 }
