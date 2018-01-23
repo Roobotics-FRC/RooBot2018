@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4373.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -13,14 +14,30 @@ import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
  */
 public class Robot extends IterativeRobot {
     private Command autonCommand = null;
-    private SendableChooser autonChooser = null;
+    private SendableChooser<Character> positionChoooser = null;
+    private SendableChooser<String> priority1Chooser = null;
+    private SendableChooser<String> priority2Chooser = null;
 
     @Override
     public void robotInit() {
-        autonChooser = new SendableChooser();
-        autonChooser.addDefault("Disabled", "disabled");
-        autonChooser.addObject("Drive Straight", "driveStraight");
-        SmartDashboard.putData("Auton Mode Selector", autonChooser);
+        positionChoooser = new SendableChooser();
+        positionChoooser.addDefault("Center", 'C');
+        positionChoooser.addObject("Left", 'L');
+        positionChoooser.addObject("Right", 'R');
+
+        priority1Chooser = new SendableChooser();
+        priority1Chooser.addDefault("Just Drive", "drive");
+        priority1Chooser.addObject("Switch", "switch");
+        priority1Chooser.addObject("Scale", "scale");
+
+        priority2Chooser = new SendableChooser();
+        priority2Chooser.addDefault("Just Drive", "drive");
+        priority2Chooser.addObject("Switch", "switch");
+        priority2Chooser.addObject("Scale", "scale");
+
+        SmartDashboard.putData("Auton Start Position", positionChoooser);
+        SmartDashboard.putData("Auton Primary Goal", priority1Chooser);
+        SmartDashboard.putData("Auton Secondary Goal", priority2Chooser);
 
         OI.getOI().getGyro().calibrate();
         Drivetrain2017.getInstance();
@@ -41,15 +58,33 @@ public class Robot extends IterativeRobot {
             autonCommand.cancel();
         }
 
-        String command = (String) autonChooser.getSelected();
+        String gameData = DriverStation.getInstance().getGameSpecificMessage();
+        Character switchData = gameData.charAt(0);
+        Character scaleData = gameData.charAt(1);
+        Character pos = positionChoooser.getSelected();
+        String priority1 = priority1Chooser.getSelected();
+        String priority2 = priority2Chooser.getSelected();
 
-        switch (command) {
-            case "driveStraight":
-                autonCommand = new DriveStraightAuton();
-                break;
-            default:
-                autonCommand = null;
+        if (priority1.equals("switch")) {
+            if (pos == switchData) {
+                System.out.println("GOING FOR SWITCH");
+            } else if (priority2.equals("scale") && pos == scaleData) {
+                System.out.println("GOING FOR SCALE");
+            } else {
+                System.out.println("DRIVING");
+            }
+        } else if (priority1.equals("scale")) {
+            if (pos == scaleData) {
+                System.out.println("GOING FOR SCALE");
+            } else if (priority2.equals("switch") && pos == switchData) {
+                System.out.println("GOING FOR SWITCH");
+            } else {
+                System.out.println("DRIVING");
+            }
+        } else {
+            System.out.println("DRIVING");
         }
+
         if (autonCommand != null) {
             autonCommand.start();
         }
