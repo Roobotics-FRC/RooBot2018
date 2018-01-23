@@ -53,37 +53,79 @@ public class Drivetrain extends Subsystem {
         this.right1.setSensorPhase(false);
     }
 
+    /**
+     * Sets the left wheels to the specified power.
+     * Positive values will make the robot go forward.
+     *
+     * @param power The power, from -1 to 1, to set the motor to.
+     *              This value is safety checked to make sure it is not out of this range.
+     */
     public void setLeft(double power) {
         power = safetyCheckSpeed(power);
         this.left1.set(power);
     }
 
+    /**
+     * Sets the right wheels to the specified power.
+     * As the motor is inverted, positive values will make the robot go forward.
+     *
+     * @param power The power, from -1 to 1, to set the motor to.
+     *              This value is safety checked to make sure it is not out of this range.
+     */
     public void setRight(double power) {
         power = safetyCheckSpeed(power);
         this.right1.set(power);
     }
 
+    /**
+     * Sets the wheels to the specified power.
+     * Positive values will make the robot go forward.
+     *
+     * @param power The power, from -1 to 1, to set the motor to.
+     *              This value is safety checked to make sure it is not out of this range.
+     */
     public void setBoth(double power) {
         this.setLeft(power);
         this.setRight(power);
     }
 
+    /**
+     * Gets the position of the left wheels in units.
+     * @return The position of the left wheels, in 'units'.
+     */
     public int getLeftPosition() {
         return left1.getSelectedSensorPosition(0);
     }
 
+    /**
+     * Gets the velocity of the left wheels in units/0.1s.
+     * @return The velocity of the left wheels, in 'units'/0.1s.
+     */
     public int getLeftVelocity() {
         return left1.getSelectedSensorVelocity(0);
     }
 
+    /**
+     * Gets the position of the right wheels in units.
+     * @return The position of the right wheels, in 'units'.
+     */
     public int getRightPosition() {
         return right1.getSelectedSensorPosition(0);
     }
 
+    /**
+     * Gets the velocity of the right wheels in units/0.1s.
+     * @return The velocity of the right wheels, in 'units'/0.1s.
+     */
     public int getRightVelocity() {
         return right1.getSelectedSensorVelocity(0);
     }
 
+    /**
+     * Make sure a given power is within the valid -1 to 1 range for wheels.
+     * @param power The power to be safety checked.
+     * @return The power, now within a safe -1 to 1 range.
+     */
     private double safetyCheckSpeed(double power) {
         if (power > 1) {
             return 1;
