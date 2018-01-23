@@ -16,12 +16,12 @@ public class Drivetrain2017 extends Subsystem {
 
     // Conversion factors to inches or inches/second
     // wheels are 6 inches in diameter, 4096 units = 1 revolution, velocity is in units/0.1sec
-    /*
-    When a double is multiplied by this constant, it is converted from 'units' to inches.
+    /**
+     * When a double is multiplied by this constant, it is converted from 'units' to inches.
      */
     public static final double POSITION_CONVERSION_FACTOR = 6 * Math.PI / 4096;
-    /*
-    When a double is multiplied by this constant, it is converted from 'units'/0.1s to inches/s
+    /**
+     * When a double is multiplied by this constant, it is converted from 'units'/0.1s to inches/s.
      */
     public static final double VELOCITY_CONVERSION_FACTOR = 10 * 6 * Math.PI / 4096;
 
@@ -121,18 +121,34 @@ public class Drivetrain2017 extends Subsystem {
         setRight(power);
     }
 
+    /**
+     * Gets the position of the left wheels in units.
+     * @return The position of the left wheels, in 'units'.
+     */
     public int getLeftPosition() {
         return left1.getSelectedSensorPosition(0);
     }
 
+    /**
+     * Gets the velocity of the left wheels in units/0.1s.
+     * @return The velocity of the left wheels, in 'units'/0.1s.
+     */
     public int getLeftVelocity() {
         return left1.getSelectedSensorVelocity(0);
     }
 
+    /**
+     * Gets the position of the right wheels in units.
+     * @return The position of the right wheels, in 'units'.
+     */
     public int getRightPosition() {
         return right1.getSelectedSensorPosition(0);
     }
 
+    /**
+     * Gets the velocity of the right wheels in units/0.1s.
+     * @return The velocity of the right wheels, in 'units'/0.1s.
+     */
     public int getRightVelocity() {
         return right1.getSelectedSensorVelocity(0);
     }
