@@ -63,7 +63,7 @@ public class Drivetrain2017 extends Subsystem {
 
     /**
      * Sets the left wheels to the specified power.
-     * As the motor is inverted, positive values will make the robot go forward.
+     * Positive values will make the robot go forward.
      *
      * @param power The power, from -1 to 1, to set the motor to.
      *              This value is safety checked to make sure it is not out of this range.
@@ -79,7 +79,7 @@ public class Drivetrain2017 extends Subsystem {
 
     /**
      * Sets the right wheels to the specified power.
-     * Positive values will make the robot go forward.
+     * As the motor is inverted, positive values will make the robot go forward.
      *
      * @param power The power, from -1 to 1, to set the motor to.
      *              This value is safety checked to make sure it is not out of this range.
