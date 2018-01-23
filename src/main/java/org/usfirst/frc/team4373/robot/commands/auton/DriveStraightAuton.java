@@ -19,7 +19,7 @@ public class DriveStraightAuton extends PIDCommand {
     private static double kI = 0.0000d;
     private static double kD = 0.0010d;
 
-    private double robotSpeed = 0.5d;
+    private double robotSpeed = 0.0d;
 
     private Drivetrain2017 drivetrain;
 
@@ -37,23 +37,27 @@ public class DriveStraightAuton extends PIDCommand {
 
             @Override
             public PIDSourceType getPIDSourceType() {
-                return null;
+                return PIDSourceType.kDisplacement;
             }
 
             @Override
             public double pidGet() {
-                return drivetrain.getLeftPosition() * Drivetrain2017.POSITION_CONVERSION_FACTOR;
+                return drivetrain.getLeftPosition()
+                        * Drivetrain2017.POSITION_CONVERSION_FACTOR;
             }
         };
         distanceOutput = output -> {
-            System.out.println(output);
-            this.robotSpeed = output;
+            SmartDashboard.putNumber("Distance PID Output", output);
+            robotSpeed = -output;
         };
-        this.distancePIDController = new PIDController(kP, kI, kD, distanceSource, distanceOutput);
+        this.distancePIDController = new PIDController(kP, kI, kD, 0, distanceSource,
+                distanceOutput);
         this.distancePIDController.setOutputRange(-0.5, 0.5);
-        // The second addend is the number of inches we want the robot to move
         this.distancePIDController.setSetpoint(drivetrain.getLeftPosition()
-                * Drivetrain2017.POSITION_CONVERSION_FACTOR + 240);
+                * Drivetrain2017.POSITION_CONVERSION_FACTOR + (12 * 20));
+        this.distancePIDController.enable();
+        System.out.println("PID IS ENABLED: " + distancePIDController.isEnabled());
+        System.out.println("SETPOINT FOR DIST: " + distancePIDController.getSetpoint());
     }
 
     @Override
@@ -61,7 +65,6 @@ public class DriveStraightAuton extends PIDCommand {
         this.setSetpoint(0);
         this.setInputRange(-180, 180);
         this.getPIDController().setOutputRange(-0.5, 0.5);
-
         this.getPIDController().setPID(kP, kI, kD);
     }
 
