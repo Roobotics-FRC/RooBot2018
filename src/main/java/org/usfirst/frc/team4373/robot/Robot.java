@@ -47,6 +47,8 @@ public class Robot extends IterativeRobot {
 
         OI.getOI().getGyro().calibrate();
         Drivetrain2017.getInstance();
+
+        SmartDashboard.putNumber("PID Setpoint: ", 0);
     }
 
     @Override
