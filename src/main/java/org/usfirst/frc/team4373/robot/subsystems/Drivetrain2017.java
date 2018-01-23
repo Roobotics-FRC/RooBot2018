@@ -62,8 +62,11 @@ public class Drivetrain2017 extends Subsystem {
     }
 
     /**
-     * Sets the left wheels to the specified power. As the motor is inverted, positive values will make the robot go forward.
-     * @param power The power, from -1 to 1, to set the motor to. This value is safety checked to make sure it is not out of this range.
+     * Sets the left wheels to the specified power.
+     * As the motor is inverted, positive values will make the robot go forward.
+     *
+     * @param power The power, from -1 to 1, to set the motor to.
+     *              This value is safety checked to make sure it is not out of this range.
      */
     public void setLeft(double power) {
         if (power > 1) {
@@ -75,8 +78,11 @@ public class Drivetrain2017 extends Subsystem {
     }
 
     /**
-     * Sets the right wheels to the specified power. Positive values will make the robot go forward.
-     * @param power The power, from -1 to 1, to set the motor to. This value is safety checked to make sure it is not out of this range.
+     * Sets the right wheels to the specified power.
+     * Positive values will make the robot go forward.
+     *
+     * @param power The power, from -1 to 1, to set the motor to.
+     *              This value is safety checked to make sure it is not out of this range.
      */
     public void setRight(double power) {
         if (power > 1) {
@@ -88,8 +94,11 @@ public class Drivetrain2017 extends Subsystem {
     }
 
     /**
-     * Sets the middle wheels to the specified power. Positive values will make the robot go 'right'.
-     * @param power The power, from -1 to 1, to set the motor to. This value is safety checked to make sure it is not out of this range.
+     * Sets the middle wheels to the specified power.
+     * Positive values will make the robot go 'right'.
+     *
+     * @param power The power, from -1 to 1, to set the motor to.
+     *              This value is safety checked to make sure it is not out of this range.
      */
     public void setMiddle(double power) {
         if (power > 1) {
@@ -101,8 +110,11 @@ public class Drivetrain2017 extends Subsystem {
     }
 
     /**
-     * Sets the wheels to the specified power. Positive values will make the robot go forward.
-     * @param power The power, from -1 to 1, to set the motor to. This value is safety checked to make sure it is not out of this range.
+     * Sets the wheels to the specified power.
+     * Positive values will make the robot go forward.
+     *
+     * @param power The power, from -1 to 1, to set the motor to.
+     *              This value is safety checked to make sure it is not out of this range.
      */
     public void setBoth(double power) {
         setLeft(power);
