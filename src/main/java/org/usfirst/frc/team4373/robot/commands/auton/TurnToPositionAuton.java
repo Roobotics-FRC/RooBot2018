@@ -6,9 +6,9 @@ import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
 public class TurnToPositionAuton extends PIDCommand {
-    private static double kP = 0.1d;
-    private static double kI = 0.0d;
-    private static double kD = 0.0d;
+    private static double kP = 0.01d;
+    private static double kI = 0.00d;
+    private static double kD = 0.00d;
 
     private static Drivetrain2017 drivetrain;
 
@@ -30,6 +30,9 @@ public class TurnToPositionAuton extends PIDCommand {
         this.setSetpoint(SmartDashboard.getNumber("PID Setpoint: ", 0));
         this.setInputRange(-180, 180);
         this.getPIDController().setOutputRange(-0.2, 0.2);
+        kP = SmartDashboard.getNumber("kP", 0.01);
+        kI = SmartDashboard.getNumber("kI", 0.00);
+        kD = SmartDashboard.getNumber("kD", 0.00);
         this.getPIDController().setPID(kP, kI, kD);
     }
 
