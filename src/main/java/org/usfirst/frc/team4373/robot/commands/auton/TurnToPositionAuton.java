@@ -15,7 +15,7 @@ public class TurnToPositionAuton extends PIDCommand {
     private Boolean isCompleted;
 
     /**
-     * Create the Auton.
+     * Create a TurnToPosition Auton. This reads an angle from the SmartDashboard and turns there.
      */
     public TurnToPositionAuton() {
         super("TurnToPositionAuton", kP, kI, kD);
