@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
-public class DriveStraightAuton extends PIDCommand {
+public class DriveDistanceAuton extends PIDCommand {
 
     PIDController distancePIDController;
     PIDSource distanceSource;
@@ -19,15 +19,20 @@ public class DriveStraightAuton extends PIDCommand {
     private static double kI = 0.0000d;
     private static double kD = 0.0010d;
 
+    private double setpoint;
+    private double pidOutput = 1d;
     private double robotSpeed = 0.0d;
+    private static final double COOLDOWN_THRESHOLD = 0.15;
 
     private Drivetrain2017 drivetrain;
 
     /**
-     * Constructs a new DriveStraightAuton command and initializes the secondary PID controller.
+     * Constructs a new DriveDistanceAuton command and initializes the secondary PID controller.
+     * @param distance The distance, in inches, the robot should drive.
      */
-    public DriveStraightAuton() {
-        super("DriveStraightAuton", kP, kI, kD);
+    public DriveDistanceAuton(double distance) {
+        super("DriveDistanceAuton", kP, kI, kD);
+        this.setpoint = distance;
         requires(this.drivetrain = Drivetrain2017.getInstance());
         distanceSource = new PIDSource() {
             @Override
@@ -48,13 +53,14 @@ public class DriveStraightAuton extends PIDCommand {
         };
         distanceOutput = output -> {
             SmartDashboard.putNumber("Distance PID Output", output);
+            this.pidOutput = output;
             robotSpeed = -output;
         };
         this.distancePIDController = new PIDController(kP, kI, kD, 0, distanceSource,
                 distanceOutput);
         this.distancePIDController.setOutputRange(-0.5, 0.5);
         this.distancePIDController.setSetpoint(drivetrain.getLeftPosition()
-                * Drivetrain2017.POSITION_CONVERSION_FACTOR + (12 * 20));
+                * Drivetrain2017.POSITION_CONVERSION_FACTOR + setpoint);
         this.distancePIDController.enable();
         System.out.println("PID IS ENABLED: " + distancePIDController.isEnabled());
         System.out.println("SETPOINT FOR DIST: " + distancePIDController.getSetpoint());
@@ -91,11 +97,12 @@ public class DriveStraightAuton extends PIDCommand {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return Math.abs(this.pidOutput) < COOLDOWN_THRESHOLD;
     }
 
     @Override
     protected void interrupted() {
+        System.out.println("***DriveDistanceAuton interrupted***");
         this.getPIDController().reset();
         this.distancePIDController.reset();
         this.drivetrain.setBoth(0);
@@ -103,6 +110,7 @@ public class DriveStraightAuton extends PIDCommand {
 
     @Override
     protected void end() {
+        System.out.println("***DriveDistanceAuton ended***");
         this.getPIDController().reset();
         this.distancePIDController.reset();
         this.drivetrain.setBoth(0);

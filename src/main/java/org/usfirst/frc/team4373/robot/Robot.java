@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team4373.robot.commands.auton.DriveDistanceAuton;
+import org.usfirst.frc.team4373.robot.commands.auton.DummyGroup;
 import org.usfirst.frc.team4373.robot.commands.auton.TurnToPosition;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
@@ -74,7 +76,7 @@ public class Robot extends IterativeRobot {
 
         if (priority1.equals("switch")) {
             if (pos == switchData) {
-                autonCommand = new TurnToPosition();
+                autonCommand = new DummyGroup();
                 System.out.println("GOING FOR SWITCH");
             } else if (priority2.equals("scale") && pos == scaleData) {
                 System.out.println("GOING FOR SCALE");
