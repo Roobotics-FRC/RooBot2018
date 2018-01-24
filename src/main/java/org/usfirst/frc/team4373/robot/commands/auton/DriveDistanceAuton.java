@@ -28,7 +28,7 @@ public class DriveDistanceAuton extends PIDCommand {
 
     /**
      * Constructs a new DriveDistanceAuton command and initializes the secondary PID controller.
-     * @param distance The distance, in inches, the robot should drive.
+     * @param distance The distance, in inches, that the robot should drive.
      */
     public DriveDistanceAuton(double distance) {
         super("DriveDistanceAuton", kP, kI, kD);
