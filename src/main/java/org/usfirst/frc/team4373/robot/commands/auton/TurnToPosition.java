@@ -6,7 +6,7 @@ import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
 public class TurnToPosition extends PIDCommand {
-    private static double kP = 0.1d;
+    private static double kP = 0.0d;
     private static double kI = 0.0d;
     private static double kD = 0.0d;
     private Drivetrain2017 driveTrain;
@@ -15,21 +15,26 @@ public class TurnToPosition extends PIDCommand {
     private boolean coolingDown = false;
     private long cooldownStart = 0;
     private static final long COOLDOWN_TIME = 1000;
-    private static final double COOLDOWN_THRESHOLD = 0.05;
+    private static final double COOLDOWN_THRESHOLD = 0.01;
 
     /**
      * Constructs a TurnToPosition command.
      */
     public TurnToPosition() {
         super("TurnToPosition", kP, kI, kD);
+        requires(Drivetrain2017.getInstance());
+        driveTrain = Drivetrain2017.getInstance();
+        setInterruptible(true);
+    }
+
+    @Override
+    protected void initialize() {
         kP = SmartDashboard.getNumber("kP", 0.0d);
         kI = SmartDashboard.getNumber("kI", 0.0d);
         kD = SmartDashboard.getNumber("kD", 0.0d);
         this.getPIDController().setPID(kP, kI, kD);
-
-        requires(Drivetrain2017.getInstance());
-        driveTrain = Drivetrain2017.getInstance();
-        setInterruptible(true);
+        this.setInputRange(-180, 180);
+        this.getPIDController().setOutputRange(-0.4, 0.4);
     }
 
     @Override
@@ -39,28 +44,20 @@ public class TurnToPosition extends PIDCommand {
 
     @Override
     protected void usePIDOutput(double output) {
-        if (finished) return;
-
-        this.driveTrain.setLeft(output);
-        this.driveTrain.setRight(output);
-
-        this.setSetpoint(SmartDashboard.getNumber("PID Setpoint", 0));
-        SmartDashboard.putNumber("PID Output", output);
-        if (output < COOLDOWN_THRESHOLD) {
+        if (Math.abs(output) < COOLDOWN_THRESHOLD) {
             this.coolingDown = true;
             this.cooldownStart = System.currentTimeMillis();
         }
         if (coolingDown) {
             if (System.currentTimeMillis() > this.cooldownStart + COOLDOWN_TIME) {
+                System.out.println("*******SETTING FINISHED TO TRUE*********");
                 this.finished = true;
             }
         }
-    }
-
-    @Override
-    protected void initialize() {
-        this.setInputRange(-180, 180);
-        this.getPIDController().setOutputRange(-0.2, 0.2);
+        this.driveTrain.setLeft(output);
+        this.driveTrain.setRight(-output);
+        this.setSetpoint(SmartDashboard.getNumber("PID Setpoint", 0));
+        SmartDashboard.putNumber("PID Output", output);
     }
 
     @Override
@@ -78,6 +75,7 @@ public class TurnToPosition extends PIDCommand {
 
     @Override
     protected void interrupted() {
+        System.out.println("***TurnToPosition interrupted***");
         this.getPIDController().reset();
         this.driveTrain.setBoth(0);
     }

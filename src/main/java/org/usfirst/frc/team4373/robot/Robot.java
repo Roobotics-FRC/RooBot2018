@@ -39,11 +39,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auton Primary Goal", priority1Chooser);
         SmartDashboard.putData("Auton Secondary Goal", priority2Chooser);
 
-        // P,I,D constants: 0.05,0.001,0.1
         SmartDashboard.putNumber("PID Setpoint", 0);
-        SmartDashboard.putNumber("kP", 0.0d);
-        SmartDashboard.putNumber("kI", 0.0d);
-        SmartDashboard.putNumber("kD", 0.0d);
+        SmartDashboard.putNumber("kP", 0.03d);
+        SmartDashboard.putNumber("kI", 0.001d);
+        SmartDashboard.putNumber("kD", 0.05d);
 
         OI.getOI().getGyro().calibrate();
         Drivetrain2017.getInstance();
