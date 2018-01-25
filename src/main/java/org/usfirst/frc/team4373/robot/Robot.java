@@ -103,6 +103,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void testInit() {
         Scheduler.getInstance().removeAll();
+        OI.getOI().getGyro().reset();
     }
 
     @Override
