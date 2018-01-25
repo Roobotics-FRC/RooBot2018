@@ -29,7 +29,7 @@ public class TurnToPositionAuton extends PIDCommand {
         OI.getOI().getGyro().reset();
         this.setSetpoint(SmartDashboard.getNumber("PID Setpoint: ", 0));
         this.setInputRange(-180, 180);
-        this.getPIDController().setOutputRange(-0.2, 0.2);
+        this.getPIDController().setOutputRange(-0.5, 0.5);
         kP = SmartDashboard.getNumber("kP", 0.01);
         kI = SmartDashboard.getNumber("kI", 0.00);
         kD = SmartDashboard.getNumber("kD", 0.00);

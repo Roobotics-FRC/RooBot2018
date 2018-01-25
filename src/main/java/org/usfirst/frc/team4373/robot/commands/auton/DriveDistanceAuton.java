@@ -34,6 +34,8 @@ public class DriveDistanceAuton extends PIDCommand {
         super("DriveDistanceAuton", kP, kI, kD);
         this.setpoint = distance;
         requires(this.drivetrain = Drivetrain2017.getInstance());
+
+        // Distance PID initialization
         distanceSource = new PIDSource() {
             @Override
             public void setPIDSourceType(PIDSourceType pidSource) {
@@ -51,6 +53,7 @@ public class DriveDistanceAuton extends PIDCommand {
                         * Drivetrain2017.POSITION_CONVERSION_FACTOR;
             }
         };
+
         distanceOutput = output -> {
             SmartDashboard.putNumber("Distance PID Output", output);
             this.pidOutput = output;
@@ -58,16 +61,17 @@ public class DriveDistanceAuton extends PIDCommand {
         };
         this.distancePIDController = new PIDController(kP, kI, kD, 0, distanceSource,
                 distanceOutput);
-        this.distancePIDController.setOutputRange(-0.5, 0.5);
-        this.distancePIDController.setSetpoint(drivetrain.getLeftPosition()
-                * Drivetrain2017.POSITION_CONVERSION_FACTOR + setpoint);
-        this.distancePIDController.enable();
-        System.out.println("PID IS ENABLED: " + distancePIDController.isEnabled());
-        System.out.println("SETPOINT FOR DIST: " + distancePIDController.getSetpoint());
     }
 
     @Override
     protected void initialize() {
+        // Distance PID configuration
+        this.distancePIDController.setOutputRange(-0.5, 0.5);
+        this.distancePIDController.setSetpoint(drivetrain.getLeftPosition()
+                * Drivetrain2017.POSITION_CONVERSION_FACTOR + setpoint);
+        this.distancePIDController.enable();
+
+        // Angular PID configuration
         this.setSetpoint(0);
         this.setInputRange(-180, 180);
         this.getPIDController().setOutputRange(-0.5, 0.5);

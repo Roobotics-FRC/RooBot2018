@@ -6,9 +6,9 @@ import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
 public class TurnToPosition extends PIDCommand {
-    private static double kP = 0.03d;
+    private static double kP = 0.02d;
     private static double kI = 0.001d;
-    private static double kD = 0.025d;
+    private static double kD = 0.005d;
     private double setpoint;
 
     private Drivetrain2017 driveTrain;

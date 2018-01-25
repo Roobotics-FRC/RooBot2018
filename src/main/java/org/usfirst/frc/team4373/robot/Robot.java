@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.commands.auton.DriveDistanceAuton;
 import org.usfirst.frc.team4373.robot.commands.auton.DummyGroup;
 import org.usfirst.frc.team4373.robot.commands.auton.TurnToPosition;
+import org.usfirst.frc.team4373.robot.commands.auton.TurnToPositionAuton;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain2017;
 
 /**
@@ -56,7 +57,6 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
         Scheduler.getInstance().removeAll();
         OI.getOI().getGyro().reset();
-        super.teleopInit();
     }
 
     @Override
