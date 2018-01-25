@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4373.robot.subsystems;
 
+import static org.usfirst.frc.team4373.robot.input.hid.Motors.safetyCheckSpeed;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -12,17 +14,6 @@ public class Drivetrain extends Subsystem {
     private WPI_TalonSRX left2;
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
-
-    // Conversion factors to inches or inches/second
-    // wheels are 6 inches in diameter, 4096 units = 1 revolution, velocity is in units/0.1sec
-    /**
-     * When a double is multiplied by this constant, it is converted from 'units' to inches.
-     */
-    public static final double POSITION_CONVERSION_FACTOR = 6 * Math.PI / 4096;
-    /**
-     * When a double is multiplied by this constant, it is converted from 'units'/0.1s to inches/s.
-     */
-    public static final double VELOCITY_CONVERSION_FACTOR = 10 * 6 * Math.PI / 4096;
 
     private static Drivetrain instance;
 
@@ -57,7 +48,7 @@ public class Drivetrain extends Subsystem {
      * Sets the left wheels to the specified power.
      * Positive values will make the robot go forward.
      *
-     * @param power The power, from -1 to 1, to set the motor to.
+     * @param power The power, from -1 to 1, to which to set the motor.
      *              This value is safety checked to make sure it is not out of this range.
      */
     public void setLeft(double power) {
@@ -69,7 +60,7 @@ public class Drivetrain extends Subsystem {
      * Sets the right wheels to the specified power.
      * As the motor is inverted, positive values will make the robot go forward.
      *
-     * @param power The power, from -1 to 1, to set the motor to.
+     * @param power The power, from -1 to 1, to which to set the motor.
      *              This value is safety checked to make sure it is not out of this range.
      */
     public void setRight(double power) {
@@ -81,7 +72,7 @@ public class Drivetrain extends Subsystem {
      * Sets the wheels to the specified power.
      * Positive values will make the robot go forward.
      *
-     * @param power The power, from -1 to 1, to set the motor to.
+     * @param power The power, from -1 to 1, to which to set the motor.
      *              This value is safety checked to make sure it is not out of this range.
      */
     public void setBoth(double power) {
@@ -119,20 +110,6 @@ public class Drivetrain extends Subsystem {
      */
     public int getRightVelocity() {
         return right1.getSelectedSensorVelocity(0);
-    }
-
-    /**
-     * Make sure a given power is within the valid -1 to 1 range for wheels.
-     * @param power The power to be safety checked.
-     * @return The power, now within a safe -1 to 1 range.
-     */
-    private double safetyCheckSpeed(double power) {
-        if (power > 1) {
-            return 1;
-        } else if (power < -1) {
-            return -1;
-        }
-        return power;
     }
 
     @Override
