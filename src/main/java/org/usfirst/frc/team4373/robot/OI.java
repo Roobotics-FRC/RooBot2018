@@ -13,7 +13,6 @@ import org.usfirst.frc.team4373.robot.input.hid.RooJoystick;
  */
 public class OI {
     private static OI oi = null;
-    private boolean usePseudoJoysticks = false;
     private RooJoystick<FineGrainedPiecewiseFilter> driveJoystick;
     private RooJoystick operatorJoystick;
     private Gyro gyro;

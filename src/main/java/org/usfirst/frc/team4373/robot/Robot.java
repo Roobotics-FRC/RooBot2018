@@ -27,7 +27,6 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
         Scheduler.getInstance().removeAll();
         OI.getOI().getGyro().reset();
-        super.teleopInit();
     }
 
     @Override
@@ -50,6 +49,12 @@ public class Robot extends IterativeRobot {
     }
 
     @Override
+    public void testInit() {}
+
+    @Override
+    public void disabledInit() {}
+
+    @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
     }
@@ -58,4 +63,10 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
+
+    @Override
+    public void testPeriodic() {}
+
+    @Override
+    public void disabledPeriodic() {}
 }
