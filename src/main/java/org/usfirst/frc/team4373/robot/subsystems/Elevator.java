@@ -5,11 +5,15 @@ import static org.usfirst.frc.team4373.robot.input.hid.Motors.safetyCheckSpeed;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team4373.robot.RobotMap;
 
 public class Elevator extends Subsystem {
 
     private WPI_TalonSRX motor;
+    private DigitalInput bottomSwitch;
+    private DigitalInput topSwitch;
 
     private static Elevator instance;
 
@@ -18,6 +22,10 @@ public class Elevator extends Subsystem {
     }
 
     private Elevator() {
+        this.motor = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR);
+        this.bottomSwitch = new DigitalInput(RobotMap.LOWER_LIMIT_SWITCH);
+        this.topSwitch = new DigitalInput(RobotMap.UPPER_LIMIT_SWITCH);
+
         this.motor.setNeutralMode(NeutralMode.Brake);
         this.motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.motor.setSensorPhase(false);
@@ -49,6 +57,24 @@ public class Elevator extends Subsystem {
      */
     public double getVelocity() {
         return motor.getSelectedSensorVelocity(0);
+    }
+
+    /**
+     * Detects whether the elevator has reached the bottom of its track from limit switch output.
+     * If this returns true, the motor should <b>not</b> be set to a negative power.
+     * @return a boolean describing whether the elevator has reached its bottom position.
+     */
+    public boolean atBottom() {
+        return bottomSwitch.get();
+    }
+
+    /**
+     * Detects whether the elevator has reached the top of its track from limit switch output.
+     * If this returns true, the motor should <b>not</b> be set to a positive power.
+     * @return a boolean describing whether the elevator has reached its top position.
+     */
+    public boolean atTop() {
+        return topSwitch.get();
     }
 
     @Override
