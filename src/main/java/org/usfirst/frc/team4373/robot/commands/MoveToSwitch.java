@@ -3,6 +3,7 @@ package org.usfirst.frc.team4373.robot.commands;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
@@ -41,24 +42,46 @@ public class MoveToSwitch extends PIDCommand {
         double intakePos = intake.getRelativePosition();
         double elevatorPos = elevator.getRelativePosition();
         double curPos = intakePos + elevatorPos;
-        if (curPos > 20) {
-            double intakeSetpoint = curPos - intakePos;
-        } else if (curPos < 20) {
-
-        } else {
+        if (elevatorPos <= 20) {
+            //The intake should be the only thing moving
+            this.setSetpoint(20 - elevatorPos);
+        } else if (Math.round(curPos) == 20) {
             this.finished = true;
+        } else { //This happens if elevator > 20
+            //Move elevator to 20, move intake to 0
+            elevatorSource = new PIDSource() {
+                @Override
+                public void setPIDSourceType(PIDSourceType pidSource) {
+                    return;
+                }
+
+                @Override
+                public PIDSourceType getPIDSourceType() {
+                    return PIDSourceType.kDisplacement;
+                }
+
+                @Override
+                public double pidGet() {
+                    return elevator.getRelativePosition();
+                }
+            };
+            elevatorOutput = output -> elevator.set(output);
+            elevatorController = new PIDController(kP, kI, kD, 0.0d,
+                    elevatorSource, elevatorOutput);
+            elevatorController.setSetpoint(20);
+            this.setSetpoint(0);
         }
     }
 
     @Override
     protected double returnPIDInput() {
-        return 0;
+        return intake.getRelativePosition();
     }
 
     @Override
     protected void usePIDOutput(double output) {
         // check limit switches for safety!
-
+        intake.set(output);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
 public abstract class VerticalExtender extends Subsystem {
 
@@ -24,7 +25,8 @@ public abstract class VerticalExtender extends Subsystem {
         this.motor.setNeutralMode(NeutralMode.Brake);
         this.motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.motor.setSensorPhase(false);
-        this.initialPosition = this.motor.getSelectedSensorPosition(0);
+        this.initialPosition = this.motor.getSelectedSensorPosition(0)
+                * Motors.POSITION_CONVERSION_FACTOR;
     }
 
     /**
@@ -36,23 +38,32 @@ public abstract class VerticalExtender extends Subsystem {
      */
     public void set(double power) {
         power = safetyCheckSpeed(power);
+        if (power > 0) {
+            if (atTop()) {
+                power = 0;
+            }
+        } else {
+            if (atBottom()) {
+                power = 0;
+            }
+        }
         this.motor.set(power);
     }
 
     /**
      * Gets the position of the elevator.
-     * @return the position of the elevator, in 'units'.
+     * @return The position of the elevator, in inches.
      */
     public double getPosition() {
-        return this.motor.getSelectedSensorPosition(0);
+        return this.motor.getSelectedSensorPosition(0) * Motors.POSITION_CONVERSION_FACTOR;
     }
 
     /**
      * Gets the position of the intake relative to its initial position.
-     * @return the relative position of the intake, in 'units'.
+     * @return The relative position of the intake, in inches.
      */
     public double getRelativePosition() {
-        return this.getPosition() - this.initialPosition;
+        return (this.getPosition() - this.initialPosition) * Motors.POSITION_CONVERSION_FACTOR;
     }
 
     /**
@@ -60,7 +71,7 @@ public abstract class VerticalExtender extends Subsystem {
      * @return the velocity of the elevator, in 'units'.
      */
     public double getVelocity() {
-        return this.motor.getSelectedSensorVelocity(0);
+        return this.motor.getSelectedSensorVelocity(0) * Motors.VELOCITY_CONVERSION_FACTOR;
     }
 
     /**
