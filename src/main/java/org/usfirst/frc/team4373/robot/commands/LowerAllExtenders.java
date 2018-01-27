@@ -9,6 +9,9 @@ import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
+/**
+ * This command moves both the elevator and the intake to the ground.
+ */
 public class LowerAllExtenders extends PIDCommand {
     private static double kP = 0.01;
     private static double kI = 0.001;

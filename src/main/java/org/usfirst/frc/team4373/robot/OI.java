@@ -42,21 +42,32 @@ public class OI {
         return oi;
     }
 
+    /**
+     * Gets the drive joystick controlling the robot.
+     * @return The drive joystick controlling the robot.
+     */
     public RooJoystick getDriveJoystick() {
         return this.driveJoystick;
     }
 
+    /**
+     * Gets the operator joystick controlling the robot.
+     * @return The operator joystick controlling the robot.
+     */
     public RooJoystick getOperatorJoystick() {
         return this.operatorJoystick;
     }
 
+    /**
+     * Gets the gyro measuring the robot's direction.
+     * @return The gyro measuring the robot's direction.
+     */
     public Gyro getGyro() {
         return gyro;
     }
 
     /**
      * Gets the gyro angle in degrees.
-     *
      * @return The gyro angle in degrees, -180 to 180.
      */
     public double getAngleRelative() {
@@ -69,7 +80,6 @@ public class OI {
 
     /**
      * Gets the gyro angle in native units.
-     *
      * @return The gyro angle, where 20 units = 90 degrees.
      */
     public double getAngleAbsolute() {

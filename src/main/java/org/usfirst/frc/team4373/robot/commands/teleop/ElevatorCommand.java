@@ -5,6 +5,9 @@ import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 
+/**
+ * This command lets the operator joystick control the elevator VerticalExtender.
+ */
 public class ElevatorCommand extends Command {
 
     private Elevator elevator;

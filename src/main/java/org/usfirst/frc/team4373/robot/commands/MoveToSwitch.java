@@ -9,6 +9,9 @@ import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
+/**
+ * This command moves the elevator and intake until together they are at the height of the switch.
+ */
 public class MoveToSwitch extends PIDCommand {
 
     private static double kP = 0.01;

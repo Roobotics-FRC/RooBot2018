@@ -1,5 +1,8 @@
 package org.usfirst.frc.team4373.robot.input.hid;
 
+/**
+ * This class holds various constants and methods related to motors.
+ */
 public class Motors {
 
     private Motors() {}
