@@ -7,7 +7,7 @@ import java.util.Comparator;
  */
 public final class DoubleComparator implements Comparator<Double> {
 
-    private static final double eps = 0.001;
+    private static final double eps = 0.000000001; /* 10^-9 */
 
     private boolean isReversed = false;
 
