@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.commands.teleop.ElevatorCommand;
 
+/**
+ * A programmatic representation of the elevator VerticalExtender. This is the innermost,
+ * (supposedly) slower one.
+ */
 public class Elevator extends VerticalExtender {
 
     private static Elevator instance;

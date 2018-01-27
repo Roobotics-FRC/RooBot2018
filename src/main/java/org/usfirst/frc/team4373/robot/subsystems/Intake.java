@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.commands.teleop.IntakeCommand;
 
+/**
+ * A programmatic representation of the intake VerticalExtender. This is the outermost,
+ * (supposedly) faster one.
+ */
 public class Intake extends VerticalExtender {
 
     private static Intake instance;

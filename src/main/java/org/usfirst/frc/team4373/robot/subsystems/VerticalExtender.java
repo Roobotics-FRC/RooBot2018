@@ -9,12 +9,23 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
+/**
+ * A class that can't be instantiated. It serves as the basis for all VerticalExtenders on the bot.
+ * A 'vertical extender' is something that extends vertically (duh), on a track. Another word for
+ * it would be an 'elevator'. A VerticalExtender has a single-motor system including an encoder
+ * and limit switches. Setting power to the motors is checked for both too much power and checked
+ * against the limit switches.
+ */
 public abstract class VerticalExtender extends Subsystem {
 
     protected WPI_TalonSRX motor;
     protected DigitalInput bottomSwitch;
     protected DigitalInput topSwitch;
 
+    /**
+     * The position of the VerticalExtender when instantiated. Assumed to be 0 vertically (on the
+     * ground).
+     */
     protected double initialPosition;
 
     /**
@@ -59,7 +70,8 @@ public abstract class VerticalExtender extends Subsystem {
     }
 
     /**
-     * Gets the position of the intake relative to its initial position.
+     * Gets the position of the intake relative to its initial position. This should be the
+     * position above the ground.
      * @return The relative position of the intake, in inches.
      */
     public double getRelativePosition() {
@@ -68,7 +80,7 @@ public abstract class VerticalExtender extends Subsystem {
 
     /**
      * Gets the velocity of the elevator.
-     * @return the velocity of the elevator, in 'units'.
+     * @return the velocity of the elevator, in inches/sec.
      */
     public double getVelocity() {
         return this.motor.getSelectedSensorVelocity(0) * Motors.VELOCITY_CONVERSION_FACTOR;
@@ -90,10 +102,5 @@ public abstract class VerticalExtender extends Subsystem {
      */
     public boolean atTop() {
         return topSwitch.get();
-    }
-
-    @Override
-    protected void initDefaultCommand() {
-
     }
 }

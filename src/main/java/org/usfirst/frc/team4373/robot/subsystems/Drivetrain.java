@@ -8,6 +8,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.RobotMap;
 
+/**
+ * A programmatic representation of the robot's drivetrain.
+ */
 public class Drivetrain extends Subsystem {
 
     private WPI_TalonSRX left1;
@@ -27,6 +30,9 @@ public class Drivetrain extends Subsystem {
         this.right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_1);
         this.right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_2);
 
+        /*
+        Make sure that the wheels stay still if they are set to 0.
+         */
         this.left1.setNeutralMode(NeutralMode.Brake);
         this.left2.setNeutralMode(NeutralMode.Brake);
         this.right1.setNeutralMode(NeutralMode.Brake);
@@ -35,9 +41,15 @@ public class Drivetrain extends Subsystem {
         this.left2.follow(left1);
         this.right2.follow(right1);
 
+        /*
+        This makes positive values ANYWHERE mean forward.
+         */
         this.right1.setInverted(true);
         this.right2.setInverted(true);
 
+        /*
+        Set up encoders.
+         */
         this.left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.left1.setSensorPhase(false);
         this.right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
@@ -114,6 +126,6 @@ public class Drivetrain extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-
+        //TODO: Add default command to handle the robot.
     }
 }
