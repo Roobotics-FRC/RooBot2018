@@ -22,7 +22,7 @@ public class IntakeCommand extends Command {
     protected void execute() {
         double axis = OI.getOI().getOperatorJoystick().getAxis(RobotMap.INTAKE_AXIS);
         if (Math.abs(axis) > RobotMap.THUMBSTICK_THRESHOLD) {
-            this.intake.set(Math.signum(axis) * RobotMap.INTAKE_SPEED);
+            this.intake.set(Math.signum(axis) * RobotMap.VERTICAL_EXTENDER_SPEED);
         }
 
     }

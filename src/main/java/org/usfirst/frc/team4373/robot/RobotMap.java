@@ -27,9 +27,6 @@ public class RobotMap {
     public static final int ELEVATOR_MOTOR = 4;
     public static final int INTAKE_MOTOR = 5;
 
-    // Pneumatics
-
     // Miscellaneous
-    public static final double ELEVATOR_SPEED = 0.5;
-    public static final double INTAKE_SPEED = 0.5;
+    public static final double VERTICAL_EXTENDER_SPEED = 0.5;
 }

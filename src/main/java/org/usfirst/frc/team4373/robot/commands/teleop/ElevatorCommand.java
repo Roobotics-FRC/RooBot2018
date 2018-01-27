@@ -22,7 +22,7 @@ public class ElevatorCommand extends Command {
     protected void execute() {
         double axis = OI.getOI().getOperatorJoystick().getAxis(RobotMap.ELEVATOR_AXIS);
         if (Math.abs(axis) > RobotMap.THUMBSTICK_THRESHOLD) {
-            this.elevator.set(Math.signum(axis) * RobotMap.ELEVATOR_SPEED);
+            this.elevator.set(Math.signum(axis) * RobotMap.VERTICAL_EXTENDER_SPEED);
         }
 
     }

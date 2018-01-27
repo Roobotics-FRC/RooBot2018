@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
@@ -30,6 +31,8 @@ public class MoveToSwitch extends PIDCommand {
         super("MoveToSwitch", kP, kI, kD);
         requires(this.elevator = Elevator.getInstance());
         requires(this.intake = Intake.getInstance());
+        this.getPIDController().setOutputRange(-RobotMap.VERTICAL_EXTENDER_SPEED,
+                RobotMap.VERTICAL_EXTENDER_SPEED);
         setInterruptible(true);
     }
 
@@ -39,16 +42,9 @@ public class MoveToSwitch extends PIDCommand {
         // The target height is 20 inches (the edge of the barrier is 18.75in,
         // and we want some leeway). The intake moves 0-51in and the elevator 0-38in.
         // We will move the intake more than the elevator whenever possible.
-        double intakePos = intake.getRelativePosition();
-        double elevatorPos = elevator.getRelativePosition();
-        double curPos = intakePos + elevatorPos;
-        if (elevatorPos <= 20) {
-            //The intake should be the only thing moving
-            this.setSetpoint(20 - elevatorPos);
-        } else if (Math.round(curPos) == 20) {
+        if (Math.round(intake.getRelativePosition() + elevator.getRelativePosition()) == 20) {
             this.finished = true;
-        } else { //This happens if elevator > 20
-            //Move elevator to 20, move intake to 0
+        } else {
             elevatorSource = new PIDSource() {
                 @Override
                 public void setPIDSourceType(PIDSourceType pidSource) {
@@ -65,11 +61,13 @@ public class MoveToSwitch extends PIDCommand {
                     return elevator.getRelativePosition();
                 }
             };
-            elevatorOutput = output -> elevator.set(output);
-            elevatorController = new PIDController(kP, kI, kD, 0.0d,
-                    elevatorSource, elevatorOutput);
-            elevatorController.setSetpoint(20);
-            this.setSetpoint(0);
+            this.elevatorOutput = output -> elevator.set(output);
+            this.elevatorController = new PIDController(kP, kI, kD, 0.0d,
+                    this.elevatorSource, this.elevatorOutput);
+            this.elevatorController.setOutputRange(-RobotMap.VERTICAL_EXTENDER_SPEED,
+                    RobotMap.VERTICAL_EXTENDER_SPEED);
+            this.elevatorController.setSetpoint(0);
+            this.setSetpoint(20);
         }
     }
 
@@ -80,8 +78,11 @@ public class MoveToSwitch extends PIDCommand {
 
     @Override
     protected void usePIDOutput(double output) {
-        // check limit switches for safety!
-        intake.set(output);
+        if (Math.round(intake.getRelativePosition() + elevator.getRelativePosition()) == 20) {
+            this.finished = true;
+        } else {
+            intake.set(output);
+        }
     }
 
     @Override
