@@ -11,6 +11,8 @@ import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
  * This command moves both the elevator and the intake to the ground.
+ *
+ * @author aaplmath
  */
 public class LowerAllExtenders extends PIDCommand {
     private static double kP = 0.01;

@@ -7,6 +7,8 @@ import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
  * This command moves the elevator and intake until, together, they are at the height of the scale.
+ *
+ * @author aaplmath
  */
 public class MoveToScale extends PIDCommand {
 

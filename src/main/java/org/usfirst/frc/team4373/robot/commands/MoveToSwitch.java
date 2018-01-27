@@ -11,6 +11,9 @@ import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
  * This command moves the elevator and intake until together they are at the height of the switch.
+ *
+ * @author aaplmath
+ * @author Samasaur
  */
 public class MoveToSwitch extends PIDCommand {
 

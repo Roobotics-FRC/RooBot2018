@@ -10,6 +10,9 @@ import org.usfirst.frc.team4373.robot.RobotMap;
 
 /**
  * A programmatic representation of the robot's drivetrain.
+ *
+ * @author aaplmath
+ * @author Samasaur
  */
 public class Drivetrain extends Subsystem {
 

@@ -7,6 +7,8 @@ import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
  * This command lets the operator joystick control the intake VerticalExtender.
+ *
+ * @author aaplmath
  */
 public class IntakeCommand extends Command {
 

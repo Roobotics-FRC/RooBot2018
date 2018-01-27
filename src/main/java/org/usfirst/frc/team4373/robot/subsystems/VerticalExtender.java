@@ -10,11 +10,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
 /**
- * A class that can't be instantiated. It serves as the basis for all VerticalExtenders on the bot.
- * A 'vertical extender' is something that extends vertically (duh), on a track. Another word for
- * it would be an 'elevator'. A VerticalExtender has a single-motor system including an encoder
- * and limit switches. Setting power to the motors is checked for both too much power and checked
- * against the limit switches.
+ * A class that  serves as the basis for all VerticalExtenders on the bot.
+ * <p>
+ * This class cannot be instantiated, as subclasses must be singletons.A 'vertical extender' is
+ * something that extends vertically (duh), on a track. Another word for it would be an 'elevator'.
+ * A VerticalExtender has a single-motor system including an encoder and limit switches. Setting
+ * power to the motors is checked for both too much power and checked against the limit switches.
+ *
+ * @author aaplmath
  */
 public abstract class VerticalExtender extends Subsystem {
 

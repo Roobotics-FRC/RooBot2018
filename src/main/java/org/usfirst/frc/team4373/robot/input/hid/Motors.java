@@ -2,6 +2,9 @@ package org.usfirst.frc.team4373.robot.input.hid;
 
 /**
  * This class holds various constants and methods related to motors.
+ *
+ * @author aaplmath
+ * @author Samasaur
  */
 public class Motors {
 

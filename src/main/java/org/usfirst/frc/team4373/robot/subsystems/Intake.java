@@ -8,6 +8,8 @@ import org.usfirst.frc.team4373.robot.commands.teleop.IntakeCommand;
 /**
  * A programmatic representation of the intake VerticalExtender. This is the outermost,
  * (supposedly) faster one.
+ *
+ * @author aaplmath
  */
 public class Intake extends VerticalExtender {
 

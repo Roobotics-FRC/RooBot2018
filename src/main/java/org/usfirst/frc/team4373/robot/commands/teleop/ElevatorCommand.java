@@ -7,6 +7,8 @@ import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 
 /**
  * This command lets the operator joystick control the elevator VerticalExtender.
+ *
+ * @author aaplmath
  */
 public class ElevatorCommand extends Command {
 

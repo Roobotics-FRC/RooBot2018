@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This is the main robot class.
+ *
+ * @author aaplmath
+ * @author Henry Pitcairn
+ * @author thefangbear
  */
 public class Robot extends IterativeRobot {
     private Command autonCommand = null;
