@@ -16,6 +16,7 @@ public class DrivetrainCommand2017 extends Command {
 
     @Override
     protected void initialize() {
+        System.out.println("***INITIALIZING***");
         this.drivetrain.setBoth(0);
     }
 
@@ -60,11 +61,13 @@ public class DrivetrainCommand2017 extends Command {
 
     @Override
     protected void end() {
+        System.out.println("***ENDING***");
         this.drivetrain.setBoth(0);
     }
 
     @Override
     protected void interrupted() {
+        System.out.println("***INTERRUPTING***");
         this.drivetrain.setBoth(0);
     }
 }
