@@ -1,9 +1,9 @@
 package org.usfirst.frc.team4373.robot.commands.teleop;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.input.hid.RooJoystick;
-import org.usfirst.frc.team4373.robot.input.utilities.DoubleComparator;
 import org.usfirst.frc.team4373.robot.subsystems.ExperimentalRooDriveTrain;
 
 public class ExperimentalDriveCommand extends Command {
@@ -29,23 +29,10 @@ public class ExperimentalDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        // get all the data
-        double jX = this.joystick.getX();
-        double jY = this.joystick.getY();
-        double twist = this.joystick.getZ();
-
-        if (DoubleComparator.eq(twist, 0.0d)) {
-            // if we are driving, just use middle to move left/right
-            driveTrain.setBoth(jY);
-            driveTrain.setMiddle(jX);
-        } else {
-            // if we are twisting, positive == towards right (negate the sign)
-            // make it turn
-            driveTrain.setRight(-twist);
-            driveTrain.setLeft(twist);
-            // do not move
-            driveTrain.setMiddle(0d);
-        }
+        driveTrain.setRight(this.joystick.getY() - this.joystick.getZ());
+        driveTrain.setLeft(this.joystick.getY() + this.joystick.getZ());
+        driveTrain.setMiddle(this.joystick.getX());
+        SmartDashboard.putNumber("Left Velocity", driveTrain.getLeftEncoder()[1]);
     }
 
     @Override

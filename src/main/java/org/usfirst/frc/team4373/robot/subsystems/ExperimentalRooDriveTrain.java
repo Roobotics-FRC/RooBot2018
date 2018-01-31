@@ -7,17 +7,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.commands.teleop.ExperimentalDriveCommand;
 
 public class ExperimentalRooDriveTrain extends Subsystem {
+    // Conversion factors to inches or inches/second
+    // wheels are 6 inches in diameter, 4096 units = 1 revolution, velocity is in units/0.1sec
+    public static final double POSITION_CONVERSION_FACTOR = 6 * Math.PI / 4096;
+    public static final double VELOCITY_CONVERSION_FACTOR = 10 * 6 * Math.PI / 4096;
+    private static ExperimentalRooDriveTrain instance;
     private WPI_TalonSRX left1;
     private WPI_TalonSRX left2;
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
     private WPI_TalonSRX middle1;
     private WPI_TalonSRX middle2;
-
-    // Conversion factors to inches or inches/second
-    // wheels are 6 inches in diameter, 4096 units = 1 revolution, velocity is in units/0.1sec
-    public static final double POSITION_CONVERSION_FACTOR = 6 * Math.PI / 4096;
-    public static final double VELOCITY_CONVERSION_FACTOR = 10 * 6 * Math.PI / 4096;
 
     private ExperimentalRooDriveTrain() {
         this.left1 = new WPI_TalonSRX(3);
@@ -48,14 +48,13 @@ public class ExperimentalRooDriveTrain extends Subsystem {
         this.left1.setSensorPhase(false);
     }
 
-    private static ExperimentalRooDriveTrain instance;
-
     public static ExperimentalRooDriveTrain getInstance() {
         return instance == null ? instance = new ExperimentalRooDriveTrain() : instance;
     }
 
     /**
      * Sets.
+     *
      * @param power powers.
      */
     public void setLeft(double power) {
@@ -69,6 +68,7 @@ public class ExperimentalRooDriveTrain extends Subsystem {
 
     /**
      * Sets stuff.
+     *
      * @param power thing.
      */
     public void setRight(double power) {
@@ -82,6 +82,7 @@ public class ExperimentalRooDriveTrain extends Subsystem {
 
     /**
      * Sets middle power.
+     *
      * @param power power -1-1.
      */
     public void setMiddle(double power) {
@@ -103,6 +104,7 @@ public class ExperimentalRooDriveTrain extends Subsystem {
 
     /**
      * Sets stuff.
+     *
      * @param power things.
      */
     public void setBoth(double power) {
@@ -121,5 +123,74 @@ public class ExperimentalRooDriveTrain extends Subsystem {
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new ExperimentalDriveCommand());
+    }
+
+
+    /**
+     * Gets the position of the left wheels in units.
+     *
+     * @return The position of the left wheels, in 'units'.
+     */
+    public int getLeftPosition() {
+        return left1.getSelectedSensorPosition(0);
+    }
+
+    /**
+     * Gets the velocity of the left wheels in units/0.1s.
+     *
+     * @return The velocity of the left wheels, in 'units'/0.1s.
+     */
+    public int getLeftVelocity() {
+        return left1.getSelectedSensorVelocity(0);
+    }
+
+    /**
+     * Gets the position of the right wheels in units.
+     *
+     * @return The position of the right wheels, in 'units'.
+     */
+    public int getRightPosition() {
+        return right1.getSelectedSensorPosition(0);
+    }
+
+    /**
+     * Gets the velocity of the right wheels in units/0.1s.
+     *
+     * @return The velocity of the right wheels, in 'units'/0.1s.
+     */
+    public int getRightVelocity() {
+        return right1.getSelectedSensorVelocity(0);
+    }
+
+    /**
+     * Gets the converted left position.
+     * @return The position in inches.
+     */
+    public double getConvertedLeftPosition() {
+        return left1.getSelectedSensorPosition(0) * POSITION_CONVERSION_FACTOR;
+    }
+
+    /**
+     * Gets the converted left velocity
+     * @return The velocity in inches/seconds.
+     */
+    public int getConvertedLeftVelocity() {
+
+    }
+
+    /**
+     * Gets the converted right position
+     * @return The position in inches.
+     */
+    public int getConvertedRightPosition() {
+
+    }
+
+    /**
+     * Gets the converted right velocity
+     * @return The velocity in inches/secs.
+     */
+    public int getConvertedRightVelocity() {
+
     }
 }
