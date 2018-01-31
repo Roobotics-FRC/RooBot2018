@@ -20,6 +20,7 @@ public class Elevator extends VerticalExtender {
     }
 
     private Elevator() {
+        super("Elevator");
         this.motor = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR);
         this.bottomSwitch = new DigitalInput(RobotMap.ELEVATOR_LOWER_LIMIT_SWITCH);
         this.topSwitch = new DigitalInput(RobotMap.ELEVATOR_UPPER_LIMIT_SWITCH);

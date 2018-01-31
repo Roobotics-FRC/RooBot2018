@@ -7,8 +7,11 @@ package org.usfirst.frc.team4373.robot;
 public class RobotMap {
     // Joystick axes and buttons
     public static final int ELEVATOR_AXIS = 1;
-    public static final int INTAKE_AXIS = 1;
+    public static final int INTAKE_AXIS = 5;
     public static final double THUMBSTICK_THRESHOLD = 0.5;
+    public static final int SCALE_BUTTON = 7;
+    public static final int SWITCH_BUTTON = 8;
+    public static final int INTAKE_BUTTON = 6;
 
     // Sensor ports
     public static final int DRIVE_JOYSTICK_PORT = 0;
@@ -26,6 +29,12 @@ public class RobotMap {
     public static final int RIGHT_DRIVE_MOTOR_2 = 3;
     public static final int ELEVATOR_MOTOR = 4;
     public static final int INTAKE_MOTOR = 5;
+
+    // Pneumatics
+    public static final int COMPRESSOR_PORT = 0;
+    public static final int PCM_PORT = 15;
+    public static final int SOLENOID_FORWARD_PORT = 1;
+    public static final int SOLENOID_BACKWARD_PORT = 0;
 
     // Miscellaneous
     public static final double VERTICAL_EXTENDER_SPEED = 0.5;

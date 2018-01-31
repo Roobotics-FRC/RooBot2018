@@ -29,6 +29,11 @@ public class IntakeCommand extends Command {
         if (Math.abs(axis) > RobotMap.THUMBSTICK_THRESHOLD) {
             this.intake.set(Math.signum(axis) * RobotMap.VERTICAL_EXTENDER_SPEED);
         }
+        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_BUTTON)) {
+            this.intake.releaseCube();
+        } else {
+            this.intake.retainCube();
+        }
 
     }
 
@@ -40,6 +45,7 @@ public class IntakeCommand extends Command {
     @Override
     protected void end() {
         this.intake.set(0);
+        this.intake.stopCompressor();
     }
 
     @Override

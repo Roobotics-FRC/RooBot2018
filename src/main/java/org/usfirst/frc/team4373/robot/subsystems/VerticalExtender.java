@@ -25,6 +25,10 @@ public abstract class VerticalExtender extends Subsystem {
     protected DigitalInput bottomSwitch;
     protected DigitalInput topSwitch;
 
+    protected VerticalExtender(String name) {
+        super(name);
+    }
+
     /**
      * The position of the VerticalExtender when instantiated. Assumed to be 0 vertically (on the
      * ground).
