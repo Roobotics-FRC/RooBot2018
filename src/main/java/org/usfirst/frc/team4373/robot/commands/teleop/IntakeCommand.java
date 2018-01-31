@@ -45,6 +45,7 @@ public class IntakeCommand extends Command {
     @Override
     protected void end() {
         this.intake.set(0);
+        this.intake.neutralizePiston();
         this.intake.stopCompressor();
     }
 

@@ -45,7 +45,7 @@ public class Intake extends VerticalExtender {
         this.intakePiston.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void setNeutral() {
+    public void neutralizePiston() {
         this.intakePiston.set(DoubleSolenoid.Value.kOff);
     }
 
