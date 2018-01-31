@@ -14,6 +14,7 @@ public class Drivetrain extends Subsystem {
     private WPI_TalonSRX left2;
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
+    private WPI_TalonSRX middle;
 
     private static Drivetrain instance;
 
@@ -26,6 +27,7 @@ public class Drivetrain extends Subsystem {
         this.left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MOTOR_2);
         this.right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_1);
         this.right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_2);
+        this.middle = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR);
 
         this.left1.setNeutralMode(NeutralMode.Brake);
         this.left2.setNeutralMode(NeutralMode.Brake);
@@ -78,6 +80,18 @@ public class Drivetrain extends Subsystem {
     public void setBoth(double power) {
         this.setLeft(power);
         this.setRight(power);
+    }
+
+    /**
+     * Sets the middle wheel to the specified power.
+     * Positive values will make the robot go rightward.
+     *
+     * @param power The power, from -1 to 1, to which to set the motor.
+     *              This value is safety checked to make sure it is not out of this range.
+     */
+    public void setMiddle(double power) {
+        power = safetyCheckSpeed(power);
+        this.middle.set(power);
     }
 
     /**
