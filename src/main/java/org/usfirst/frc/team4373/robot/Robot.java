@@ -1,26 +1,39 @@
 package org.usfirst.frc.team4373.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team4373.robot.subsystems.Elevator;
+import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
  * This is the main robot class.
+ *
+ * @author aaplmath
+ * @author Henry Pitcairn
+ * @author thefangbear
+ * @author Samasaur
  */
 public class Robot extends IterativeRobot {
-    private Command autonCommand = null;
-    private SendableChooser autonChooser = null;
+
+    private SendableChooser<String> pistonState;
 
     @Override
     public void robotInit() {
-        autonChooser = new SendableChooser();
-        autonChooser.addDefault("Disabled", "disabled");
-        // Add auton commands to auton chooser here
-        SmartDashboard.putData("Auton Mode Selector", autonChooser);
+        DefaultCommand.getInstance();
+        Drivetrain.getInstance();
+        Elevator.getInstance();
+        Intake.getInstance().startCompressor();
 
         OI.getOI().getGyro().calibrate();
+
+        pistonState = new SendableChooser<>();
+        pistonState.addDefault("Off", "Off");
+        pistonState.addObject("On", "On");
+        pistonState.addObject("Neutral", "Neutral");
+        SmartDashboard.putData("Intake State", pistonState);
     }
 
     @Override
@@ -32,20 +45,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         Scheduler.getInstance().removeAll();
-        if (autonCommand != null) {
-            autonCommand.cancel();
-        }
-
-        String command = (String) autonChooser.getSelected();
-
-        switch (command) {
-            // Check for auton command names here
-            default:
-                autonCommand = null;
-        }
-        if (autonCommand != null) {
-            autonCommand.start();
-        }
+        OI.getOI().getGyro().reset();
     }
 
     @Override
