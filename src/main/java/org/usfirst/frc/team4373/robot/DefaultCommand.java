@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4373.robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
@@ -65,7 +66,9 @@ public class DefaultCommand extends Command {
         SmartDashboard.putBoolean("Elevator At Bottom", elevator.atBottom());
 
         intake.set(SmartDashboard.getNumber("Intake Motor Power", 0));
-        switch (SmartDashboard.getData("Intake State").getName()) {
+        SendableChooser<String> sc =
+                (SendableChooser<String>) SmartDashboard.getData("Intake State");
+        switch (sc.getSelected()) {
             case "On":
                 intake.releaseCube();
                 break;
