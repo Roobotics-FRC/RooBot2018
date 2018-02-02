@@ -174,23 +174,23 @@ public class ExperimentalRooDriveTrain extends Subsystem {
      * Gets the converted left velocity
      * @return The velocity in inches/seconds.
      */
-    public int getConvertedLeftVelocity() {
-
+    public double getConvertedLeftVelocity() {
+        return left1.getSelectedSensorVelocity(0) * POSITION_CONVERSION_FACTOR;
     }
 
     /**
      * Gets the converted right position
      * @return The position in inches.
      */
-    public int getConvertedRightPosition() {
-
+    public double getConvertedRightPosition() {
+        return right1.getSelectedSensorPosition(0) * POSITION_CONVERSION_FACTOR;
     }
 
     /**
      * Gets the converted right velocity
      * @return The velocity in inches/secs.
      */
-    public int getConvertedRightVelocity() {
-
+    public double getConvertedRightVelocity() {
+        return right1.getSelectedSensorVelocity(0) * POSITION_CONVERSION_FACTOR;
     }
 }
