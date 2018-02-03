@@ -19,9 +19,9 @@ public class DrivetrainCommand extends Command {
 
     @Override
     public void execute() {
-        double x = OI.getOI().getDriveJoystick().getX();
-        double y = OI.getOI().getDriveJoystick().getY();
-        double z = OI.getOI().getDriveJoystick().getZ();
+        double x = OI.getOI().getDriveJoystick().rooGetX();
+        double y = OI.getOI().getDriveJoystick().rooGetY();
+        double z = OI.getOI().getDriveJoystick().rooGetZ();
         drivetrain.setRight(y - z);
         drivetrain.setLeft(y + z);
         drivetrain.setMiddle(x);
