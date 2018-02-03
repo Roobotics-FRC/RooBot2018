@@ -8,7 +8,7 @@ import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.commands.teleop.IntakeCommand;
 
 /**
- * A programmatic representation of the intake VerticalExtender. This is the outermost,
+ * A programmatic representation of the intake VerticalExtender. This is the innermost,
  * (supposedly) faster one.
  *
  * @author aaplmath

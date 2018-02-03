@@ -6,7 +6,7 @@ import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.commands.teleop.ElevatorCommand;
 
 /**
- * A programmatic representation of the elevator VerticalExtender. This is the innermost,
+ * A programmatic representation of the elevator VerticalExtender. This is the outermost,
  * (supposedly) slower one.
  *
  * @author aaplmath
