@@ -14,7 +14,8 @@ public class Drivetrain extends Subsystem {
     private WPI_TalonSRX left2;
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
-    private WPI_TalonSRX middle;
+    private WPI_TalonSRX middle1;
+    private WPI_TalonSRX middle2;
 
     private static Drivetrain instance;
 
@@ -27,15 +28,19 @@ public class Drivetrain extends Subsystem {
         this.left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MOTOR_2);
         this.right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_1);
         this.right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_2);
-        this.middle = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR);
+        this.middle1 = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR_1);
+        this.middle2 = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR_2);
 
         this.left1.setNeutralMode(NeutralMode.Brake);
         this.left2.setNeutralMode(NeutralMode.Brake);
         this.right1.setNeutralMode(NeutralMode.Brake);
         this.right2.setNeutralMode(NeutralMode.Brake);
+        this.middle1.setNeutralMode(NeutralMode.Brake);
+        this.middle2.setNeutralMode(NeutralMode.Brake);
 
-        this.left2.follow(left1);
-        this.right2.follow(right1);
+        this.left2.follow(this.left1);
+        this.right2.follow(this.right1);
+        this.middle2.follow(this.middle1);
 
         this.right1.setInverted(true);
         this.right2.setInverted(true);
@@ -44,6 +49,8 @@ public class Drivetrain extends Subsystem {
         this.left1.setSensorPhase(false);
         this.right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.right1.setSensorPhase(false);
+        this.middle1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
+        this.middle1.setSensorPhase(false);
     }
 
     /**
@@ -91,7 +98,7 @@ public class Drivetrain extends Subsystem {
      */
     public void setMiddle(double power) {
         power = safetyCheckSpeed(power);
-        this.middle.set(power);
+        this.middle1.set(power);
     }
 
     /**

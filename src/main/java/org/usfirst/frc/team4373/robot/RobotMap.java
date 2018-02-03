@@ -20,7 +20,8 @@ public class RobotMap {
     public static final int RIGHT_DRIVE_MOTOR_1 = 2;
     public static final int RIGHT_DRIVE_MOTOR_2 = 3;
     public static final int ELEVATOR_MOTOR = 4;
-    public static final int MIDDLE_DRIVE_MOTOR = 5;
+    public static final int MIDDLE_DRIVE_MOTOR_1 = 5;
+    public static final int MIDDLE_DRIVE_MOTOR_2 = 6;
 
     // Pneumatics
 
