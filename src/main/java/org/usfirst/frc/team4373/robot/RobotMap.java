@@ -26,4 +26,10 @@ public class RobotMap {
     // Pneumatics
 
     // Miscellaneous
+    public static final double AUTON_DRIVE_SPEED = 1;
+
+    // PID constants
+    public static final double DRIVETRAIN_P = 0.025;
+    public static final double DRIVETRAIN_I = 0.0;
+    public static final double DRIVETRAIN_D = 0.006;
 }
