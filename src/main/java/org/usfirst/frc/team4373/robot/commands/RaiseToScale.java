@@ -10,7 +10,7 @@ import org.usfirst.frc.team4373.robot.subsystems.Intake;
  *
  * @author aaplmath
  */
-public class MoveToScale extends PIDCommand {
+public class RaiseToScale extends PIDCommand {
 
     private static double kP = 0.01;
     private static double kI = 0.001;
@@ -22,10 +22,10 @@ public class MoveToScale extends PIDCommand {
     private boolean finished = false;
 
     /**
-     * Constructs a new MoveToSwitch command.
+     * Constructs a new RaiseToSwitch command.
      */
-    public MoveToScale() {
-        super("MoveToScale", kP, kI, kD);
+    public RaiseToScale() {
+        super("RaiseToScale", kP, kI, kD);
         requires(this.elevator = Elevator.getInstance());
         requires(this.intake = Intake.getInstance());
         this.getPIDController().setOutputRange(-RobotMap.VERTICAL_EXTENDER_SPEED,

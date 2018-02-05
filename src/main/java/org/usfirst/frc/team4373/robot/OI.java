@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import org.usfirst.frc.team4373.robot.commands.MoveToScale;
-import org.usfirst.frc.team4373.robot.commands.MoveToSwitch;
+import org.usfirst.frc.team4373.robot.commands.RaiseToScale;
+import org.usfirst.frc.team4373.robot.commands.RaiseToSwitch;
 import org.usfirst.frc.team4373.robot.input.filter.FineGrainedPiecewiseFilter;
 import org.usfirst.frc.team4373.robot.input.hid.RooJoystick;
 
@@ -34,8 +34,8 @@ public class OI {
         scaleButton = new JoystickButton(this.operatorJoystick, RobotMap.SCALE_BUTTON);
         switchButton = new JoystickButton(this.operatorJoystick, RobotMap.SWITCH_BUTTON);
 
-        scaleButton.whenPressed(new MoveToScale());
-        switchButton.whenPressed(new MoveToSwitch());
+        scaleButton.whenPressed(new RaiseToScale());
+        switchButton.whenPressed(new RaiseToSwitch());
     }
 
     /**
