@@ -9,7 +9,35 @@ import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
-public abstract class VerticalExtenderSetter extends PIDCommand {
+public class VerticalExtenderSetter extends PIDCommand {
+
+    public enum Preset {
+        LOWER("LowerAllExtenders", 0d, 0d),
+        SWITCH("RaiseToSwitch", 20d, 0d),
+        CLIMB("RaiseToClimb", 33d, 0d);
+
+        private String name;
+        private double intakePreset;
+        private double elevatorPreset;
+
+        Preset(String name, double intakePreset, double elevatorPreset) {
+            this.name = name;
+            this.intakePreset = intakePreset;
+            this.elevatorPreset = elevatorPreset;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getIntakePreset() {
+            return intakePreset;
+        }
+
+        public double getElevatorPreset() {
+            return elevatorPreset;
+        }
+    }
 
     private static double kP = 0.01;
     private static double kI = 0.001;
@@ -35,7 +63,7 @@ public abstract class VerticalExtenderSetter extends PIDCommand {
      * @param intakeSetpoint the setpoint for the intake.
      * @param elevatorSetpoint the setpoint for the elevator.
      */
-    protected VerticalExtenderSetter(String name, double intakeSetpoint, double elevatorSetpoint) {
+    public VerticalExtenderSetter(String name, double intakeSetpoint, double elevatorSetpoint) {
         super(name, kP, kI, kD);
         requires(this.elevator = Elevator.getInstance());
         requires(this.intake = Intake.getInstance());
@@ -46,6 +74,15 @@ public abstract class VerticalExtenderSetter extends PIDCommand {
         this.getPIDController().setOutputRange(-RobotMap.VERTICAL_EXTENDER_SPEED,
                 RobotMap.VERTICAL_EXTENDER_SPEED);
     }
+
+    /**
+     * Constructs a new VerticalExtenderSetter command from a Preset enum value.
+     * @param preset the Preset from which to construct the command.
+     */
+    public VerticalExtenderSetter(Preset preset) {
+        this(preset.getName(), preset.getIntakePreset(), preset.getElevatorPreset());
+    }
+
 
     @Override
     protected void initialize() {

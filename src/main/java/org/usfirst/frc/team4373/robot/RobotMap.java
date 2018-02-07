@@ -6,12 +6,14 @@ package org.usfirst.frc.team4373.robot;
  */
 public class RobotMap {
     // Joystick axes and buttons
-    public static final int ELEVATOR_AXIS = 1;
-    public static final int INTAKE_AXIS = 5;
     public static final double THUMBSTICK_THRESHOLD = 0.5;
-    public static final int SCALE_BUTTON = 7;
-    public static final int SWITCH_BUTTON = 8;
-    public static final int INTAKE_BUTTON = 6;
+    public static final int ELEVATOR_AXIS = 1; // L stick Y
+    public static final int INTAKE_AXIS = 5; // R stick Y
+    public static final int INTAKE_BUTTON = 6; // RB
+    public static final int SCALE_BUTTON = 3; // X button
+    public static final int SWITCH_BUTTON = 1; // A button
+    public static final int LOWER_BUTTON = 2; // B button
+    public static final int CLIMB_BUTTON = 4; // Y button
 
     // Sensor ports
     public static final int DRIVE_JOYSTICK_PORT = 0;

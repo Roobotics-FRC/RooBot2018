@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import org.usfirst.frc.team4373.robot.commands.RaiseToScale;
-import org.usfirst.frc.team4373.robot.commands.RaiseToSwitch;
+import org.usfirst.frc.team4373.robot.commands.VerticalExtenderSetter;
 import org.usfirst.frc.team4373.robot.input.filter.FineGrainedPiecewiseFilter;
 import org.usfirst.frc.team4373.robot.input.hid.RooJoystick;
 
@@ -22,6 +22,8 @@ public class OI {
     private Gyro gyro;
     private Button scaleButton;
     private Button switchButton;
+    private Button lowerButton;
+    private Button climbButton;
 
     private OI() {
         this.driveJoystick =
@@ -33,9 +35,13 @@ public class OI {
 
         scaleButton = new JoystickButton(this.operatorJoystick, RobotMap.SCALE_BUTTON);
         switchButton = new JoystickButton(this.operatorJoystick, RobotMap.SWITCH_BUTTON);
+        lowerButton = new JoystickButton(this.operatorJoystick, RobotMap.LOWER_BUTTON);
+        climbButton = new JoystickButton(this.operatorJoystick, RobotMap.CLIMB_BUTTON);
 
         scaleButton.whenPressed(new RaiseToScale());
-        switchButton.whenPressed(new RaiseToSwitch());
+        switchButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.SWITCH));
+        lowerButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.LOWER));
+        climbButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.CLIMB));
     }
 
     /**
