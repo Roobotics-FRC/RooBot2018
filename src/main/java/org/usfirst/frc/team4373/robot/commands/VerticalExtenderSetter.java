@@ -9,8 +9,16 @@ import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
+/**
+ * A command that sets the intake and elevator to the specified heights using concurrent PID loops.
+ *
+ * @author aaplmath
+ */
 public class VerticalExtenderSetter extends PIDCommand {
 
+    /**
+     * An enum containing preset values for common vertical extender positions.
+     */
     public enum Preset {
         LOWER("LowerAllExtenders", 0d, 0d),
         SWITCH("RaiseToSwitch", 20d, 0d),
