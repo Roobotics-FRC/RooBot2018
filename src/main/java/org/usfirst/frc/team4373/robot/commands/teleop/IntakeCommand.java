@@ -29,10 +29,16 @@ public class IntakeCommand extends Command {
         if (Math.abs(axis) > RobotMap.THUMBSTICK_THRESHOLD) {
             this.intake.set(Math.signum(axis) * RobotMap.VERTICAL_EXTENDER_SPEED);
         }
-        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_BUTTON)) {
+        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_INTAKE_BUTTON)) {
             this.intake.releaseCube();
-        } else {
+        } else if (OI.getOI().getOperatorJoystick().getRawButton(
+                RobotMap.INTAKE_RELEASE_BUTTON)) {
             this.intake.retainCube();
+        }
+        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_UNFOLD_BUTTON)) {
+            this.intake.releaseIntake();
+        } else if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_FOLD_BUTTON)) {
+            this.intake.retractIntake();
         }
 
     }
@@ -46,6 +52,7 @@ public class IntakeCommand extends Command {
     protected void end() {
         this.intake.set(0);
         this.intake.neutralizePiston();
+        this.intake.neutralizeRelease();
         this.intake.stopCompressor();
     }
 

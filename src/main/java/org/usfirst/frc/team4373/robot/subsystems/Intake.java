@@ -16,6 +16,7 @@ import org.usfirst.frc.team4373.robot.commands.teleop.IntakeCommand;
 public class Intake extends VerticalExtender {
 
     private DoubleSolenoid intakePiston;
+    private DoubleSolenoid releasePiston;
     private Compressor compressor;
 
     private static Intake instance;
@@ -33,8 +34,22 @@ public class Intake extends VerticalExtender {
         this.configureMotor();
 
         this.compressor = new Compressor(RobotMap.COMPRESSOR_PORT);
-        this.intakePiston = new DoubleSolenoid(RobotMap.PCM_PORT, RobotMap.SOLENOID_BACKWARD_PORT,
-                RobotMap.SOLENOID_FORWARD_PORT);
+        this.intakePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
+                RobotMap.GRABBER_SOLENOID_FORWARD_PORT, RobotMap.GRABBER_SOLENOID_BACKWARD_PORT);
+        this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
+                RobotMap.RELEASE_SOLENOID_FORWARD_PORT, RobotMap.RELEASE_SOLENOID_BACKWARD_PORT);
+    }
+
+    public void releaseIntake() {
+        this.releasePiston.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void retractIntake() {
+        this.releasePiston.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public void neutralizeRelease() {
+        this.releasePiston.set(DoubleSolenoid.Value.kOff);
     }
 
     public void retainCube() {
