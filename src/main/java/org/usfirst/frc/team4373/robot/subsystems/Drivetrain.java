@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.RobotMap;
+import org.usfirst.frc.team4373.robot.commands.teleop.DrivetrainCommand;
 
 public class Drivetrain extends Subsystem {
 
@@ -133,8 +134,24 @@ public class Drivetrain extends Subsystem {
         return right1.getSelectedSensorVelocity(0);
     }
 
+    /**
+     * Gets the position of the middle wheels in units.
+     * @return The position of the middle wheels, in 'units'.
+     */
+    public int getMiddlePosition() {
+        return middle1.getSelectedSensorPosition(0);
+    }
+
+    /**
+     * Gets the velocity of the middle wheels in units/0.1s.
+     * @return The velocity of the middle wheels, in 'units'/0.1s.
+     */
+    public int getMiddleVelocity() {
+        return middle1.getSelectedSensorVelocity(0);
+    }
+
     @Override
     protected void initDefaultCommand() {
-
+        setDefaultCommand(new DrivetrainCommand());
     }
 }

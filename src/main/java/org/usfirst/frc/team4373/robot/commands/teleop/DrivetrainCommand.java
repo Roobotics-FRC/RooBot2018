@@ -1,7 +1,9 @@
 package org.usfirst.frc.team4373.robot.commands.teleop;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
+import org.usfirst.frc.team4373.robot.input.hid.Motors;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 
 public class DrivetrainCommand extends Command {
@@ -25,6 +27,26 @@ public class DrivetrainCommand extends Command {
         drivetrain.setRight(y - z);
         drivetrain.setLeft(y + z);
         drivetrain.setMiddle(x);
+
+        // Logging
+        SmartDashboard.putNumber("L Pos", drivetrain.getLeftPosition());
+        SmartDashboard.putNumber("L Pos (in)", drivetrain.getLeftPosition()
+                * Motors.POSITION_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("L Vel", drivetrain.getLeftVelocity());
+        SmartDashboard.putNumber("L Vel (in p s)", drivetrain.getLeftVelocity()
+                * Motors.VELOCITY_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("R Pos", drivetrain.getRightPosition());
+        SmartDashboard.putNumber("R Pos (in)", drivetrain.getRightPosition()
+                * Motors.POSITION_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("R Vel", drivetrain.getRightVelocity());
+        SmartDashboard.putNumber("R Vel (in p s)", drivetrain.getRightVelocity()
+                * Motors.VELOCITY_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("M Pos", drivetrain.getMiddlePosition());
+        SmartDashboard.putNumber("M Pos (in)", drivetrain.getMiddlePosition()
+                * Motors.POSITION_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("M Vel", drivetrain.getMiddleVelocity());
+        SmartDashboard.putNumber("M Vel (in p s)", drivetrain.getMiddleVelocity()
+                * Motors.VELOCITY_CONVERSION_FACTOR);
     }
 
     @Override
