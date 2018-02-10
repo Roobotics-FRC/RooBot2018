@@ -45,6 +45,10 @@ public class Drivetrain extends Subsystem {
 
         this.right1.setInverted(true);
         this.right2.setInverted(true);
+        this.left1.setInverted(true);
+        this.left2.setInverted(true);
+        this.middle1.setInverted(true);
+        this.middle2.setInverted(true);
 
         this.left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.left1.setSensorPhase(false);
