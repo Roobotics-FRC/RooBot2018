@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4373.robot;
 
 /**
- * RobotMap holds various constants.
- * @author Henry Pitcairn
+ * A centralized class containing mappings for various constants.
+ * @author aaplmath
  */
 public class RobotMap {
     // Joystick axes and buttons
@@ -19,7 +19,7 @@ public class RobotMap {
     public static final int CLIMB_BUTTON = 4; // Y button
 
 
-    // Sensor ports
+    // Sensor and OI ports
     public static final int DRIVE_JOYSTICK_PORT = 0;
     public static final int OPERATOR_JOYSTICK_PORT = 1;
     public static final int GYRO_CHANNEL = 0;

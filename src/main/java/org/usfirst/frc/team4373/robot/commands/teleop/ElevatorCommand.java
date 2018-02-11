@@ -1,8 +1,10 @@
 package org.usfirst.frc.team4373.robot.commands.teleop;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
+import org.usfirst.frc.team4373.robot.input.hid.Motors;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 
 /**
@@ -29,6 +31,15 @@ public class ElevatorCommand extends Command {
         if (Math.abs(axis) > RobotMap.THUMBSTICK_THRESHOLD) {
             this.elevator.set(Math.signum(axis) * RobotMap.VERTICAL_EXTENDER_SPEED);
         }
+
+        // Logging
+        SmartDashboard.putNumber("Elevator Pos (in)", elevator.getRelativePosition());
+        SmartDashboard.putNumber("Elevator Pos Abs", elevator.getPosition());
+        SmartDashboard.putNumber("Elevator Pos Abs (in)", elevator.getPosition()
+                * Motors.POSITION_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("Elevator Vel", elevator.getVelocity());
+        SmartDashboard.putNumber("Elevator Vel (in p s)", elevator.getVelocity()
+                * Motors.VELOCITY_CONVERSION_FACTOR);
 
     }
 

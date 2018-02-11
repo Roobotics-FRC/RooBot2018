@@ -91,7 +91,6 @@ public class VerticalExtenderSetter extends PIDCommand {
         this(preset.getName(), preset.getIntakePreset(), preset.getElevatorPreset());
     }
 
-
     @Override
     protected void initialize() {
         elevatorSource = new PIDSource() {

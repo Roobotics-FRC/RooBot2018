@@ -1,8 +1,10 @@
 package org.usfirst.frc.team4373.robot.commands.teleop;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
+import org.usfirst.frc.team4373.robot.input.hid.Motors;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
@@ -41,6 +43,14 @@ public class IntakeCommand extends Command {
             this.intake.retractIntake();
         }
 
+        // Logging
+        SmartDashboard.putNumber("Intake Pos (in)", intake.getRelativePosition());
+        SmartDashboard.putNumber("Intake Pos Abs", intake.getPosition());
+        SmartDashboard.putNumber("Intake Pos Abs (in)", intake.getPosition()
+                * Motors.POSITION_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("Intake Vel", intake.getVelocity());
+        SmartDashboard.putNumber("Intake Vel (in p s)", intake.getVelocity()
+                * Motors.VELOCITY_CONVERSION_FACTOR);
     }
 
     @Override
