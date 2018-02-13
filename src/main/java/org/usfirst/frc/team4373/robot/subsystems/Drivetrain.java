@@ -25,12 +25,12 @@ public class Drivetrain extends Subsystem {
     }
 
     private Drivetrain() {
-        this.left1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MOTOR_1);
-        this.left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MOTOR_2);
-        this.right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_1);
-        this.right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_2);
-        this.middle1 = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR_1);
-        this.middle2 = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR_2);
+        this.left1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MOTOR_FRONT);
+        this.left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MOTOR_REAR);
+        this.right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_FRONT);
+        this.right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_REAR);
+        this.middle1 = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR_RIGHT);
+        this.middle2 = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR_LEFT);
 
         this.left1.setNeutralMode(NeutralMode.Brake);
         this.left2.setNeutralMode(NeutralMode.Brake);
@@ -45,8 +45,6 @@ public class Drivetrain extends Subsystem {
 
         this.right1.setInverted(true);
         this.right2.setInverted(true);
-        this.left1.setInverted(true);
-        this.left2.setInverted(true);
         this.middle1.setInverted(true);
         this.middle2.setInverted(true);
 

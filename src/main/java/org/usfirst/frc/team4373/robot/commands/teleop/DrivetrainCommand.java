@@ -11,7 +11,7 @@ public class DrivetrainCommand extends Command {
     private Drivetrain drivetrain;
 
     public DrivetrainCommand() {
-        this.drivetrain = Drivetrain.getInstance();
+        requires(this.drivetrain = Drivetrain.getInstance());
     }
 
     @Override
