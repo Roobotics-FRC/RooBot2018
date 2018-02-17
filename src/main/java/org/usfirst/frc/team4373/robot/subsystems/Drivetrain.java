@@ -15,8 +15,7 @@ public class Drivetrain extends Subsystem {
     private WPI_TalonSRX left2;
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
-    private WPI_TalonSRX middle1;
-    private WPI_TalonSRX middle2;
+    private WPI_TalonSRX middle;
 
     private static Drivetrain instance;
 
@@ -29,31 +28,27 @@ public class Drivetrain extends Subsystem {
         this.left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MOTOR_REAR);
         this.right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_FRONT);
         this.right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_REAR);
-        this.middle1 = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR_RIGHT);
-        this.middle2 = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR_LEFT);
+        this.middle = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR);
 
         this.left1.setNeutralMode(NeutralMode.Brake);
         this.left2.setNeutralMode(NeutralMode.Brake);
         this.right1.setNeutralMode(NeutralMode.Brake);
         this.right2.setNeutralMode(NeutralMode.Brake);
-        this.middle1.setNeutralMode(NeutralMode.Brake);
-        this.middle2.setNeutralMode(NeutralMode.Brake);
+        this.middle.setNeutralMode(NeutralMode.Brake);
 
         this.left2.follow(this.left1);
         this.right2.follow(this.right1);
-        this.middle2.follow(this.middle1);
 
         this.right1.setInverted(true);
         this.right2.setInverted(true);
-        this.middle1.setInverted(true);
-        this.middle2.setInverted(true);
+        this.middle.setInverted(true);
 
         this.left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.left1.setSensorPhase(false);
         this.right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.right1.setSensorPhase(false);
-        this.middle1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
-        this.middle1.setSensorPhase(false);
+        this.middle.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
+        this.middle.setSensorPhase(false);
     }
 
     /**
@@ -101,7 +96,7 @@ public class Drivetrain extends Subsystem {
      */
     public void setMiddle(double power) {
         power = safetyCheckSpeed(power);
-        this.middle1.set(power);
+        this.middle.set(power);
     }
 
     /**
@@ -141,7 +136,7 @@ public class Drivetrain extends Subsystem {
      * @return The position of the middle wheels, in 'units'.
      */
     public int getMiddlePosition() {
-        return middle1.getSelectedSensorPosition(0);
+        return middle.getSelectedSensorPosition(0);
     }
 
     /**
@@ -149,7 +144,7 @@ public class Drivetrain extends Subsystem {
      * @return The velocity of the middle wheels, in 'units'/0.1s.
      */
     public int getMiddleVelocity() {
-        return middle1.getSelectedSensorVelocity(0);
+        return middle.getSelectedSensorVelocity(0);
     }
 
     @Override
