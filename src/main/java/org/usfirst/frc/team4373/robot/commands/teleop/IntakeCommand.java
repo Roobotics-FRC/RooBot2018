@@ -63,7 +63,6 @@ public class IntakeCommand extends Command {
         this.intake.set(0);
         this.intake.neutralizePiston();
         this.intake.neutralizeRelease();
-        this.intake.stopCompressor();
     }
 
     @Override
