@@ -39,6 +39,7 @@ public class RobotMap {
     public static final int WHEELED_INTAKE_MOTOR_2 = 7;
 
     // Pneumatics
+    public static final int COMPRESSOR_PORT = 0;
     public static final int PCM_PORT = 15;
     public static final int GRABBER_SOLENOID_FORWARD_PORT = 1;
     public static final int GRABBER_SOLENOID_BACKWARD_PORT = 0;

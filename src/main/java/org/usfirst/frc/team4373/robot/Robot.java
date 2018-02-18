@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
 
         Drivetrain.getInstance();
         Elevator.getInstance();
-        Intake.getInstance();
+        Intake.getInstance().startCompressor();
     }
 
     @Override

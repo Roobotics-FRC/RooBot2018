@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4373.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import org.usfirst.frc.team4373.robot.RobotMap;
@@ -16,6 +17,7 @@ public class Intake extends VerticalExtender {
 
     private DoubleSolenoid intakePiston;
     private DoubleSolenoid releasePiston;
+    private Compressor compressor;
 
     private static Intake instance;
 
@@ -31,6 +33,7 @@ public class Intake extends VerticalExtender {
 
         this.configureMotor();
 
+        this.compressor = new Compressor(RobotMap.COMPRESSOR_PORT);
         this.intakePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
                 RobotMap.GRABBER_SOLENOID_FORWARD_PORT, RobotMap.GRABBER_SOLENOID_BACKWARD_PORT);
         this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
@@ -59,6 +62,14 @@ public class Intake extends VerticalExtender {
 
     public void neutralizePiston() {
         this.intakePiston.set(DoubleSolenoid.Value.kOff);
+    }
+
+    public void startCompressor() {
+        this.compressor.start();
+    }
+
+    public void stopCompressor() {
+        this.compressor.stop();
     }
 
     @Override
