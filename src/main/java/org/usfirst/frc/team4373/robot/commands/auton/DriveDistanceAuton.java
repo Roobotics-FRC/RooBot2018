@@ -47,7 +47,7 @@ public class DriveDistanceAuton extends PIDCommand {
 
             @Override
             public double pidGet() {
-                return drivetrain.getLeftPosition() * Motors.POSITION_CONVERSION_FACTOR;
+                return drivetrain.getConvertedAveragePosition();
             }
         };
 
@@ -64,8 +64,8 @@ public class DriveDistanceAuton extends PIDCommand {
         // Distance PID configuration
         this.distancePIDController.setOutputRange(-RobotMap.AUTON_DRIVE_SPEED,
                 RobotMap.AUTON_DRIVE_SPEED);
-        this.distancePIDController.setSetpoint(drivetrain.getLeftPosition()
-                * Motors.POSITION_CONVERSION_FACTOR + setpoint);
+        this.distancePIDController.setSetpoint(drivetrain.getConvertedAveragePosition()
+                + setpoint);
         this.distancePIDController.enable();
 
         // Angular PID configuration

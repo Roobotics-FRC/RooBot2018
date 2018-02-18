@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.commands.teleop.DrivetrainCommand;
+import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
 public class Drivetrain extends Subsystem {
 
@@ -145,6 +146,15 @@ public class Drivetrain extends Subsystem {
      */
     public int getMiddleVelocity() {
         return middle.getSelectedSensorVelocity(0);
+    }
+
+    /**
+     * Gets the average of the left position and the right position and converts it to inches.
+     * @return the average of the left encoder position and the right
+     */
+    public double getConvertedAveragePosition() {
+        return (this.getLeftPosition() + this.getRightPosition()) / 2
+                * Motors.POSITION_CONVERSION_FACTOR;
     }
 
     @Override
