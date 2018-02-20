@@ -47,6 +47,6 @@ public class RobotMap {
     public static final int RELEASE_SOLENOID_BACKWARD_PORT = 2;
 
     // Motor speeds
-    public static final double VERTICAL_EXTENDER_SPEED = 0.5;
+    public static final double VERTICAL_EXTENDER_SPEED = 0.1;
     public static final double WHEELED_INTAKE_SPEED = 1;
 }
