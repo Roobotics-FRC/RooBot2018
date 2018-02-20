@@ -20,6 +20,9 @@ public class Robot extends IterativeRobot {
         autonChooser.addDefault("Disabled", "disabled");
         // Add auton commands to auton chooser here
         SmartDashboard.putData("Auton Mode Selector", autonChooser);
+        SmartDashboard.putNumber("Drivetrain P", RobotMap.DRIVETRAIN_P);
+        SmartDashboard.putNumber("Drivetrain I", RobotMap.DRIVETRAIN_I);
+        SmartDashboard.putNumber("Drivetrain D", RobotMap.DRIVETRAIN_D);
 
         Drivetrain.getInstance();
 

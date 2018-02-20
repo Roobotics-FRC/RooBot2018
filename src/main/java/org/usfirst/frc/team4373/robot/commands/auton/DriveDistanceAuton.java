@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
@@ -28,8 +29,10 @@ public class DriveDistanceAuton extends PIDCommand {
      * @param distance The distance, in inches, that the robot should drive.
      */
     public DriveDistanceAuton(double distance) {
-        super("DriveDistanceAuton", RobotMap.DRIVETRAIN_P, RobotMap.DRIVETRAIN_I,
-                RobotMap.DRIVETRAIN_D);
+        super("DriveDistanceAuton", SmartDashboard.getNumber("Drivetrain P",
+                RobotMap.DRIVETRAIN_P), SmartDashboard.getNumber("Drivetrain I",
+                RobotMap.DRIVETRAIN_I), SmartDashboard.getNumber("Drivetrain D",
+                RobotMap.DRIVETRAIN_D));
         this.setpoint = distance;
         requires(this.drivetrain = Drivetrain.getInstance());
 
@@ -55,8 +58,10 @@ public class DriveDistanceAuton extends PIDCommand {
             this.pidOutput = output;
             robotSpeed = -output;
         };
-        this.distancePIDController = new PIDController(RobotMap.DRIVETRAIN_P,
-                RobotMap.DRIVETRAIN_I, RobotMap.DRIVETRAIN_D, 0, distanceSource, distanceOutput);
+        this.distancePIDController = new PIDController(SmartDashboard.getNumber("Drivetrain P",
+                RobotMap.DRIVETRAIN_P), SmartDashboard.getNumber("Drivetrain I",
+                RobotMap.DRIVETRAIN_I), SmartDashboard.getNumber("Drivetrain D",
+                RobotMap.DRIVETRAIN_D), 0, distanceSource, distanceOutput);
     }
 
     @Override
