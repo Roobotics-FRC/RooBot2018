@@ -20,9 +20,9 @@ public class VerticalExtenderSetter extends PIDCommand {
      * An enum containing preset values for common vertical extender positions.
      */
     public enum Preset {
-        LOWER("LowerAllExtenders", 0d, 0d),
-        SWITCH("RaiseToSwitch", 20d, 0d),
-        CLIMB("RaiseToClimb", 33d, 0d);
+        LOWER("LowerAllExtenders", 3d, 3d),
+        SWITCH("RaiseToSwitch", 17d, 3d),
+        CLIMB("RaiseToClimb", RobotMap.ELEVATOR_HEIGHT - 3d, 3d);
 
         private String name;
         private double intakePreset;

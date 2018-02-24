@@ -18,7 +18,6 @@ public class RobotMap {
     public static final int LOWER_BUTTON = 2; // B button
     public static final int CLIMB_BUTTON = 4; // Y button
 
-
     // Sensor and OI ports
     public static final int DRIVE_JOYSTICK_PORT = 0;
     public static final int OPERATOR_JOYSTICK_PORT = 1;
@@ -49,4 +48,9 @@ public class RobotMap {
     // Motor speeds
     public static final double VERTICAL_EXTENDER_SPEED = 0.1;
     public static final double WHEELED_INTAKE_SPEED = 1;
+
+    // Dimensions - in inches
+    public static final double INTAKE_HEIGHT = 51;
+    public static final double ELEVATOR_HEIGHT = 38;
+    public static final double VE_SAFETY_MARGIN = 1; // ve = vertical extender
 }
