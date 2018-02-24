@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4373.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -27,17 +28,20 @@ public class Intake extends VerticalExtender {
 
     private Intake() {
         super("Intake");
-        this.motor = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR);
-        this.bottomSwitch = new DigitalInput(RobotMap.INTAKE_LOWER_LIMIT_SWITCH);
-        this.topSwitch = new DigitalInput(RobotMap.INTAKE_UPPER_LIMIT_SWITCH);
+        this.motor1 = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_1);
+        this.motor2 = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_2);
+        //this.bottomSwitch = new DigitalInput(RobotMap.INTAKE_LOWER_LIMIT_SWITCH);
+        //this.topSwitch = new DigitalInput(RobotMap.INTAKE_UPPER_LIMIT_SWITCH);
 
-        this.configureMotor();
+        //this.configureMotors();
+        this.motor1.setNeutralMode(NeutralMode.Brake);
+        this.motor2.setNeutralMode(NeutralMode.Brake);
 
         this.compressor = new Compressor(RobotMap.COMPRESSOR_PORT);
-        this.intakePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
-                RobotMap.GRABBER_SOLENOID_FORWARD_PORT, RobotMap.GRABBER_SOLENOID_BACKWARD_PORT);
-        this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
-                RobotMap.RELEASE_SOLENOID_FORWARD_PORT, RobotMap.RELEASE_SOLENOID_BACKWARD_PORT);
+        //this.intakePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
+        //        RobotMap.GRABBER_SOLENOID_FORWARD_PORT, RobotMap.GRABBER_SOLENOID_BACKWARD_PORT);
+        //this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
+        //        RobotMap.RELEASE_SOLENOID_FORWARD_PORT, RobotMap.RELEASE_SOLENOID_BACKWARD_PORT);
     }
 
     public void releaseIntake() {

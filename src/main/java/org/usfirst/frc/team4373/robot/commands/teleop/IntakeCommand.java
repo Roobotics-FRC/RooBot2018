@@ -1,10 +1,12 @@
 package org.usfirst.frc.team4373.robot.commands.teleop;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
+import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
@@ -30,6 +32,8 @@ public class IntakeCommand extends Command {
         double axis = OI.getOI().getOperatorJoystick().getAxis(RobotMap.INTAKE_AXIS);
         if (Math.abs(axis) > RobotMap.THUMBSTICK_THRESHOLD) {
             this.intake.set(Math.signum(axis) * RobotMap.VERTICAL_EXTENDER_SPEED);
+        } else {
+            this.intake.set(0);
         }
         if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_INTAKE_BUTTON)) {
             this.intake.releaseCube();
@@ -44,13 +48,13 @@ public class IntakeCommand extends Command {
         }
 
         // Logging
-        SmartDashboard.putNumber("Intake Pos (in)", intake.getRelativePosition());
-        SmartDashboard.putNumber("Intake Pos Abs", intake.getPosition());
-        SmartDashboard.putNumber("Intake Pos Abs (in)", intake.getPosition()
-                * Motors.POSITION_CONVERSION_FACTOR);
-        SmartDashboard.putNumber("Intake Vel", intake.getVelocity());
-        SmartDashboard.putNumber("Intake Vel (in p s)", intake.getVelocity()
-                * Motors.VELOCITY_CONVERSION_FACTOR);
+        //SmartDashboard.putNumber("Intake Pos (in)", intake.getRelativePosition());
+        //SmartDashboard.putNumber("Intake Pos Abs", intake.getPosition());
+        //SmartDashboard.putNumber("Intake Pos Abs (in)", intake.getPosition()
+        //        * Motors.POSITION_CONVERSION_FACTOR);
+        //SmartDashboard.putNumber("Intake Vel", intake.getVelocity());
+        //SmartDashboard.putNumber("Intake Vel (in p s)", intake.getVelocity()
+        //        * Motors.VELOCITY_CONVERSION_FACTOR);
     }
 
     @Override

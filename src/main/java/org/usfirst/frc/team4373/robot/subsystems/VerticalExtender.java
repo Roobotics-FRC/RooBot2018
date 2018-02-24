@@ -22,14 +22,15 @@ import org.usfirst.frc.team4373.robot.input.hid.Motors;
  */
 public abstract class VerticalExtender extends Subsystem {
 
-    protected WPI_TalonSRX motor;
+    protected WPI_TalonSRX motor1;
+    protected WPI_TalonSRX motor2;
     protected DigitalInput bottomSwitch;
     protected DigitalInput topSwitch;
     protected double extenderHeight;
 
-    protected VerticalExtender(String name, double height) {
+    protected VerticalExtender(String name/*, double height*/) {
         super(name);
-        this.extenderHeight = height;
+        //this.extenderHeight = height;
     }
 
     /**
@@ -42,11 +43,18 @@ public abstract class VerticalExtender extends Subsystem {
      * Puts motor in brake mode, sets up encoder, and establishes initial position
      * for future fetching of relative position.
      */
-    protected void configureMotor() {
-        this.motor.setNeutralMode(NeutralMode.Brake);
-        this.motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
-        this.motor.setSensorPhase(false);
-        this.initialPosition = this.motor.getSelectedSensorPosition(0)
+    protected void configureMotors() {
+        this.motor1.setNeutralMode(NeutralMode.Brake);
+        this.motor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
+        this.motor1.setSensorPhase(false);
+        this.initialPosition = this.motor1.getSelectedSensorPosition(0)
+                * Motors.POSITION_CONVERSION_FACTOR;
+
+
+        this.motor2.setNeutralMode(NeutralMode.Brake);
+        this.motor2.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
+        this.motor2.setSensorPhase(false);
+        this.initialPosition = this.motor2.getSelectedSensorPosition(0)
                 * Motors.POSITION_CONVERSION_FACTOR;
     }
 
@@ -59,7 +67,7 @@ public abstract class VerticalExtender extends Subsystem {
      */
     public void set(double power) {
         power = safetyCheckSpeed(power);
-        if (power > 0) {
+        /*if (power > 0) {
             if (atTop()) {
                 power = 0;
             }
@@ -67,8 +75,9 @@ public abstract class VerticalExtender extends Subsystem {
             if (atBottom()) {
                 power = 0;
             }
-        }
-        this.motor.set(power);
+        }*/
+        this.motor1.set(power);
+        this.motor2.set(-power); //TODO: This works for intake but not elevator. For elevator, this should be positive power. One of them is backward. We need to choose a "correct" way and use it.
     }
 
     /**
@@ -76,7 +85,7 @@ public abstract class VerticalExtender extends Subsystem {
      * @return The position of the elevator, in inches.
      */
     public double getPosition() {
-        return this.motor.getSelectedSensorPosition(0) * Motors.POSITION_CONVERSION_FACTOR;
+        return this.motor1.getSelectedSensorPosition(0) * Motors.POSITION_CONVERSION_FACTOR;
     }
 
     /**
@@ -93,7 +102,7 @@ public abstract class VerticalExtender extends Subsystem {
      * @return the velocity of the elevator, in inches/sec.
      */
     public double getVelocity() {
-        return this.motor.getSelectedSensorVelocity(0) * Motors.VELOCITY_CONVERSION_FACTOR;
+        return this.motor1.getSelectedSensorVelocity(0) * Motors.VELOCITY_CONVERSION_FACTOR;
     }
 
     /**

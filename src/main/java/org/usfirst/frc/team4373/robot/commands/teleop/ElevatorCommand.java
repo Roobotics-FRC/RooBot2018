@@ -30,16 +30,18 @@ public class ElevatorCommand extends Command {
         double axis = OI.getOI().getOperatorJoystick().getAxis(RobotMap.ELEVATOR_AXIS);
         if (Math.abs(axis) > RobotMap.THUMBSTICK_THRESHOLD) {
             this.elevator.set(Math.signum(axis) * RobotMap.VERTICAL_EXTENDER_SPEED);
+        } else {
+            this.elevator.set(0);
         }
 
         // Logging
-        SmartDashboard.putNumber("Elevator Pos (in)", elevator.getRelativePosition());
-        SmartDashboard.putNumber("Elevator Pos Abs", elevator.getPosition());
-        SmartDashboard.putNumber("Elevator Pos Abs (in)", elevator.getPosition()
-                * Motors.POSITION_CONVERSION_FACTOR);
-        SmartDashboard.putNumber("Elevator Vel", elevator.getVelocity());
-        SmartDashboard.putNumber("Elevator Vel (in p s)", elevator.getVelocity()
-                * Motors.VELOCITY_CONVERSION_FACTOR);
+        //SmartDashboard.putNumber("Elevator Pos (in)", elevator.getRelativePosition());
+        //SmartDashboard.putNumber("Elevator Pos Abs", elevator.getPosition());
+        //SmartDashboard.putNumber("Elevator Pos Abs (in)", elevator.getPosition()
+        //        * Motors.POSITION_CONVERSION_FACTOR);
+        //SmartDashboard.putNumber("Elevator Vel", elevator.getVelocity());
+        //SmartDashboard.putNumber("Elevator Vel (in p s)", elevator.getVelocity()
+        //        * Motors.VELOCITY_CONVERSION_FACTOR);
 
     }
 

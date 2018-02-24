@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4373.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import org.usfirst.frc.team4373.robot.RobotMap;
@@ -21,10 +22,13 @@ public class Elevator extends VerticalExtender {
 
     private Elevator() {
         super("Elevator");
-        this.motor = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR);
-        this.bottomSwitch = new DigitalInput(RobotMap.ELEVATOR_LOWER_LIMIT_SWITCH);
-        this.topSwitch = new DigitalInput(RobotMap.ELEVATOR_UPPER_LIMIT_SWITCH);
-        this.configureMotor();
+        this.motor1 = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_1);
+        this.motor2 = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_2);
+        //this.bottomSwitch = new DigitalInput(RobotMap.ELEVATOR_LOWER_LIMIT_SWITCH);
+        //this.topSwitch = new DigitalInput(RobotMap.ELEVATOR_UPPER_LIMIT_SWITCH);
+        //this.configureMotors();
+        this.motor1.setNeutralMode(NeutralMode.Brake);
+        this.motor2.setNeutralMode(NeutralMode.Brake);
     }
 
     @Override
