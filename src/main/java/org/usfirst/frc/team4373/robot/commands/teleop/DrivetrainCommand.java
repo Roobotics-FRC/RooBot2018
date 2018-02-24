@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4373.robot.commands.teleop;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
@@ -27,6 +28,12 @@ public class DrivetrainCommand extends Command {
         drivetrain.setRight(y + z);
         drivetrain.setLeft(y - z);
         drivetrain.setMiddle(x);
+
+        if (OI.getOI().getDriveJoystick().getRawButton(7)) {
+            this.drivetrain.sol.set(DoubleSolenoid.Value.kReverse);
+        } else {
+            this.drivetrain.sol.set(DoubleSolenoid.Value.kForward);
+        }
 
         // Logging
         SmartDashboard.putNumber("L Pos", drivetrain.getLeftPosition());
