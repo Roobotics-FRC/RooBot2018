@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
 /**
@@ -24,9 +25,11 @@ public abstract class VerticalExtender extends Subsystem {
     protected WPI_TalonSRX motor;
     protected DigitalInput bottomSwitch;
     protected DigitalInput topSwitch;
+    protected double extenderHeight;
 
-    protected VerticalExtender(String name) {
+    protected VerticalExtender(String name, double height) {
         super(name);
+        this.extenderHeight = height;
     }
 
     /**
@@ -99,7 +102,7 @@ public abstract class VerticalExtender extends Subsystem {
      * @return a boolean describing whether the elevator has reached its bottom position.
      */
     public boolean atBottom() {
-        return bottomSwitch.get();
+        return bottomSwitch.get() || this.extenderHeight < RobotMap.VE_SAFETY_MARGIN;
     }
 
     /**
@@ -108,6 +111,7 @@ public abstract class VerticalExtender extends Subsystem {
      * @return a boolean describing whether the elevator has reached its top position.
      */
     public boolean atTop() {
-        return topSwitch.get();
+        return topSwitch.get() || this.extenderHeight - this.getRelativePosition()
+                < RobotMap.VE_SAFETY_MARGIN;
     }
 }
