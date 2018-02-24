@@ -5,7 +5,6 @@ import static org.usfirst.frc.team4373.robot.input.hid.Motors.safetyCheckSpeed;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.commands.teleop.DrivetrainCommand;
@@ -18,7 +17,6 @@ public class Drivetrain extends Subsystem {
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
     private WPI_TalonSRX middle;
-    public DoubleSolenoid sol;
 
     private static Drivetrain instance;
 
@@ -32,8 +30,6 @@ public class Drivetrain extends Subsystem {
         this.right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_FRONT);
         this.right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_REAR);
         this.middle = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR);
-
-        this.sol = new DoubleSolenoid(15, 2, 3);
 
         this.left1.setNeutralMode(NeutralMode.Brake);
         this.left2.setNeutralMode(NeutralMode.Brake);
