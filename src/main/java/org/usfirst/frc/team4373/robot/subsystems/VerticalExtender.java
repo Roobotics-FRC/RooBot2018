@@ -77,7 +77,7 @@ public abstract class VerticalExtender extends Subsystem {
             }
         }*/
         this.motor1.set(power);
-        this.motor2.set(-power); //TODO: This works for intake but not elevator. For elevator, this should be positive power. One of them is backward. We need to choose a "correct" way and use it.
+        this.motor2.set(power);
     }
 
     /**

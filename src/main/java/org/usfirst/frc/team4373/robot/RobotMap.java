@@ -1,7 +1,8 @@
 package org.usfirst.frc.team4373.robot;
 
 /**
- * A centralized class containing mappings for various constants. A value of -1 means is has not yet been assigned.
+ * A centralized class containing mappings for various constants.
+ * A value of -1 means is has not yet been assigned.
  * @author aaplmath
  * @author Samasaur
  */
@@ -23,10 +24,11 @@ public class RobotMap {
     public static final int DRIVE_JOYSTICK_PORT = 0;
     public static final int OPERATOR_JOYSTICK_PORT = 1;
     public static final int GYRO_CHANNEL = 0;
-    public static final int ELEVATOR_LOWER_LIMIT_SWITCH = -1;
-    public static final int ELEVATOR_UPPER_LIMIT_SWITCH = -1;
-    public static final int INTAKE_LOWER_LIMIT_SWITCH = 1;
-    public static final int INTAKE_UPPER_LIMIT_SWITCH = 0;
+    public static final int ELEVATOR_LOWER_LIMIT_SWITCH = -1; // TODO
+    public static final int ELEVATOR_UPPER_LIMIT_SWITCH = 1;
+    public static final int INTAKE_LOWER_LIMIT_SWITCH = -1; // TODO
+    public static final int INTAKE_UPPER_LIMIT_SWITCH = -1; // TODO
+    public static final int POT_CHANNEL = 1;
 
     // Motor ports
     public static final int LEFT_DRIVE_MOTOR_1 = -1;
@@ -43,13 +45,13 @@ public class RobotMap {
     // Pneumatics
     public static final int COMPRESSOR_PORT = 0;
     public static final int PCM_PORT = 15;
-    public static final int GRABBER_SOLENOID_FORWARD_PORT = 1;
-    public static final int GRABBER_SOLENOID_BACKWARD_PORT = 0;
-    public static final int RELEASE_SOLENOID_FORWARD_PORT = 3;
-    public static final int RELEASE_SOLENOID_BACKWARD_PORT = 2;
+    public static final int GRABBER_SOLENOID_FORWARD_PORT = 2;
+    public static final int GRABBER_SOLENOID_BACKWARD_PORT = 3;
+    public static final int RELEASE_SOLENOID_FORWARD_PORT = 1;
+    public static final int RELEASE_SOLENOID_BACKWARD_PORT = 0;
 
     // Motor speeds
-    public static final double VERTICAL_EXTENDER_SPEED = 0.25;
+    public static final double VERTICAL_EXTENDER_SPEED = 0.1;
     public static final double WHEELED_INTAKE_SPEED = 1;
 
     // Dimensions - in inches

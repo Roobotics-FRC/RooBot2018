@@ -2,9 +2,11 @@ package org.usfirst.frc.team4373.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.commands.teleop.IntakeCommand;
 
@@ -19,6 +21,7 @@ public class Intake extends VerticalExtender {
     private DoubleSolenoid intakePiston;
     private DoubleSolenoid releasePiston;
     private Compressor compressor;
+    private Potentiometer pot;
 
     private static Intake instance;
 
@@ -36,12 +39,19 @@ public class Intake extends VerticalExtender {
         //this.configureMotors();
         this.motor1.setNeutralMode(NeutralMode.Brake);
         this.motor2.setNeutralMode(NeutralMode.Brake);
+        this.motor2.setInverted(true);
 
         this.compressor = new Compressor(RobotMap.COMPRESSOR_PORT);
+        this.pot = new AnalogPotentiometer(RobotMap.POT_CHANNEL, 47, 0);
         //this.intakePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
         //        RobotMap.GRABBER_SOLENOID_FORWARD_PORT, RobotMap.GRABBER_SOLENOID_BACKWARD_PORT);
         //this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
         //        RobotMap.RELEASE_SOLENOID_FORWARD_PORT, RobotMap.RELEASE_SOLENOID_BACKWARD_PORT);
+    }
+
+    @Override
+    public double getRelativePosition() {
+        return this.pot.get();
     }
 
     public void releaseIntake() {
