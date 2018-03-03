@@ -2,11 +2,11 @@ package org.usfirst.frc.team4373.robot.subsystems;
 
 import static org.usfirst.frc.team4373.robot.input.hid.Motors.safetyCheckSpeed;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
@@ -28,9 +28,9 @@ public abstract class VerticalExtender extends Subsystem {
     protected DigitalInput topSwitch;
     protected double extenderHeight;
 
-    protected VerticalExtender(String name/*, double height*/) {
+    protected VerticalExtender(String name, double height) {
         super(name);
-        //this.extenderHeight = height;
+        this.extenderHeight = height;
     }
 
     /**
@@ -45,16 +45,9 @@ public abstract class VerticalExtender extends Subsystem {
      */
     protected void configureMotors() {
         this.motor1.setNeutralMode(NeutralMode.Brake);
-        this.motor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
-        this.motor1.setSensorPhase(false);
-        this.initialPosition = this.motor1.getSelectedSensorPosition(0)
-                * Motors.POSITION_CONVERSION_FACTOR;
-
-
         this.motor2.setNeutralMode(NeutralMode.Brake);
-        this.motor2.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
-        this.motor2.setSensorPhase(false);
-        this.initialPosition = this.motor2.getSelectedSensorPosition(0)
+
+        this.initialPosition = this.getPosition()
                 * Motors.POSITION_CONVERSION_FACTOR;
     }
 
@@ -78,6 +71,7 @@ public abstract class VerticalExtender extends Subsystem {
         }*/
         this.motor1.set(power);
         this.motor2.set(power);
+        SmartDashboard.putNumber(this.getName() + " Power", power);
     }
 
     /**

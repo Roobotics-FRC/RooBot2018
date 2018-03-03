@@ -26,8 +26,8 @@ public class RobotMap {
     public static final int GYRO_CHANNEL = 0;
     public static final int ELEVATOR_LOWER_LIMIT_SWITCH = -1; // TODO
     public static final int ELEVATOR_UPPER_LIMIT_SWITCH = 1;
-    public static final int INTAKE_LOWER_LIMIT_SWITCH = -1; // TODO
-    public static final int INTAKE_UPPER_LIMIT_SWITCH = -1; // TODO
+    public static final int INTAKE_LOWER_LIMIT_SWITCH = 1; // TODO
+    public static final int INTAKE_UPPER_LIMIT_SWITCH = 0; // TODO
     public static final int POT_CHANNEL = 1;
 
     // Motor ports
@@ -51,7 +51,7 @@ public class RobotMap {
     public static final int RELEASE_SOLENOID_BACKWARD_PORT = 0;
 
     // Motor speeds
-    public static final double VERTICAL_EXTENDER_SPEED = 0.1;
+    public static final double VERTICAL_EXTENDER_SPEED = 0.2;
     public static final double WHEELED_INTAKE_SPEED = 1;
 
     // Dimensions - in inches

@@ -19,7 +19,7 @@ public class WheeledIntake extends VerticalExtender {
     }
 
     private WheeledIntake() {
-        super("WheeledIntake");
+        super("WheeledIntake", 37);
         this.compressor = new Compressor(RobotMap.COMPRESSOR_PORT);
         this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
                 RobotMap.RELEASE_SOLENOID_FORWARD_PORT, RobotMap.RELEASE_SOLENOID_BACKWARD_PORT);

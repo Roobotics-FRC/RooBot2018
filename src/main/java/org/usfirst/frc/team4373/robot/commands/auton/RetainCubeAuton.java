@@ -19,7 +19,7 @@ public class RetainCubeAuton extends Command {
 
     @Override
     protected void execute() {
-        this.intake.retainCube();
+        // this.intake.retainCube();
     }
 
     @Override

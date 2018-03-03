@@ -36,25 +36,25 @@ public class IntakeCommand extends Command {
             this.intake.set(0);
         }
         if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_INTAKE_BUTTON)) {
-            this.intake.releaseCube();
+            // this.intake.releaseCube();
         } else if (OI.getOI().getOperatorJoystick().getRawButton(
                 RobotMap.INTAKE_RELEASE_BUTTON)) {
-            this.intake.retainCube();
+            // this.intake.retainCube();
         }
         if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_UNFOLD_BUTTON)) {
-            this.intake.releaseIntake();
+            // this.intake.releaseIntake();
         } else if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_FOLD_BUTTON)) {
-            this.intake.retractIntake();
+            // this.intake.retractIntake();
         }
 
         // Logging
-        //SmartDashboard.putNumber("Intake Pos (in)", intake.getRelativePosition());
-        //SmartDashboard.putNumber("Intake Pos Abs", intake.getPosition());
-        //SmartDashboard.putNumber("Intake Pos Abs (in)", intake.getPosition()
-        //        * Motors.POSITION_CONVERSION_FACTOR);
-        //SmartDashboard.putNumber("Intake Vel", intake.getVelocity());
-        //SmartDashboard.putNumber("Intake Vel (in p s)", intake.getVelocity()
-        //        * Motors.VELOCITY_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("Intake Pos (in)", intake.getRelativePosition());
+        SmartDashboard.putNumber("Intake Pos Abs", intake.getPosition());
+        SmartDashboard.putNumber("Intake Pos Abs (in)", intake.getPosition()
+               * Motors.POSITION_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("Intake Vel", intake.getVelocity());
+        SmartDashboard.putNumber("Intake Vel (in p s)", intake.getVelocity()
+               * Motors.VELOCITY_CONVERSION_FACTOR);
     }
 
     @Override
@@ -65,9 +65,9 @@ public class IntakeCommand extends Command {
     @Override
     protected void end() {
         this.intake.set(0);
-        this.intake.neutralizePiston();
-        this.intake.neutralizeRelease();
-        this.intake.stopCompressor();
+        // this.intake.neutralizePiston();
+        // this.intake.neutralizeRelease();
+        // this.intake.stopCompressor();
     }
 
     @Override
