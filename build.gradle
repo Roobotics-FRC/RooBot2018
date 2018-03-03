@@ -24,6 +24,7 @@ def robotClass = 'org.usfirst.frc.team4373.robot.Robot'
 repositories {
     mavenCentral()
     maven { url 'http://first.wpi.edu/FRC/roborio/maven/release' }
+    maven { url 'https://raw.githubusercontent.com/Open-RIO/Maven-Mirror/master/m2' }
     maven { url 'https://raw.githubusercontent.com/Roobotics-FRC/RooMaven/master' }
 }
 
@@ -33,7 +34,6 @@ dependencies {
             'edu.wpi.first.wpilibj:wpilibj-java:2018.1.1',
             'edu.wpi.first.ntcore:ntcore-java:4.0.0',
             'org.opencv:opencv-java:3.2.0',
-            'edu.wpi.first.wpiutil:wpiutil-cpp:3.0.0',
             'edu.wpi.first.cscore:cscore-java:1.1.0',
             'com.ctr-electronics:CTRE_Phoenix:5.2.1.1'
     )
