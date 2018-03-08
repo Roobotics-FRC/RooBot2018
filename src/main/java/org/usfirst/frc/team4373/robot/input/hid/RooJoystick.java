@@ -33,23 +33,23 @@ public class RooJoystick<F extends DoubleTypeFilter> extends Joystick {
         return Math.abs(input) <= DEADZONE ? 0 : input;
     }
 
-    private double rooGetX() {
+    public double rooGetX() {
         return this.filter(this.getX());
     }
 
-    private double rooGetY() {
+    public double rooGetY() {
         return this.filter(this.getY());
     }
 
-    private double rooGetZ() {
+    public double rooGetZ() {
         return this.filter(this.getZ());
     }
 
-    private double rooGetTwist() {
+    public double rooGetTwist() {
         return this.filter(this.getTwist());
     }
 
-    private double rooGetThrottle() {
+    public double rooGetThrottle() {
         return this.filter(this.getThrottle());
     }
 
