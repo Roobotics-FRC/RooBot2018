@@ -66,4 +66,7 @@ public class RobotMap {
     public static final double INTAKE_HEIGHT = 51;
     public static final double ELEVATOR_HEIGHT = 38;
     public static final double VE_SAFETY_MARGIN = 1; // ve = vertical extender
+    public static final double AUTON_DRIVE_DISTANCE = 125;
+    public static final double AUTON_SWITCH_DISTANCE = 172;
+    public static final double AUTON_SCALE_DISTANCE = -1; // TODO
 }
