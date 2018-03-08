@@ -10,9 +10,9 @@ public class RobotMap {
     // Joystick axes and buttons
     public static final double THUMBSTICK_THRESHOLD = 0.5;
     public static final int ELEVATOR_AXIS = 1; // L stick Y
-    public static final int INTAKE_AXIS = 5; // R stick Y TODO: 5 doesn't work
+    public static final int INTAKE_AXIS = 5; // R stick Y TODO: 5 doesn't work -- Now replaced with POV
     public static final int INTAKE_INTAKE_BUTTON = 6; // RB
-    public static final int INTAKE_RELEASE_BUTTON = 5; // RB
+    public static final int INTAKE_RELEASE_BUTTON = 5; // RB <--Incorrect - 5 is LB
     public static final int INTAKE_UNFOLD_BUTTON = 12; // R thumb press
     public static final int INTAKE_FOLD_BUTTON = 11; // L thumb press
     public static final int SCALE_BUTTON = 3; // X button

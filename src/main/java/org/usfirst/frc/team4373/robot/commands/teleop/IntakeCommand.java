@@ -1,12 +1,10 @@
 package org.usfirst.frc.team4373.robot.commands.teleop;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
-import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
@@ -29,9 +27,24 @@ public class IntakeCommand extends Command {
 
     @Override
     protected void execute() {
-        double axis = OI.getOI().getOperatorJoystick().getAxis(RobotMap.INTAKE_AXIS);
-        if (Math.abs(axis) > RobotMap.THUMBSTICK_THRESHOLD) {
-            this.intake.set(Math.signum(axis) * RobotMap.VERTICAL_EXTENDER_SPEED);
+        if (OI.getOI().getOperatorJoystick().getPOV() != -1) {
+            switch (OI.getOI().getOperatorJoystick().getPOV()) {
+                case 315:
+                case 0:
+                case 45:
+                    this.intake.set(RobotMap.VERTICAL_EXTENDER_SPEED);
+                    break;
+                case 135:
+                case 180:
+                case 225:
+                    this.intake.set(-RobotMap.VERTICAL_EXTENDER_SPEED);
+                    break;
+                case 90:
+                case 270:
+                default:
+                    this.intake.set(0);
+                    break;
+            }
         } else {
             this.intake.set(0);
         }
