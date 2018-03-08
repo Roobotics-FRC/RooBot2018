@@ -6,9 +6,15 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team4373.robot.subsystems.Elevator;
+import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
  * This is the main robot class.
+ *
+ * @author aaplmath
+ * @author Henry Pitcairn
+ * @author thefangbear
  */
 public class Robot extends IterativeRobot {
     private Command autonCommand = null;
@@ -24,6 +30,10 @@ public class Robot extends IterativeRobot {
         Drivetrain.getInstance();
 
         OI.getOI().getGyro().calibrate();
+
+        Drivetrain.getInstance();
+        Elevator.getInstance();
+        // Intake.getInstance().startCompressor();
     }
 
     @Override

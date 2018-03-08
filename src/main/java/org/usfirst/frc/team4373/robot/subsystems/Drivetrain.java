@@ -10,6 +10,12 @@ import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.commands.teleop.DrivetrainCommand;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
+/**
+ * A programmatic representation of the robot's drivetrain.
+ *
+ * @author aaplmath
+ * @author Samasaur
+ */
 public class Drivetrain extends Subsystem {
 
     private WPI_TalonSRX left1;
@@ -31,6 +37,9 @@ public class Drivetrain extends Subsystem {
         this.right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_REAR);
         this.middle = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR);
 
+        /*
+        Make sure that the wheels stay still if they are set to 0.
+         */
         this.left1.setNeutralMode(NeutralMode.Brake);
         this.left2.setNeutralMode(NeutralMode.Brake);
         this.right1.setNeutralMode(NeutralMode.Brake);
@@ -40,10 +49,16 @@ public class Drivetrain extends Subsystem {
         this.left2.follow(this.left1);
         this.right2.follow(this.right1);
 
+        /*
+        This makes positive values ANYWHERE mean forward.
+         */
         this.right1.setInverted(true);
         this.right2.setInverted(true);
         this.middle.setInverted(true);
 
+        /*
+        Set up encoders.
+         */
         this.left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.left1.setSensorPhase(false);
         this.right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
