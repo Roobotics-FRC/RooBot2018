@@ -10,6 +10,7 @@ import org.usfirst.frc.team4373.robot.commands.auton.CaptureSwitchAuton;
 import org.usfirst.frc.team4373.robot.commands.auton.DriveDistanceAuton;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
+import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
  * This is the main robot class.
@@ -44,23 +45,28 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auton Primary Goal", priority1Chooser);
         SmartDashboard.putData("Auton Secondary Goal", priority2Chooser);
 
-        Drivetrain.getInstance();
+        SmartDashboard.putNumber("Vertical Extender Speed", SmartDashboard.getNumber(
+                "Vertical Extender Speed", RobotMap.VERTICAL_EXTENDER_SPEED));
 
         OI.getOI().getGyro().calibrate();
 
         Drivetrain.getInstance();
         Elevator.getInstance();
-        // Intake.getInstance().startCompressor();
+        Intake.getInstance().startCompressor();
     }
 
     @Override
     public void teleopInit() {
+        RobotMap.VERTICAL_EXTENDER_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
+                RobotMap.VERTICAL_EXTENDER_SPEED);
         Scheduler.getInstance().removeAll();
         OI.getOI().getGyro().reset();
     }
 
     @Override
     public void autonomousInit() {
+        RobotMap.VERTICAL_EXTENDER_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
+                RobotMap.VERTICAL_EXTENDER_SPEED);
         Scheduler.getInstance().removeAll();
         if (autonCommand != null) {
             autonCommand.cancel();
