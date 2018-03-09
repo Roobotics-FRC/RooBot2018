@@ -8,6 +8,8 @@ package org.usfirst.frc.team4373.robot.input.hid;
  */
 public class Motors {
 
+    private final static double EPS = 0.0000000001; // 1/10^9
+
     private Motors() {}
 
     // Conversion factors to inches or inches/second
@@ -27,9 +29,9 @@ public class Motors {
      * @return The power, now within a safe -1 to 1 range.
      */
     public static double safetyCheckSpeed(double power) {
-        if (power > 1) {
+        if (power > 1 + EPS) {
             return 1;
-        } else if (power < -1) {
+        } else if (power < -1 - EPS) {
             return -1;
         }
         return power;
