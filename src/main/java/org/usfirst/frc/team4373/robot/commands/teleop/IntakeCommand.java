@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
-import org.usfirst.frc.team4373.robot.input.hid.Motors;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
  * This command lets the operator joystick control the intake VerticalExtender.
  *
  * @author aaplmath
+ * @author Samasaur
  */
 public class IntakeCommand extends Command {
 
@@ -32,12 +32,12 @@ public class IntakeCommand extends Command {
                 case 315:
                 case 0:
                 case 45:
-                    this.intake.set(RobotMap.VERTICAL_EXTENDER_SPEED);
+                    this.intake.set(-RobotMap.VERTICAL_EXTENDER_SPEED);
                     break;
                 case 135:
                 case 180:
                 case 225:
-                    this.intake.set(-RobotMap.VERTICAL_EXTENDER_SPEED);
+                    this.intake.set(RobotMap.VERTICAL_EXTENDER_SPEED);
                     break;
                 case 90:
                 case 270:
@@ -48,26 +48,20 @@ public class IntakeCommand extends Command {
         } else {
             this.intake.set(0);
         }
-        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_INTAKE_BUTTON)) {
-            // this.intake.releaseCube();
-        } else if (OI.getOI().getOperatorJoystick().getRawButton(
-                RobotMap.INTAKE_RELEASE_BUTTON)) {
-            // this.intake.retainCube();
+        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_OPEN_BUTTON)) {
+            this.intake.releaseCube();
+        } else {
+            this.intake.retainCube();
         }
-        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_UNFOLD_BUTTON)) {
-            // this.intake.releaseIntake();
-        } else if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_FOLD_BUTTON)) {
-            // this.intake.retractIntake();
+
+        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_RETRACT_BUTTON)) {
+            this.intake.retractIntake();
+        } else {
+            this.intake.releaseIntake();
         }
 
         // Logging
         SmartDashboard.putNumber("Intake Pos (in)", intake.getRelativePosition());
-        SmartDashboard.putNumber("Intake Pos Abs", intake.getPosition());
-        SmartDashboard.putNumber("Intake Pos Abs (in)", intake.getPosition()
-               * Motors.POSITION_CONVERSION_FACTOR);
-        SmartDashboard.putNumber("Intake Vel", intake.getVelocity());
-        SmartDashboard.putNumber("Intake Vel (in p s)", intake.getVelocity()
-               * Motors.VELOCITY_CONVERSION_FACTOR);
     }
 
     @Override
