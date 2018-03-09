@@ -41,10 +41,10 @@ public class Intake extends VerticalExtender {
 
         this.compressor = new Compressor(RobotMap.COMPRESSOR_PORT);
         this.pot = new AnalogPotentiometer(RobotMap.POT_CHANNEL, 47, 0);
-        //this.intakePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
-        //        RobotMap.GRABBER_SOLENOID_FORWARD_PORT, RobotMap.GRABBER_SOLENOID_BACKWARD_PORT);
-        //this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
-        //        RobotMap.RELEASE_SOLENOID_FORWARD_PORT, RobotMap.RELEASE_SOLENOID_BACKWARD_PORT);
+        this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
+                RobotMap.GRABBER_SOLENOID_FORWARD_PORT, RobotMap.GRABBER_SOLENOID_BACKWARD_PORT);
+        this.intakePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
+                RobotMap.RELEASE_SOLENOID_FORWARD_PORT, RobotMap.RELEASE_SOLENOID_BACKWARD_PORT);
     }
 
     @Override
@@ -52,37 +52,37 @@ public class Intake extends VerticalExtender {
         return this.pot.get();
     }
 
-    // public void releaseIntake() {
-    //     this.releasePiston.set(DoubleSolenoid.Value.kForward);
-    // }
-    //
-    // public void retractIntake() {
-    //     this.releasePiston.set(DoubleSolenoid.Value.kReverse);
-    // }
-    //
-    // public void neutralizeRelease() {
-    //     this.releasePiston.set(DoubleSolenoid.Value.kOff);
-    // }
-    //
-    // public void retainCube() {
-    //     this.intakePiston.set(DoubleSolenoid.Value.kReverse);
-    // }
-    //
-    // public void releaseCube() {
-    //     this.intakePiston.set(DoubleSolenoid.Value.kForward);
-    // }
-    //
-    // public void neutralizePiston() {
-    //     this.intakePiston.set(DoubleSolenoid.Value.kOff);
-    // }
-    //
-    // public void startCompressor() {
-    //     this.compressor.start();
-    // }
-    //
-    // public void stopCompressor() {
-    //     this.compressor.stop();
-    // }
+    public void retractIntake() {
+        this.releasePiston.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void releaseIntake() {
+        this.releasePiston.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public void neutralizeRelease() {
+        this.releasePiston.set(DoubleSolenoid.Value.kOff);
+    }
+
+    public void retainCube() {
+        this.intakePiston.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public void releaseCube() {
+        this.intakePiston.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void neutralizeGrabberPiston() {
+        this.intakePiston.set(DoubleSolenoid.Value.kOff);
+    }
+
+    public void startCompressor() {
+        this.compressor.start();
+    }
+
+    public void stopCompressor() {
+        this.compressor.stop();
+    }
 
     @Override
     protected void initDefaultCommand() {
