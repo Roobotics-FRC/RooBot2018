@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putNumber("Vertical Extender Speed", SmartDashboard.getNumber(
                 "Vertical Extender Speed", RobotMap.VERTICAL_EXTENDER_SPEED));
-        SmartDashboard.putNumber("Driving Time", 15);
+        SmartDashboard.putNumber("Driving Time", 2);
         SmartDashboard.putNumber("Driving Distance", 250);
         SmartDashboard.putNumber("Driving Power", 0.5);
 
@@ -92,10 +92,7 @@ public class Robot extends IterativeRobot {
                 System.out.println("GOING FOR SCALE");
             } else {
                 System.out.println("DRIVING");
-                //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
-                autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 15),
-                        SmartDashboard.getNumber("Driving Distance", 250),
-                        SmartDashboard.getNumber("Driving Power", 0.5));
+                autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
             }
         } else if (priority1.equals("scale")) {
             if (pos == scaleData) {
@@ -105,10 +102,7 @@ public class Robot extends IterativeRobot {
                 autonCommand = new CaptureSwitchAuton(onLeft);
             } else {
                 System.out.println("DRIVING");
-                //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
-                autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 15),
-                        SmartDashboard.getNumber("Driving Distance", 250),
-                        SmartDashboard.getNumber("Driving Power", 0.5));
+                autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
             }
         } else {
             System.out.println("DRIVING");
