@@ -24,8 +24,7 @@ public class TurnToAngleAuton extends PIDCommand {
         super("TurnToPosition", RobotMap.DRIVETRAIN_P, RobotMap.DRIVETRAIN_I,
                 RobotMap.DRIVETRAIN_D);
         this.setpoint = angle;
-        requires(Drivetrain.getInstance());
-        drivetrain = Drivetrain.getInstance();
+        requires(this.drivetrain = Drivetrain.getInstance());
         setInterruptible(true);
     }
 
@@ -49,12 +48,14 @@ public class TurnToAngleAuton extends PIDCommand {
             this.cooldownStart = System.currentTimeMillis();
         }
         if (coolingDown) {
-            if (System.currentTimeMillis() > this.cooldownStart + COOLDOWN_TIME) {
+            if (System.currentTimeMillis() - COOLDOWN_TIME > this.cooldownStart) {
                 this.finished = true;
+                this.drivetrain.setBoth(0);
+                return;
             }
         }
-        this.drivetrain.setLeft(output);
-        this.drivetrain.setRight(-output);
+        this.drivetrain.setLeft(-output);
+        this.drivetrain.setRight(output);
     }
 
     @Override
