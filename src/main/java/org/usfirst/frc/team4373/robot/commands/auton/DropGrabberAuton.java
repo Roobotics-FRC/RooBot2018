@@ -11,20 +11,25 @@ import org.usfirst.frc.team4373.robot.subsystems.Intake;
 public class DropGrabberAuton extends Command {
 
     private Intake intake;
+    private long startTime;
 
     public DropGrabberAuton() {
         requires(this.intake = Intake.getInstance());
-        setTimeout(0.2);
+        setTimeout(0.4);
     }
 
     @Override
     protected void initialize() {
-
+        startTime = System.currentTimeMillis();
     }
 
     @Override
     protected void execute() {
-        this.intake.set(-0.5);
+        if (System.currentTimeMillis() - startTime > 200) {
+            this.intake.set(0.5);
+        } else {
+            this.intake.set(-0.5);
+        }
     }
 
     @Override
