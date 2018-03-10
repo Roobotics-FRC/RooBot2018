@@ -63,14 +63,8 @@ public abstract class VerticalExtender extends Subsystem {
     public void set(double power) {
         power = -power;
         power = safetyCheckSpeed(power);
-        if (power < 0) {
-            if (atTop()) {
-                power = 0;
-            }
-        } else {
-            if (atBottom()) {
-                power = this.getName().equals("Elevator") ? -0.1 : 0;
-            }
+        if (atTop() || atBottom()) {
+            power = this.getName().equals("Elevator") ? -0.1 : 0;
         }
         this.motor1.set(power);
         this.motor2.set(power);
