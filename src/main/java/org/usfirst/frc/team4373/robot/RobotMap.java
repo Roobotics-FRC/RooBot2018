@@ -76,4 +76,10 @@ public class RobotMap {
     public static final double AUTON_DRIVE_DISTANCE = 125;
     public static final double AUTON_SWITCH_DISTANCE = 172;
     public static final double AUTON_SCALE_DISTANCE = -1; // TODO
+
+    // More dimensions
+    public static final double INTAKE_SAFE_TOP = 100;   // TODO measure
+    public static final double INTAKE_SAFE_BOTTOM = 0;
+    public static final double ELEVATOR_SAFE_TOP = 100;
+    public static final double ELEVATOR_SAFE_BOTTOM = 0;
 }

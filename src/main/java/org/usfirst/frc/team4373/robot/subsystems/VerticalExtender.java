@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4373.robot.subsystems;
 
+import static org.usfirst.frc.team4373.robot.input.hid.Motors.safetyCheckSpeed;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -8,11 +10,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
-import static org.usfirst.frc.team4373.robot.input.hid.Motors.safetyCheckSpeed;
+
 
 /**
  * A class that  serves as the basis for all VerticalExtenders on the bot.
- * <p>
+ *
  * <p>This class cannot be instantiated; its subclasses must be singletons. A "vertical extender"
  * is something that extends vertically on a track. Another word for it would be an "elevator."
  * A VerticalExtender has a single-motor system, including an encoder and limit switches. Setting
@@ -22,12 +24,14 @@ import static org.usfirst.frc.team4373.robot.input.hid.Motors.safetyCheckSpeed;
  */
 public abstract class VerticalExtender extends Subsystem {
 
+    private static final double LOCKING_THRESHOLD = 0.1;
     protected WPI_TalonSRX motor1;
     protected WPI_TalonSRX motor2;
     protected DigitalInput bottomSwitch;
     protected DigitalInput topSwitch;
     protected double extenderBottom;
     protected double extenderTop;
+    protected LockingType locking;
     /**
      * The position of the VerticalExtender when instantiated. Assumed to be 0 vertically (on the
      * ground).
@@ -38,6 +42,17 @@ public abstract class VerticalExtender extends Subsystem {
         super(name);
         this.extenderBottom = bottom;
         this.extenderTop = top;
+        this.disableLocking();
+    }
+
+    protected double applyLocking(double power) {
+        if (power <= 0.01 && power >= -0.01) {
+            return this.locking == LockingType.UP
+                    ? LOCKING_THRESHOLD :
+                    (LockingType.DOWN == this.locking ? -LOCKING_THRESHOLD : 0);
+        } else {
+            return power;
+        }
     }
 
     /**
@@ -47,7 +62,6 @@ public abstract class VerticalExtender extends Subsystem {
     protected void configureMotors() {
         this.motor1.setNeutralMode(NeutralMode.Brake);
         this.motor2.setNeutralMode(NeutralMode.Brake);
-
         this.initialPosition = this.getPosition(); // FIX 3/10/18: avoid double conversions!
     }
 
@@ -60,18 +74,10 @@ public abstract class VerticalExtender extends Subsystem {
      */
     public void set(double power) {
         power = -power;
-        power = safetyCheckSpeed(power);
-        if (power < 0) {
-            if (atTop()) {
-                power = 0;
-            }
-        } else {
-            if (atBottom()) {
-                power = this.getName().equals("Elevator") ? -0.1 : 0;
-            }
+        power = safetyCheckSpeed(applyLocking(power));
+        if (atTop() || atBottom()) {
+            power = 0;
         }
-        this.motor1.set(power);
-        this.motor2.set(power);
         SmartDashboard.putNumber(this.getName() + " Power", power);
     }
 
@@ -81,7 +87,7 @@ public abstract class VerticalExtender extends Subsystem {
      * @return The position of the elevator, in inches.
      */
     public double getPosition() {
-        return this.motor1.getSelectedSensorPosition(0);
+        return this.motor1.getSelectedSensorPosition(0) * Motors.POSITION_CONVERSION_FACTOR;
     }
 
     /**
@@ -91,13 +97,13 @@ public abstract class VerticalExtender extends Subsystem {
      * @return The relative position of the intake, in inches.
      */
     public double getRelativePosition() {
-        return (this.getPosition() - this.initialPosition) * Motors.POSITION_CONVERSION_FACTOR;
+        return (this.getPosition() - this.initialPosition);
     }
 
     /**
      * Gets the velocity of the elevator.
      *
-     * @return the velocity of the elevator, in inches/sec.
+     * @return the velocity of the elevator, in in/sec.
      */
     public double getVelocity() {
         return this.motor1.getSelectedSensorVelocity(0) * Motors.VELOCITY_CONVERSION_FACTOR;
@@ -121,5 +127,21 @@ public abstract class VerticalExtender extends Subsystem {
      */
     private boolean atTop() {
         return this.extenderTop - this.getRelativePosition() < RobotMap.VE_SAFETY_MARGIN;
+    }
+
+    public void enableUpwardsLocking() {
+        this.locking = LockingType.UP;
+    }
+
+    public void enableDownwardsLocking() {
+        this.locking = LockingType.DOWN;
+    }
+
+    public void disableLocking() {
+        this.locking = LockingType.NONE;
+    }
+
+    enum LockingType {
+        NONE, UP, DOWN
     }
 }

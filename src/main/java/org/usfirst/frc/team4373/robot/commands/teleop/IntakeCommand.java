@@ -61,7 +61,7 @@ public class IntakeCommand extends Command {
         }
 
         // Logging
-        SmartDashboard.putNumber("Intake Pos (in)", intake.getRelativePosition());
+        SmartDashboard.putNumber("Intake Pos", intake.getRelativePosition());
     }
 
     @Override
