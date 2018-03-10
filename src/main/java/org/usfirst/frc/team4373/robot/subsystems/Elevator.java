@@ -24,6 +24,7 @@ public class Elevator extends VerticalExtender {
         super("Elevator", 51);
         this.motor1 = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_1);
         this.motor2 = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_2);
+        this.configureMotors();
 
         // Encoders
         this.motor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
@@ -31,7 +32,6 @@ public class Elevator extends VerticalExtender {
 
         //this.bottomSwitch = new DigitalInput(RobotMap.ELEVATOR_LOWER_LIMIT_SWITCH);
         //this.topSwitch = new DigitalInput(RobotMap.ELEVATOR_UPPER_LIMIT_SWITCH);
-        this.configureMotors();
     }
 
     @Override
