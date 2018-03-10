@@ -39,8 +39,4 @@ public class Elevator extends VerticalExtender {
     protected void initDefaultCommand() {
         setDefaultCommand(new ElevatorCommand());
     }
-
-    public void setInitialPosition() {
-        this.initialPosition = this.getPosition() * Motors.POSITION_CONVERSION_FACTOR;
-    }
 }
