@@ -22,7 +22,6 @@ public class Drivetrain extends Subsystem {
     private WPI_TalonSRX left2;
     private WPI_TalonSRX right1;
     private WPI_TalonSRX right2;
-    private WPI_TalonSRX middle;
 
     private static Drivetrain instance;
 
@@ -35,7 +34,6 @@ public class Drivetrain extends Subsystem {
         this.left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_MOTOR_REAR);
         this.right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_FRONT);
         this.right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_MOTOR_REAR);
-        this.middle = new WPI_TalonSRX(RobotMap.MIDDLE_DRIVE_MOTOR);
 
         /*
         Make sure that the wheels stay still if they are set to 0.
@@ -44,7 +42,6 @@ public class Drivetrain extends Subsystem {
         this.left2.setNeutralMode(NeutralMode.Brake);
         this.right1.setNeutralMode(NeutralMode.Brake);
         this.right2.setNeutralMode(NeutralMode.Brake);
-        this.middle.setNeutralMode(NeutralMode.Brake);
 
         this.left2.follow(this.left1);
         this.right2.follow(this.right1);
@@ -54,7 +51,6 @@ public class Drivetrain extends Subsystem {
          */
         this.right1.setInverted(true);
         this.right2.setInverted(true);
-        this.middle.setInverted(true);
 
         /*
         Set up encoders.
@@ -63,8 +59,6 @@ public class Drivetrain extends Subsystem {
         this.left1.setSensorPhase(false);
         this.right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.right1.setSensorPhase(false);
-        this.middle.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
-        this.middle.setSensorPhase(false);
     }
 
     /**
@@ -104,18 +98,6 @@ public class Drivetrain extends Subsystem {
     }
 
     /**
-     * Sets the middle wheel to the specified power.
-     * Positive values will make the robot go rightward.
-     *
-     * @param power The power, from -1 to 1, to which to set the motor.
-     *              This value is safety checked to make sure it is not out of this range.
-     */
-    public void setMiddle(double power) {
-        power = safetyCheckSpeed(power);
-        this.middle.set(power);
-    }
-
-    /**
      * Gets the position of the left wheels in units.
      * @return The position of the left wheels, in 'units'.
      */
@@ -145,22 +127,6 @@ public class Drivetrain extends Subsystem {
      */
     public int getRightVelocity() {
         return right1.getSelectedSensorVelocity(0);
-    }
-
-    /**
-     * Gets the position of the middle wheels in units.
-     * @return The position of the middle wheels, in 'units'.
-     */
-    public int getMiddlePosition() {
-        return middle.getSelectedSensorPosition(0);
-    }
-
-    /**
-     * Gets the velocity of the middle wheels in units/0.1s.
-     * @return The velocity of the middle wheels, in 'units'/0.1s.
-     */
-    public int getMiddleVelocity() {
-        return middle.getSelectedSensorVelocity(0);
     }
 
     /**
