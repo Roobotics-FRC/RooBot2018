@@ -47,6 +47,7 @@ public class DrivetrainCommand extends Command {
         SmartDashboard.putNumber("M Vel", drivetrain.getMiddleVelocity());
         SmartDashboard.putNumber("M Vel (in p s)", drivetrain.getMiddleVelocity()
                 * Motors.VELOCITY_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("Relative Angle (°)", OI.getOI().getAngleRelative());
     }
 
     @Override

@@ -30,7 +30,7 @@ public class Intake extends VerticalExtender {
     }
 
     private Intake() {
-        super("Intake", 15, 42);
+        super("Intake", 15, 46);
         this.motor1 = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_1);
         this.motor2 = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_2);
         // this.bottomSwitch = new DigitalInput(RobotMap.INTAKE_LOWER_LIMIT_SWITCH);
