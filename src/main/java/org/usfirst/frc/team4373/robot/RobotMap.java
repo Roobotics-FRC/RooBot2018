@@ -63,7 +63,7 @@ public class RobotMap {
     public static final double INTAKE_D = 0.005; //TODO      |
 
     // Motor speeds
-    public static double VERTICAL_EXTENDER_SPEED = 0.2; // TODO: See below \/
+    public static double VERTICAL_EXTENDER_SPEED = 0.7; // TODO: See below \/
     /* This needs to be different for elevator and intake
 
      */

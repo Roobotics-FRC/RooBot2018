@@ -19,7 +19,7 @@ public class ReleaseCubeAuton extends Command {
 
     @Override
     protected void execute() {
-        // this.intake.releaseCube();
+        this.intake.releaseCube();
     }
 
     @Override
