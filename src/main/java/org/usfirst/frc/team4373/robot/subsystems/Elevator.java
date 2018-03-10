@@ -21,7 +21,7 @@ public class Elevator extends VerticalExtender {
     }
 
     private Elevator() {
-        super("Elevator", 51);
+        super("Elevator", 15, 58);
         this.motor1 = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_1);
         this.motor2 = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_2);
         this.configureMotors();

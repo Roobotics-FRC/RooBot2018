@@ -26,11 +26,13 @@ public abstract class VerticalExtender extends Subsystem {
     protected WPI_TalonSRX motor2;
     protected DigitalInput bottomSwitch;
     protected DigitalInput topSwitch;
-    protected double extenderHeight;
+    protected double extenderBottom;
+    protected double extenderTop;
 
-    protected VerticalExtender(String name, double height) {
+    protected VerticalExtender(String name, double bottom, double top) {
         super(name);
-        this.extenderHeight = height;
+        this.extenderBottom = bottom;
+        this.extenderTop = top;
     }
 
     /**
@@ -59,16 +61,17 @@ public abstract class VerticalExtender extends Subsystem {
      *              This value is safety checked to ensure it is not out of this range.
      */
     public void set(double power) {
+        power = -power;
         power = safetyCheckSpeed(power);
-        /*if (power > 0) {
+        if (power < 0) {
             if (atTop()) {
                 power = 0;
             }
         } else {
             if (atBottom()) {
-                power = 0;
+                power = this.getName().equals("Elevator") ? -0.1 : 0;
             }
-        }*/
+        }
         this.motor1.set(power);
         this.motor2.set(power);
         SmartDashboard.putNumber(this.getName() + " Power", power);
@@ -79,7 +82,7 @@ public abstract class VerticalExtender extends Subsystem {
      * @return The position of the elevator, in inches.
      */
     public double getPosition() {
-        return this.motor1.getSelectedSensorPosition(0) * Motors.POSITION_CONVERSION_FACTOR;
+        return this.motor1.getSelectedSensorPosition(0);
     }
 
     /**
@@ -105,7 +108,8 @@ public abstract class VerticalExtender extends Subsystem {
      * @return a boolean describing whether the elevator has reached its bottom position.
      */
     public boolean atBottom() {
-        return bottomSwitch.get() || this.extenderHeight < RobotMap.VE_SAFETY_MARGIN;
+        // return bottomSwitch.get() || this.extenderHeight < RobotMap.VE_SAFETY_MARGIN;
+        return this.getRelativePosition() - this.extenderBottom < RobotMap.VE_SAFETY_MARGIN;
     }
 
     /**
@@ -114,7 +118,8 @@ public abstract class VerticalExtender extends Subsystem {
      * @return a boolean describing whether the elevator has reached its top position.
      */
     public boolean atTop() {
-        return topSwitch.get() || this.extenderHeight - this.getRelativePosition()
-                < RobotMap.VE_SAFETY_MARGIN;
+        // return topSwitch.get() || this.extenderHeight - this.getRelativePosition()
+        //         < RobotMap.VE_SAFETY_MARGIN;
+        return this.extenderTop - this.getRelativePosition() < RobotMap.VE_SAFETY_MARGIN;
     }
 }
