@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team4373.robot.commands.auton.CaptureSwitchAuton;
-import org.usfirst.frc.team4373.robot.commands.auton.DriveDistanceAuton;
-import org.usfirst.frc.team4373.robot.commands.auton.TimedDriveAuton;
+import org.usfirst.frc.team4373.robot.commands.auton.*;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
@@ -51,6 +49,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Driving Time", 2.5);
         SmartDashboard.putNumber("Driving Distance", 250);
         SmartDashboard.putNumber("Driving Power", 0.5);
+
+        SmartDashboard.putBoolean("Try TurnToAngleAuton", false);
+        SmartDashboard.putNumber("Angle to turn to", 90);
 
         OI.getOI().getGyro().calibrate();
 
@@ -116,6 +117,11 @@ public class Robot extends IterativeRobot {
             autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 2.5),
                     SmartDashboard.getNumber("Driving Distance", 250),
                     SmartDashboard.getNumber("Driving Power", 0.5));
+        }
+
+        //autonCommand = new DropGrabberAuton();
+        if (SmartDashboard.getBoolean("Try TurnToAngleAuton", false)) {
+            autonCommand = new TurnToAngleAuton(SmartDashboard.getNumber("Angle to turn to", 90));
         }
 
         if (autonCommand != null) {
