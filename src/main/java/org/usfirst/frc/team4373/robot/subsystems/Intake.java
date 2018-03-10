@@ -1,10 +1,8 @@
 package org.usfirst.frc.team4373.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import org.usfirst.frc.team4373.robot.RobotMap;
@@ -18,23 +16,16 @@ import org.usfirst.frc.team4373.robot.commands.teleop.IntakeCommand;
  */
 public class Intake extends VerticalExtender {
 
+    private static Intake instance;
     private DoubleSolenoid intakePiston;
     private DoubleSolenoid releasePiston;
     private Compressor compressor;
     private Potentiometer pot;
 
-    private static Intake instance;
-
-    public static Intake getInstance() {
-        return instance == null ? instance = new Intake() : instance;
-    }
-
     private Intake() {
-        super("Intake", 18, 42);
+        super("Intake", RobotMap.INTAKE_SAFE_BOTTOM, RobotMap.INTAKE_SAFE_TOP); // 18, 42
         this.motor1 = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_1);
         this.motor2 = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_2);
-        // this.bottomSwitch = new DigitalInput(RobotMap.INTAKE_LOWER_LIMIT_SWITCH);
-        // this.topSwitch = new DigitalInput(RobotMap.INTAKE_UPPER_LIMIT_SWITCH);
 
         this.configureMotors();
         this.motor1.setInverted(true);
@@ -47,8 +38,17 @@ public class Intake extends VerticalExtender {
                 RobotMap.RELEASE_SOLENOID_FORWARD_PORT, RobotMap.RELEASE_SOLENOID_BACKWARD_PORT);
     }
 
+    public static Intake getInstance() {
+        return instance == null ? instance = new Intake() : instance;
+    }
+
     @Override
     public double getRelativePosition() {
+        return this.pot.get();
+    }
+
+    @Override
+    public double getPosition() {
         return this.pot.get();
     }
 
