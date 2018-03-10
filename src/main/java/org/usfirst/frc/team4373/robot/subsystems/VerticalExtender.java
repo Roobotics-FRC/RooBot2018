@@ -14,7 +14,7 @@ import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
 /**
  * A class that  serves as the basis for all VerticalExtenders on the bot.
- * 
+ *
  * <p>This class cannot be instantiated; its subclasses must be singletons. A "vertical extender"
  * is something that extends vertically on a track. Another word for it would be an "elevator."
  * A VerticalExtender has a single-motor system, including an encoder and limit switches. Setting
