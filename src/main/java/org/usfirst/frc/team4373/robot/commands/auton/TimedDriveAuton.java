@@ -12,17 +12,15 @@ public class TimedDriveAuton extends Command {
     private double time;
     private Drivetrain drivetrain;
     private double start;
-    private double maxDist;
     private double power;
     private boolean finished = false;
 
     /**
      * Timed drive autonomous.
      */
-    public TimedDriveAuton(double secs, double maxDistance, double power) {
+    public TimedDriveAuton(double secs, double power) {
         this.time = secs;
-        this.maxDist = maxDistance;
-        this.power = power;
+        this.power = -power;
         requires(this.drivetrain = Drivetrain.getInstance());
     }
 
@@ -33,8 +31,7 @@ public class TimedDriveAuton extends Command {
 
     @Override
     protected void execute() {
-        if (Timer.getFPGATimestamp() - this.start >= time
-                || drivetrain.getConvertedAveragePosition() >= this.maxDist) {
+        if (Timer.getFPGATimestamp() - this.start >= time) {
             drivetrain.setBoth(0d);
             this.finished = true;
         } else {
