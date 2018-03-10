@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4373.robot.subsystems;
 
-import static org.usfirst.frc.team4373.robot.input.hid.Motors.safetyCheckSpeed;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -10,9 +8,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
+import static org.usfirst.frc.team4373.robot.input.hid.Motors.safetyCheckSpeed;
+
 /**
  * A class that  serves as the basis for all VerticalExtenders on the bot.
- *
+ * <p>
  * <p>This class cannot be instantiated; its subclasses must be singletons. A "vertical extender"
  * is something that extends vertically on a track. Another word for it would be an "elevator."
  * A VerticalExtender has a single-motor system, including an encoder and limit switches. Setting
@@ -28,18 +28,17 @@ public abstract class VerticalExtender extends Subsystem {
     protected DigitalInput topSwitch;
     protected double extenderBottom;
     protected double extenderTop;
+    /**
+     * The position of the VerticalExtender when instantiated. Assumed to be 0 vertically (on the
+     * ground).
+     */
+    protected double initialPosition;
 
     protected VerticalExtender(String name, double bottom, double top) {
         super(name);
         this.extenderBottom = bottom;
         this.extenderTop = top;
     }
-
-    /**
-     * The position of the VerticalExtender when instantiated. Assumed to be 0 vertically (on the
-     * ground).
-     */
-    protected double initialPosition;
 
     /**
      * Puts motor in brake mode, sets up encoder, and establishes initial position
@@ -49,8 +48,7 @@ public abstract class VerticalExtender extends Subsystem {
         this.motor1.setNeutralMode(NeutralMode.Brake);
         this.motor2.setNeutralMode(NeutralMode.Brake);
 
-        this.initialPosition = this.getPosition()
-                * Motors.POSITION_CONVERSION_FACTOR;
+        this.initialPosition = this.getPosition(); // FIX 3/10/18: avoid double conversions!
     }
 
     /**
@@ -79,6 +77,7 @@ public abstract class VerticalExtender extends Subsystem {
 
     /**
      * Gets the position of the elevator.
+     *
      * @return The position of the elevator, in inches.
      */
     public double getPosition() {
@@ -88,6 +87,7 @@ public abstract class VerticalExtender extends Subsystem {
     /**
      * Gets the position of the intake relative to its initial position. This should be the
      * position above the ground.
+     *
      * @return The relative position of the intake, in inches.
      */
     public double getRelativePosition() {
@@ -96,6 +96,7 @@ public abstract class VerticalExtender extends Subsystem {
 
     /**
      * Gets the velocity of the elevator.
+     *
      * @return the velocity of the elevator, in inches/sec.
      */
     public double getVelocity() {
@@ -105,21 +106,20 @@ public abstract class VerticalExtender extends Subsystem {
     /**
      * Detects whether the elevator has reached the bottom of its track from limit switch output.
      * If this returns true, the motor should <b>not</b> be set to a negative power.
+     *
      * @return a boolean describing whether the elevator has reached its bottom position.
      */
-    public boolean atBottom() {
-        // return bottomSwitch.get() || this.extenderHeight < RobotMap.VE_SAFETY_MARGIN;
+    private boolean atBottom() {
         return this.getRelativePosition() - this.extenderBottom < RobotMap.VE_SAFETY_MARGIN;
     }
 
     /**
      * Detects whether the elevator has reached the top of its track from limit switch output.
      * If this returns true, the motor should <b>not</b> be set to a positive power.
+     *
      * @return a boolean describing whether the elevator has reached its top position.
      */
-    public boolean atTop() {
-        // return topSwitch.get() || this.extenderHeight - this.getRelativePosition()
-        //         < RobotMap.VE_SAFETY_MARGIN;
+    private boolean atTop() {
         return this.extenderTop - this.getRelativePosition() < RobotMap.VE_SAFETY_MARGIN;
     }
 }
