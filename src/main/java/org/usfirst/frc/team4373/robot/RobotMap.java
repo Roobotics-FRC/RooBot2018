@@ -49,7 +49,7 @@ public class RobotMap {
     public static final int RELEASE_SOLENOID_BACKWARD_PORT = 0;
 
     // Miscellaneous
-    public static final double AUTON_DRIVE_SPEED = 1;
+    public static final double AUTON_DRIVE_SPEED = 0.5;
 
     // PID constants
     public static final double DRIVETRAIN_P = 0.025;
@@ -63,7 +63,8 @@ public class RobotMap {
     public static final double INTAKE_D = 0.005; //TODO      |
 
     // Motor speeds
-    public static double VERTICAL_EXTENDER_SPEED = 0.7; // TODO: See below \/
+    public static double ELEVATOR_SPEED = 0.7; // TODO: See below \/
+    public static double INTAKE_SPEED = 0.85;
     /* This needs to be different for elevator and intake
 
      */

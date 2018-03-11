@@ -79,8 +79,8 @@ public class VerticalExtenderSetter extends PIDCommand {
         this.intakeSetpoint = intakeSetpoint;
         this.elevatorSetpoint = elevatorSetpoint;
 
-        this.getPIDController().setOutputRange(-RobotMap.VERTICAL_EXTENDER_SPEED,
-                RobotMap.VERTICAL_EXTENDER_SPEED);
+        this.getPIDController().setOutputRange(-RobotMap.ELEVATOR_SPEED,
+                RobotMap.ELEVATOR_SPEED);
     }
 
     /**
@@ -119,8 +119,8 @@ public class VerticalExtenderSetter extends PIDCommand {
         };
         this.elevatorController = new PIDController(kP, kI, kD, 0.0d,
                 this.elevatorSource, this.elevatorOutput);
-        this.elevatorController.setOutputRange(-RobotMap.VERTICAL_EXTENDER_SPEED,
-                RobotMap.VERTICAL_EXTENDER_SPEED);
+        this.elevatorController.setOutputRange(-RobotMap.ELEVATOR_SPEED,
+                RobotMap.ELEVATOR_SPEED);
         this.elevatorController.setSetpoint(elevatorSetpoint);
         this.setSetpoint(intakeSetpoint);
     }

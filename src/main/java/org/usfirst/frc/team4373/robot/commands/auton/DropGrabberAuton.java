@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
- * A Javadoc template. You're welcome. TODO: Update me.
+ * Un-sticks the grabber from the hooking mechanism and then goes back up.
  *
  * @author Samasaur
  */

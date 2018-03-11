@@ -5,6 +5,11 @@ import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 
+/**
+ * Turns to a given angle using PID.
+ *
+ * @author aaplmath
+ */
 public class TurnToAngleAuton extends PIDCommand {
     private double setpoint;
 
@@ -13,8 +18,8 @@ public class TurnToAngleAuton extends PIDCommand {
     private boolean finished = false;
     private boolean coolingDown = false;
     private long cooldownStart = 0;
-    private static final long COOLDOWN_TIME = 1000;
-    private static final double COOLDOWN_THRESHOLD = 0.015;
+    private static final long COOLDOWN_TIME = 500;
+    private static final double COOLDOWN_THRESHOLD = RobotMap.AUTON_DRIVE_SPEED * 0.03;
 
     /**
      * Constructs a TurnToPosition command.

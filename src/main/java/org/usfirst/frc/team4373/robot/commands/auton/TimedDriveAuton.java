@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4373.robot.commands.auton;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 
 /**

@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.commands.auton.CaptureSwitchAuton;
 import org.usfirst.frc.team4373.robot.commands.auton.TimedDriveAuton;
-import org.usfirst.frc.team4373.robot.commands.auton.DropGrabberAuton;
 import org.usfirst.frc.team4373.robot.commands.auton.TurnToAngleAuton;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
@@ -48,7 +47,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auton Secondary Goal", priority2Chooser);
 
         SmartDashboard.putNumber("Vertical Extender Speed", SmartDashboard.getNumber(
-                "Vertical Extender Speed", RobotMap.VERTICAL_EXTENDER_SPEED));
+                "Vertical Extender Speed", RobotMap.ELEVATOR_SPEED));
         SmartDashboard.putNumber("Driving Time", 2.5);
         SmartDashboard.putNumber("Driving Distance", 250);
         SmartDashboard.putNumber("Driving Power", 0.5);
@@ -65,16 +64,16 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        RobotMap.VERTICAL_EXTENDER_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
-                RobotMap.VERTICAL_EXTENDER_SPEED);
+        RobotMap.ELEVATOR_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
+                RobotMap.ELEVATOR_SPEED);
         Scheduler.getInstance().removeAll();
         OI.getOI().getGyro().reset();
     }
 
     @Override
     public void autonomousInit() {
-        RobotMap.VERTICAL_EXTENDER_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
-                RobotMap.VERTICAL_EXTENDER_SPEED);
+        RobotMap.ELEVATOR_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
+                RobotMap.ELEVATOR_SPEED);
         Scheduler.getInstance().removeAll();
         if (autonCommand != null) {
             autonCommand.cancel();
