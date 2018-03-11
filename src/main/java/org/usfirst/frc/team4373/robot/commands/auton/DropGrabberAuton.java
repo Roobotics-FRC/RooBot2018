@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4373.robot.commands.auton;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
@@ -15,18 +16,19 @@ public class DropGrabberAuton extends Command {
 
     public DropGrabberAuton() {
         requires(this.intake = Intake.getInstance());
-        setTimeout(0.4);
+        setTimeout(0.8);
     }
 
     @Override
     protected void initialize() {
+        OI.getOI().getGyro().reset();
         startTime = System.currentTimeMillis();
     }
 
     @Override
     protected void execute() {
-        if (System.currentTimeMillis() - startTime > 200) {
-            this.intake.set(0.5);
+        if (System.currentTimeMillis() - startTime > 400) {
+            this.intake.set(0.6);
         } else {
             this.intake.set(-0.5);
         }

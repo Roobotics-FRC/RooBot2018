@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team4373.robot.commands.auton.CaptureSwitchAuton;
-import org.usfirst.frc.team4373.robot.commands.auton.TimedDriveAuton;
-import org.usfirst.frc.team4373.robot.commands.auton.TurnToAngleAuton;
+import org.usfirst.frc.team4373.robot.commands.auton.*;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
@@ -55,6 +53,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Try TurnToAngleAuton", false);
         SmartDashboard.putNumber("Angle to turn to", 90);
 
+        SmartDashboard.putNumber("kP", RobotMap.DRIVETRAIN_P);
+        SmartDashboard.putNumber("kI", RobotMap.DRIVETRAIN_I);
+        SmartDashboard.putNumber("kD", RobotMap.DRIVETRAIN_D);
+
         OI.getOI().getGyro().calibrate();
 
         Drivetrain.getInstance();
@@ -72,6 +74,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        OI.getOI().getGyro().reset();
         RobotMap.ELEVATOR_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
                 RobotMap.ELEVATOR_SPEED);
         Scheduler.getInstance().removeAll();
@@ -87,43 +90,51 @@ public class Robot extends IterativeRobot {
         String priority2 = priority2Chooser.getSelected();
         boolean onLeft = pos == 'L';
 
-        if (priority1.equals("switch")) {
-            if (pos == switchData) {
-                System.out.println("GOING FOR SWITCH");
-                autonCommand = new CaptureSwitchAuton(onLeft);
-            } else if (priority2.equals("scale") && pos == scaleData) {
-                System.out.println("GOING FOR SCALE");
-            } else {
-                System.out.println("DRIVING");
-                //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
-                autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 2.5),
-                        SmartDashboard.getNumber("Driving Distance", 250),
-                        SmartDashboard.getNumber("Driving Power", 0.5));
-            }
-        } else if (priority1.equals("scale")) {
-            if (pos == scaleData) {
-                System.out.println("GOING FOR SCALE");
-            } else if (priority2.equals("switch") && pos == switchData) {
-                System.out.println("GOING FOR SWITCH");
-                autonCommand = new CaptureSwitchAuton(onLeft);
-            } else {
-                System.out.println("DRIVING");
-                //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
-                autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 2.5),
-                        SmartDashboard.getNumber("Driving Distance", 250),
-                        SmartDashboard.getNumber("Driving Power", 0.5));
-            }
+        if (pos == 'C') {
+            boolean leftObjective = switchData == 'L';
+            autonCommand = new CaptureSwitchFromCenterAuton(leftObjective);
         } else {
-            System.out.println("DRIVING");
-            //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
-            autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 2.5),
-                    SmartDashboard.getNumber("Driving Distance", 250),
-                    SmartDashboard.getNumber("Driving Power", 0.5));
+            if (priority1.equals("switch")) {
+                if (pos == switchData) {
+                    System.out.println("GOING FOR SWITCH");
+                    autonCommand = new CaptureSwitchAuton(onLeft);
+                } else if (priority2.equals("scale") && pos == scaleData) {
+                    System.out.println("GOING FOR SCALE");
+                } else {
+                    System.out.println("DRIVING");
+                    //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+                    autonCommand = new TimedDriveAuton(
+                            SmartDashboard.getNumber("Driving Time", 2.5),
+                            SmartDashboard.getNumber("Driving Distance", 250),
+                            SmartDashboard.getNumber("Driving Power", 0.5));
+                }
+            } else if (priority1.equals("scale")) {
+                if (pos == scaleData) {
+                    System.out.println("GOING FOR SCALE");
+                } else if (priority2.equals("switch") && pos == switchData) {
+                    System.out.println("GOING FOR SWITCH");
+                    autonCommand = new CaptureSwitchAuton(onLeft);
+                } else {
+                    System.out.println("DRIVING");
+                    //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+                    autonCommand = new TimedDriveAuton(
+                            SmartDashboard.getNumber("Driving Time", 2.5),
+                            SmartDashboard.getNumber("Driving Distance", 250),
+                            SmartDashboard.getNumber("Driving Power", 0.5));
+                }
+            } else {
+                System.out.println("DRIVING");
+                //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+                autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 2.5),
+                        SmartDashboard.getNumber("Driving Distance", 250),
+                        SmartDashboard.getNumber("Driving Power", 0.5));
+            }
         }
 
         //autonCommand = new DropGrabberAuton();
         if (SmartDashboard.getBoolean("Try TurnToAngleAuton", false)) {
-            autonCommand = new TurnToAngleAuton(SmartDashboard.getNumber("Angle to turn to", 90));
+            autonCommand = new TurnToAngleAuton(SmartDashboard.getNumber("Angle to turn to", 57));
+            // autonCommand = new DropGrabberAuton();
         }
 
         if (autonCommand != null) {

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4373.robot.commands.auton;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
@@ -19,7 +20,7 @@ public class TurnToAngleAuton extends PIDCommand {
     private boolean coolingDown = false;
     private long cooldownStart = 0;
     private static final long COOLDOWN_TIME = 500;
-    private static final double COOLDOWN_THRESHOLD = RobotMap.AUTON_DRIVE_SPEED * 0.03;
+    private static final double COOLDOWN_THRESHOLD = RobotMap.AUTON_DRIVE_SPEED * 0.2;
 
     /**
      * Constructs a TurnToPosition command.
@@ -31,6 +32,7 @@ public class TurnToAngleAuton extends PIDCommand {
         this.setpoint = angle;
         requires(this.drivetrain = Drivetrain.getInstance());
         setInterruptible(true);
+        setTimeout(2);
     }
 
     @Override
@@ -39,6 +41,9 @@ public class TurnToAngleAuton extends PIDCommand {
         this.setInputRange(-180, 180);
         this.getPIDController().setOutputRange(-RobotMap.AUTON_DRIVE_SPEED,
                 RobotMap.AUTON_DRIVE_SPEED);
+        this.getPIDController().setPID(SmartDashboard.getNumber("kP", RobotMap.DRIVETRAIN_P),
+                SmartDashboard.getNumber("kI", RobotMap.DRIVETRAIN_I),
+                SmartDashboard.getNumber("kD", RobotMap.DRIVETRAIN_D));
     }
 
     @Override
@@ -65,7 +70,7 @@ public class TurnToAngleAuton extends PIDCommand {
 
     @Override
     protected boolean isFinished() {
-        return this.finished;
+        return this.finished || this.isTimedOut();
     }
 
     @Override
@@ -73,6 +78,8 @@ public class TurnToAngleAuton extends PIDCommand {
         OI.getOI().getGyro().reset();
         this.getPIDController().reset();
         this.drivetrain.setBoth(0);
+        System.out.println("FINISHED TURNTOANGLE");
+        SmartDashboard.putBoolean("TTA Finished", true);
     }
 
     @Override

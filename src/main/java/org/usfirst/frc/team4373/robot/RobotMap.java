@@ -52,9 +52,9 @@ public class RobotMap {
     public static final double AUTON_DRIVE_SPEED = 0.5;
 
     // PID constants
-    public static final double DRIVETRAIN_P = 0.025;
+    public static final double DRIVETRAIN_P = 0.03;
     public static final double DRIVETRAIN_I = 0.0;
-    public static final double DRIVETRAIN_D = 0.006;
+    public static final double DRIVETRAIN_D = 0.003;
     public static final double ELEVATOR_P = 0.01; //TODO: Tune
     public static final double ELEVATOR_I = 0.001; //TODO:   /\
     public static final double ELEVATOR_D = 0.005; //TODO    |
