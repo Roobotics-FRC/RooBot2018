@@ -18,7 +18,10 @@ public class TimedDriveAuton extends Command {
     private double initialPosition;
 
     /**
-     * Timed drive autonomous.
+     * Creates a new TimedDriveAuton.
+     * @param secs The time to drive.
+     * @param distance The distance to drive. As this may or may not work, make it huge.
+     * @param power The power at which to drive.
      */
     public TimedDriveAuton(double secs, double distance, double power) {
         this.time = secs;
