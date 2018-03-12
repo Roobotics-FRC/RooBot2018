@@ -11,8 +11,8 @@ public class CaptureSwitchFromCenterAuton extends CommandGroup {
     public CaptureSwitchFromCenterAuton(boolean leftObjective) {
         addSequential(new RetainCubeAuton());
         addSequential(new DelayAuton(1));
-        addSequential(new DropGrabberAuton());
         addSequential(new TimedDriveAuton(0.8, 250, 0.5));
+        addParallel(new DropGrabberAuton());
         if (leftObjective) {
             addSequential(new TurnToAngleAuton(-63));
             addSequential(new TimedDriveAuton(1.1, 250, 0.5));
@@ -23,6 +23,7 @@ public class CaptureSwitchFromCenterAuton extends CommandGroup {
             addSequential(new TurnToAngleAuton(-57));
         }
         addSequential(new TimedDriveAuton(2, 250, 0.3));
+        addParallel(new MoveElevatorAuton(1, 0.5));
         addSequential(new ReleaseCubeAuton());
     }
 }
