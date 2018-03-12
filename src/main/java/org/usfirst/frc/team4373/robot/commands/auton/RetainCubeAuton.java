@@ -4,18 +4,21 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
+/**
+ * Holds onto a grabbed power cube.
+ *
+ * @author Samasaur
+ */
 public class RetainCubeAuton extends Command {
 
     private Intake intake;
-    private Elevator elevator;
 
     /**
-     * Does stuff.
+     * Creates a new RetainCubeAuton.
      */
     public RetainCubeAuton() {
         requires(this.intake = Intake.getInstance());
-        requires(this.elevator = Elevator.getInstance());
-        setTimeout(0.2);
+        setTimeout(0.1);
     }
 
     @Override
@@ -26,7 +29,6 @@ public class RetainCubeAuton extends Command {
     @Override
     protected void execute() {
         this.intake.retainCube();
-        this.elevator.set(0.5);
 
     }
 
