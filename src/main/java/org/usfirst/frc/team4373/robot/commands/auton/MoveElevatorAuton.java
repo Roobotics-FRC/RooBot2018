@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 
 /**
- * A command that can move the elevator up and down
+ * A command that can move the elevator up and down.
  *
  * @author Samasaur
  */

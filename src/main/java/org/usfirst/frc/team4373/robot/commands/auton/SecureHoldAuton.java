@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class SecureHoldAuton extends CommandGroup {
 
     /**
-     * Creates a new SecureHoldAuton that holds on to the cube and then does another
-     * @param followingCommand
+     * Creates a new SecureHoldAuton that holds on to the cube and then does another.
+     * @param followingCommand the command to run after this one. 
      */
     public SecureHoldAuton(Command followingCommand) {
         addSequential(new RetainCubeAuton());

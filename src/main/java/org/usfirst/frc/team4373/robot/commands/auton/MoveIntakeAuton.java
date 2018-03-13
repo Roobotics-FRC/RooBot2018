@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
- * A command that can move the intake up and down
+ * A command that can move the intake up and down.
  *
  * @author Samasaur
  */
