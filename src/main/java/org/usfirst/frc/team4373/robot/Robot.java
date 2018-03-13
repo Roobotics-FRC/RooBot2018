@@ -44,8 +44,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auton Primary Goal", priority1Chooser);
         SmartDashboard.putData("Auton Secondary Goal", priority2Chooser);
 
-        SmartDashboard.putNumber("Vertical Extender Speed", SmartDashboard.getNumber(
-                "Vertical Extender Speed", RobotMap.ELEVATOR_SPEED));
+        SmartDashboard.putNumber("Elevator Speed", SmartDashboard.getNumber(
+                "Elevator Speed", RobotMap.ELEVATOR_SPEED));
+        SmartDashboard.putNumber("Intake Speed", SmartDashboard.getNumber(
+                "Intake Speed", RobotMap.INTAKE_SPEED));
         SmartDashboard.putNumber("Driving Time", 2.5);
         SmartDashboard.putNumber("Driving Distance", 250);
         SmartDashboard.putNumber("Driving Power", 0.5);
@@ -66,8 +68,10 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        RobotMap.ELEVATOR_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
+        RobotMap.ELEVATOR_SPEED = SmartDashboard.getNumber("Elevator Speed",
                 RobotMap.ELEVATOR_SPEED);
+        RobotMap.INTAKE_SPEED = SmartDashboard.getNumber("Intake Speed",
+                RobotMap.INTAKE_SPEED);
         Scheduler.getInstance().removeAll();
         OI.getOI().getGyro().reset();
     }
@@ -75,8 +79,10 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         OI.getOI().getGyro().reset();
-        RobotMap.ELEVATOR_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
+        RobotMap.ELEVATOR_SPEED = SmartDashboard.getNumber("Elevator Speed",
                 RobotMap.ELEVATOR_SPEED);
+        RobotMap.INTAKE_SPEED = SmartDashboard.getNumber("Intake Speed",
+                RobotMap.INTAKE_SPEED);
         Scheduler.getInstance().removeAll();
         if (autonCommand != null) {
             autonCommand.cancel();
