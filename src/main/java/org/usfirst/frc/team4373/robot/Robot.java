@@ -130,7 +130,7 @@ public class Robot extends IterativeRobot {
                 }
             } else {
                 System.out.println("DRIVING");
-                //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+                // autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
                 autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 2.5),
                         SmartDashboard.getNumber("Driving Distance", 250),
                         SmartDashboard.getNumber("Driving Power", 0.5));

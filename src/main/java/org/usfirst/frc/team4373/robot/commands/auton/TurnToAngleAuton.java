@@ -32,7 +32,6 @@ public class TurnToAngleAuton extends PIDCommand {
         this.setpoint = angle;
         requires(this.drivetrain = Drivetrain.getInstance());
         setInterruptible(true);
-        setTimeout(2);
     }
 
     @Override
@@ -44,6 +43,7 @@ public class TurnToAngleAuton extends PIDCommand {
         this.getPIDController().setPID(SmartDashboard.getNumber("kP", RobotMap.DRIVETRAIN_P),
                 SmartDashboard.getNumber("kI", RobotMap.DRIVETRAIN_I),
                 SmartDashboard.getNumber("kD", RobotMap.DRIVETRAIN_D));
+        SmartDashboard.putBoolean("TTA Finished", false);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class TurnToAngleAuton extends PIDCommand {
 
     @Override
     protected void usePIDOutput(double output) {
+        SmartDashboard.putNumber("TTA Output", output);
         if (Math.abs(output) < COOLDOWN_THRESHOLD) {
             this.coolingDown = true;
             this.cooldownStart = System.currentTimeMillis();
@@ -70,7 +71,7 @@ public class TurnToAngleAuton extends PIDCommand {
 
     @Override
     protected boolean isFinished() {
-        return this.finished || this.isTimedOut();
+        return this.finished;
     }
 
     @Override
