@@ -74,10 +74,12 @@ public abstract class VerticalExtender extends Subsystem {
      */
     public void set(double power) {
         power = -power;
-        power = safetyCheckSpeed(applyLocking(power));
-        if (atTop() || atBottom()) {
+        if (power < 0 && atTop()) {
+            power = 0;
+        } else if (power > 0 && atBottom()) {
             power = 0;
         }
+        power = safetyCheckSpeed(applyLocking(power));
         SmartDashboard.putNumber(this.getName() + " Power", power);
     }
 

@@ -31,6 +31,9 @@ public class Elevator extends VerticalExtender {
         // Encoders
         this.motor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 1000);
         this.motor1.setSensorPhase(false);
+
+        // enable upwards locking
+        enableUpwardsLocking();
     }
 
     @Override
