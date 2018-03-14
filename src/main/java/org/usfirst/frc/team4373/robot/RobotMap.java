@@ -49,7 +49,7 @@ public class RobotMap {
     public static final int RELEASE_SOLENOID_BACKWARD_PORT = 0;
 
     // Miscellaneous
-    public static final double AUTON_DRIVE_SPEED = 0.5;
+    public static final double AUTON_DRIVE_SPEED = 0.25;
 
     // PID constants
     public static final double DRIVETRAIN_P = 0.03;
@@ -74,7 +74,8 @@ public class RobotMap {
     public static final double INTAKE_HEIGHT = 51;
     public static final double ELEVATOR_HEIGHT = 38;
     public static final double VE_SAFETY_MARGIN = 1; // ve = vertical extender
-    public static final double AUTON_DRIVE_DISTANCE = 125;
+    // public static final double AUTON_DRIVE_DISTANCE = 125;
+    public static final double AUTON_DRIVE_DISTANCE = 192;
     public static final double AUTON_SWITCH_DISTANCE = 172;
     public static final double AUTON_SCALE_DISTANCE = -1; // TODO
 

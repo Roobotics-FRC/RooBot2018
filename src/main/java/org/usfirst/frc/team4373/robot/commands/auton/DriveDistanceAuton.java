@@ -82,8 +82,8 @@ public class DriveDistanceAuton extends PIDCommand {
 
     @Override
     protected void usePIDOutput(double output) {
-        this.drivetrain.setRight(robotSpeed - output);
-        this.drivetrain.setLeft(robotSpeed + output);
+        this.drivetrain.setRight(pidOutput - output);
+        this.drivetrain.setLeft(pidOutput + output);
     }
 
     @Override
