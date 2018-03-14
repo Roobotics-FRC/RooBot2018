@@ -17,7 +17,7 @@ public class CaptureSwitchFromCenterAuton extends CommandGroup {
         if (leftObjective) {
             addSequential(new TurnToAngleAuton(-63));
             addSequential(new TimedDriveAuton(1.1, 250, 0.5));
-            addSequential(new TurnToAngleAuton(63));
+            addSequential(new TurnToAngleAuton(68));
         } else {
             addSequential(new TurnToAngleAuton(57));
             addSequential(new TimedDriveAuton(1, 250, 0.5));
