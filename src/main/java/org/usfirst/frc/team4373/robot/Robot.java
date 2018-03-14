@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4373.robot.commands.auton.*;
+import org.usfirst.frc.team4373.robot.datatypes.Position;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
@@ -32,11 +33,13 @@ public class Robot extends IterativeRobot {
 
         priority1Chooser = new SendableChooser<>();
         priority1Chooser.addDefault("Just Drive", "drive");
+        priority1Chooser.addObject("Do Nothing", "nothing");
         priority1Chooser.addObject("Switch", "switch");
         priority1Chooser.addObject("Scale", "scale");
 
         priority2Chooser = new SendableChooser<>();
         priority2Chooser.addDefault("Just Drive", "drive");
+        priority2Chooser.addObject("Do Nothing", "nothing");
         priority2Chooser.addObject("Switch", "switch");
         priority2Chooser.addObject("Scale", "scale");
 
@@ -94,57 +97,158 @@ public class Robot extends IterativeRobot {
         Character pos = positionChoooser.getSelected();
         String priority1 = priority1Chooser.getSelected();
         String priority2 = priority2Chooser.getSelected();
-        boolean onLeft = pos == 'L';
-
-        if (pos == 'C') {
-            boolean leftObjective = switchData == 'L';
-            autonCommand = new CaptureSwitchFromCenterAuton(leftObjective);
+        Position startPos;
+        Position switchPos;
+        Position scalePos;
+        if (pos == 'L') {
+            startPos = Position.Center;
+        } else if (pos == 'C') {
+            startPos = Position.Left;
         } else {
-            if (priority1.equals("switch")) {
-                if (pos == switchData) {
-                    System.out.println("GOING FOR SWITCH");
-                    autonCommand = new CaptureSwitchAuton(onLeft);
-                } else if (priority2.equals("scale") && pos == scaleData) {
-                    System.out.println("GOING FOR SCALE");
-                } else {
-                    System.out.println("DRIVING");
+            startPos = Position.Right;
+        }
+        if (switchData == 'L') {
+            switchPos = Position.Left;
+        } else {
+            switchPos = Position.Right;
+        }
+        if (scaleData == 'L') {
+            scalePos = Position.Left;
+        } else {
+            scalePos = Position.Right;
+        }
+
+        switch (priority1) {
+            case "nothing":
+                System.out.println("Doing nothing");
+                autonCommand = new RetainCubeAuton();
+                break;
+            case "drive":
+                System.out.println("Driving");
+                if (startPos != Position.Center) {
                     //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
                     autonCommand = new TimedDriveAuton(
                             SmartDashboard.getNumber("Driving Time", 2.5),
                             SmartDashboard.getNumber("Driving Distance", 250),
                             SmartDashboard.getNumber("Driving Power", 0.5));
-                }
-            } else if (priority1.equals("scale")) {
-                if (pos == scaleData) {
-                    System.out.println("GOING FOR SCALE");
-                } else if (priority2.equals("switch") && pos == switchData) {
-                    System.out.println("GOING FOR SWITCH");
-                    autonCommand = new CaptureSwitchAuton(onLeft);
                 } else {
-                    System.out.println("DRIVING");
-                    //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
-                    autonCommand = new TimedDriveAuton(
-                            SmartDashboard.getNumber("Driving Time", 2.5),
-                            SmartDashboard.getNumber("Driving Distance", 250),
-                            SmartDashboard.getNumber("Driving Power", 0.5));
+                    System.out.println("Can't drive; in center!");
+                    switch (priority2) {
+                        case "nothing":
+                            System.out.println("Doing nothing");
+                            autonCommand = new RetainCubeAuton();
+                            break;
+                        case "switch":
+                            System.out.println("Going for switch");
+                            if (startPos == Position.Center || startPos == switchPos) {
+                                autonCommand = new CaptureSwitchAuton(startPos, switchPos);
+                            } else {
+                                System.out.println("Can't get switch; opposite sides!");
+                                System.out.println("Doing nothing");
+                                autonCommand = new RetainCubeAuton();
+                            }
+                            break;
+                        case "scale":
+                            System.out.println("Going for scale");
+                            if (startPos == scalePos) {
+                                autonCommand = new CaptureScaleAuton(scalePos);
+                            } else {
+                                System.out.println("Can't get scale; not on same side!");
+                                System.out.println("Doing nothing");
+                                autonCommand = new RetainCubeAuton();
+                            }
+                            break;
+                        default:
+                            System.out.println("Doing nothing");
+                            autonCommand = new RetainCubeAuton();
+                    }
                 }
-            } else {
-                System.out.println("DRIVING");
-                // autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
-                autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 2.5),
-                        SmartDashboard.getNumber("Driving Distance", 250),
-                        SmartDashboard.getNumber("Driving Power", 0.5));
-            }
-        }
-
-        //autonCommand = new DropGrabberAuton();
-        if (SmartDashboard.getBoolean("Try TurnToAngleAuton", false)) {
-            autonCommand = new TurnToAngleAuton(SmartDashboard.getNumber("Angle to turn to", 57));
-            // autonCommand = new DropGrabberAuton();
-        }
-
-        if (autonCommand != null) {
-            autonCommand.start();
+                break;
+            case "switch":
+                System.out.println("Going for switch");
+                if (startPos == Position.Center || startPos == switchPos) {
+                    autonCommand = new CaptureSwitchAuton(startPos, switchPos);
+                } else {
+                    System.out.println("Can't get switch; opposite sides!");
+                    switch (priority2) {
+                        case "nothing":
+                            System.out.println("Doing nothing");
+                            autonCommand = new RetainCubeAuton();
+                            break;
+                        case "drive":
+                            System.out.println("Driving");
+                            if (startPos != Position.Center) {
+                                //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+                                autonCommand = new TimedDriveAuton(
+                                        SmartDashboard.getNumber("Driving Time", 2.5),
+                                        SmartDashboard.getNumber("Driving Distance", 250),
+                                        SmartDashboard.getNumber("Driving Power", 0.5));
+                            } else {
+                                System.out.println("Can't drive; in center!");
+                                System.out.println("Doing nothing");
+                                autonCommand = new RetainCubeAuton();
+                            }
+                            break;
+                        case "scale":
+                            System.out.println("Going for scale");
+                            if (startPos == scalePos) {
+                                autonCommand = new CaptureScaleAuton(scalePos);
+                            } else {
+                                System.out.println("Can't get scale; not on same side!");
+                                System.out.println("Doing nothing");
+                                autonCommand = new RetainCubeAuton();
+                            }
+                            break;
+                        default:
+                            System.out.println("Doing nothing");
+                            autonCommand = new RetainCubeAuton();
+                    }
+                }
+                break;
+            case "scale":
+                System.out.println("Going for scale");
+                if (startPos == scalePos) {
+                    autonCommand = new CaptureScaleAuton(scalePos);
+                } else {
+                    System.out.println("Can't get scale; not on same side!");
+                    switch (priority2) {
+                        case "nothing":
+                            System.out.println("Doing nothing");
+                            autonCommand = new RetainCubeAuton();
+                            break;
+                        case "drive":
+                            System.out.println("Driving");
+                            if (startPos != Position.Center) {
+                                //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+                                autonCommand = new TimedDriveAuton(
+                                        SmartDashboard.getNumber("Driving Time", 2.5),
+                                        SmartDashboard.getNumber("Driving Distance", 250),
+                                        SmartDashboard.getNumber("Driving Power", 0.5));
+                            } else {
+                                System.out.println("Can't drive; in center!");
+                                System.out.println("Doing nothing");
+                                autonCommand = new RetainCubeAuton();
+                            }
+                            break;
+                        case "switch":
+                            System.out.println("Going for switch");
+                            if (startPos == Position.Center || startPos == switchPos) {
+                                autonCommand = new CaptureSwitchAuton(startPos, switchPos);
+                            } else {
+                                System.out.println("Can't get switch; opposite sides!");
+                                System.out.println("Doing nothing");
+                                autonCommand = new RetainCubeAuton();
+                            }
+                            break;
+                        default:
+                            System.out.println("Doing nothing");
+                            autonCommand = new RetainCubeAuton();
+                    }
+                }
+                break;
+            default:
+                System.out.println("Doing nothing");
+                autonCommand = new RetainCubeAuton();
         }
     }
 
