@@ -27,15 +27,15 @@ public class Intake extends VerticalExtender {
         this.motor1 = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_1);
         this.motor2 = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_2);
 
-        this.configureMotors();
-        this.motor1.setInverted(true);
-
         this.compressor = new Compressor(RobotMap.COMPRESSOR_PORT);
         this.pot = new AnalogPotentiometer(RobotMap.POT_CHANNEL, 47, 0);
         this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
                 RobotMap.GRABBER_SOLENOID_FORWARD_PORT, RobotMap.GRABBER_SOLENOID_BACKWARD_PORT);
         this.intakePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
                 RobotMap.RELEASE_SOLENOID_FORWARD_PORT, RobotMap.RELEASE_SOLENOID_BACKWARD_PORT);
+
+        this.configureMotors();
+        this.motor1.setInverted(true);
     }
 
     public static Intake getInstance() {
