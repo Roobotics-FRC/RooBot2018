@@ -80,6 +80,8 @@ public abstract class VerticalExtender extends Subsystem {
             power = 0;
         }
         power = safetyCheckSpeed(applyLocking(power));
+        this.motor1.set(power);
+        this.motor2.set(power);
         SmartDashboard.putNumber(this.getName() + " Power", power);
     }
 
