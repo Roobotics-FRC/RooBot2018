@@ -32,12 +32,12 @@ public class IntakeCommand extends Command {
                 case 315:
                 case 0:
                 case 45:
-                    this.intake.set(RobotMap.VERTICAL_EXTENDER_SPEED);
+                    this.intake.set(RobotMap.INTAKE_SPEED);
                     break;
                 case 135:
                 case 180:
                 case 225:
-                    this.intake.set(-RobotMap.VERTICAL_EXTENDER_SPEED);
+                    this.intake.set(-RobotMap.INTAKE_SPEED);
                     break;
                 case 90:
                 case 270:

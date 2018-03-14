@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team4373.robot.commands.auton.CaptureSwitchAuton;
-import org.usfirst.frc.team4373.robot.commands.auton.DriveDistanceAuton;
+import org.usfirst.frc.team4373.robot.commands.auton.*;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
@@ -45,8 +44,20 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auton Primary Goal", priority1Chooser);
         SmartDashboard.putData("Auton Secondary Goal", priority2Chooser);
 
-        SmartDashboard.putNumber("Vertical Extender Speed", SmartDashboard.getNumber(
-                "Vertical Extender Speed", RobotMap.VERTICAL_EXTENDER_SPEED));
+        SmartDashboard.putNumber("Elevator Speed", SmartDashboard.getNumber(
+                "Elevator Speed", RobotMap.ELEVATOR_SPEED));
+        SmartDashboard.putNumber("Intake Speed", SmartDashboard.getNumber(
+                "Intake Speed", RobotMap.INTAKE_SPEED));
+        SmartDashboard.putNumber("Driving Time", 2.5);
+        SmartDashboard.putNumber("Driving Distance", 250);
+        SmartDashboard.putNumber("Driving Power", 0.5);
+
+        SmartDashboard.putBoolean("Try TurnToAngleAuton", false);
+        SmartDashboard.putNumber("Angle to turn to", 90);
+
+        SmartDashboard.putNumber("kP", RobotMap.DRIVETRAIN_P);
+        SmartDashboard.putNumber("kI", RobotMap.DRIVETRAIN_I);
+        SmartDashboard.putNumber("kD", RobotMap.DRIVETRAIN_D);
 
         OI.getOI().getGyro().calibrate();
 
@@ -57,16 +68,21 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        RobotMap.VERTICAL_EXTENDER_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
-                RobotMap.VERTICAL_EXTENDER_SPEED);
+        RobotMap.ELEVATOR_SPEED = SmartDashboard.getNumber("Elevator Speed",
+                RobotMap.ELEVATOR_SPEED);
+        RobotMap.INTAKE_SPEED = SmartDashboard.getNumber("Intake Speed",
+                RobotMap.INTAKE_SPEED);
         Scheduler.getInstance().removeAll();
         OI.getOI().getGyro().reset();
     }
 
     @Override
     public void autonomousInit() {
-        RobotMap.VERTICAL_EXTENDER_SPEED = SmartDashboard.getNumber("Vertical Extender Speed",
-                RobotMap.VERTICAL_EXTENDER_SPEED);
+        OI.getOI().getGyro().reset();
+        RobotMap.ELEVATOR_SPEED = SmartDashboard.getNumber("Elevator Speed",
+                RobotMap.ELEVATOR_SPEED);
+        RobotMap.INTAKE_SPEED = SmartDashboard.getNumber("Intake Speed",
+                RobotMap.INTAKE_SPEED);
         Scheduler.getInstance().removeAll();
         if (autonCommand != null) {
             autonCommand.cancel();
@@ -80,29 +96,51 @@ public class Robot extends IterativeRobot {
         String priority2 = priority2Chooser.getSelected();
         boolean onLeft = pos == 'L';
 
-        if (priority1.equals("switch")) {
-            if (pos == switchData) {
-                System.out.println("GOING FOR SWITCH");
-                autonCommand = new CaptureSwitchAuton(onLeft);
-            } else if (priority2.equals("scale") && pos == scaleData) {
-                System.out.println("GOING FOR SCALE");
-            } else {
-                System.out.println("DRIVING");
-                autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
-            }
-        } else if (priority1.equals("scale")) {
-            if (pos == scaleData) {
-                System.out.println("GOING FOR SCALE");
-            } else if (priority2.equals("switch") && pos == switchData) {
-                System.out.println("GOING FOR SWITCH");
-                autonCommand = new CaptureSwitchAuton(onLeft);
-            } else {
-                System.out.println("DRIVING");
-                autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
-            }
+        if (pos == 'C') {
+            boolean leftObjective = switchData == 'L';
+            autonCommand = new CaptureSwitchFromCenterAuton(leftObjective);
         } else {
-            System.out.println("DRIVING");
-            autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+            if (priority1.equals("switch")) {
+                if (pos == switchData) {
+                    System.out.println("GOING FOR SWITCH");
+                    autonCommand = new CaptureSwitchAuton(onLeft);
+                } else if (priority2.equals("scale") && pos == scaleData) {
+                    System.out.println("GOING FOR SCALE");
+                } else {
+                    System.out.println("DRIVING");
+                    //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+                    autonCommand = new TimedDriveAuton(
+                            SmartDashboard.getNumber("Driving Time", 2.5),
+                            SmartDashboard.getNumber("Driving Distance", 250),
+                            SmartDashboard.getNumber("Driving Power", 0.5));
+                }
+            } else if (priority1.equals("scale")) {
+                if (pos == scaleData) {
+                    System.out.println("GOING FOR SCALE");
+                } else if (priority2.equals("switch") && pos == switchData) {
+                    System.out.println("GOING FOR SWITCH");
+                    autonCommand = new CaptureSwitchAuton(onLeft);
+                } else {
+                    System.out.println("DRIVING");
+                    //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+                    autonCommand = new TimedDriveAuton(
+                            SmartDashboard.getNumber("Driving Time", 2.5),
+                            SmartDashboard.getNumber("Driving Distance", 250),
+                            SmartDashboard.getNumber("Driving Power", 0.5));
+                }
+            } else {
+                System.out.println("DRIVING");
+                //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
+                autonCommand = new TimedDriveAuton(SmartDashboard.getNumber("Driving Time", 2.5),
+                        SmartDashboard.getNumber("Driving Distance", 250),
+                        SmartDashboard.getNumber("Driving Power", 0.5));
+            }
+        }
+
+        //autonCommand = new DropGrabberAuton();
+        if (SmartDashboard.getBoolean("Try TurnToAngleAuton", false)) {
+            autonCommand = new TurnToAngleAuton(SmartDashboard.getNumber("Angle to turn to", 57));
+            // autonCommand = new DropGrabberAuton();
         }
 
         if (autonCommand != null) {

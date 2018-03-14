@@ -23,10 +23,10 @@ public class DrivetrainCommand extends Command {
     public void execute() {
         double x = OI.getOI().getDriveJoystick().rooGetX();
         double y = OI.getOI().getDriveJoystick().rooGetY();
-        double z = OI.getOI().getDriveJoystick().rooGetZ();
+        double z = Math.signum(OI.getOI().getDriveJoystick().rooGetZ())
+                * Math.sqrt(Math.abs(OI.getOI().getDriveJoystick().rooGetZ())) / 2;
         drivetrain.setRight(y + z);
         drivetrain.setLeft(y - z);
-        drivetrain.setMiddle(x);
 
         // Logging
         SmartDashboard.putNumber("L Pos", drivetrain.getLeftPosition());
@@ -41,12 +41,7 @@ public class DrivetrainCommand extends Command {
         SmartDashboard.putNumber("R Vel", drivetrain.getRightVelocity());
         SmartDashboard.putNumber("R Vel (in p s)", drivetrain.getRightVelocity()
                 * Motors.VELOCITY_CONVERSION_FACTOR);
-        SmartDashboard.putNumber("M Pos", drivetrain.getMiddlePosition());
-        SmartDashboard.putNumber("M Pos (in)", drivetrain.getMiddlePosition()
-                * Motors.POSITION_CONVERSION_FACTOR);
-        SmartDashboard.putNumber("M Vel", drivetrain.getMiddleVelocity());
-        SmartDashboard.putNumber("M Vel (in p s)", drivetrain.getMiddleVelocity()
-                * Motors.VELOCITY_CONVERSION_FACTOR);
+        SmartDashboard.putNumber("Relative Angle (°)", OI.getOI().getAngleRelative());
     }
 
     @Override

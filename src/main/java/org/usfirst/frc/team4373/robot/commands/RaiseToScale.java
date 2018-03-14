@@ -28,8 +28,8 @@ public class RaiseToScale extends PIDCommand {
         super("RaiseToScale", kP, kI, kD);
         requires(this.elevator = Elevator.getInstance());
         requires(this.intake = Intake.getInstance());
-        this.getPIDController().setOutputRange(-RobotMap.VERTICAL_EXTENDER_SPEED,
-                RobotMap.VERTICAL_EXTENDER_SPEED);
+        this.getPIDController().setOutputRange(-RobotMap.ELEVATOR_SPEED,
+                RobotMap.ELEVATOR_SPEED);
         setInterruptible(true);
     }
 

@@ -39,7 +39,9 @@ public class ElevatorCommand extends Command {
     protected void execute() {
         double axis = OI.getOI().getOperatorJoystick().getAxis(RobotMap.ELEVATOR_AXIS);
         if (Math.abs(axis) > RobotMap.THUMBSTICK_THRESHOLD) {
-            this.elevator.set(Math.signum(axis) * -RobotMap.VERTICAL_EXTENDER_SPEED + 0.1);
+            this.elevator.set(Math.signum(axis) * -RobotMap.ELEVATOR_SPEED + 0.1);
+        } else {
+            this.elevator.set(0.1);
         }
         // Logging
         SmartDashboard.putNumber("Elevator Rel Pos", elevator.getRelativePosition());

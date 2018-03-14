@@ -1,33 +1,37 @@
 package org.usfirst.frc.team4373.robot.commands.auton;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
- * Drops a grabbed power cube.
+ * Un-sticks the grabber from the hooking mechanism and then goes back up.
  *
  * @author Samasaur
  */
-public class ReleaseCubeAuton extends Command {
+public class DropGrabberAuton extends Command {
 
     private Intake intake;
+    private long startTime;
 
-    /**
-     * Creates a new ReleaseCubeAuton.
-     */
-    public ReleaseCubeAuton() {
+    public DropGrabberAuton() {
         requires(this.intake = Intake.getInstance());
-        setTimeout(0.5);
+        setTimeout(0.8);
     }
 
     @Override
     protected void initialize() {
-
+        OI.getOI().getGyro().reset();
+        startTime = System.currentTimeMillis();
     }
 
     @Override
     protected void execute() {
-        this.intake.releaseCube();
+        if (System.currentTimeMillis() - startTime > 400) {
+            this.intake.set(0.6);
+        } else {
+            this.intake.set(-0.5);
+        }
     }
 
     @Override
@@ -37,11 +41,11 @@ public class ReleaseCubeAuton extends Command {
 
     @Override
     protected void interrupted() {
-
+        this.intake.set(0);
     }
 
     @Override
     protected void end() {
-
+        this.intake.set(0);
     }
 }

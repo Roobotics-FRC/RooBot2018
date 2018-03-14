@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import org.usfirst.frc.team4373.robot.RobotMap;
 import org.usfirst.frc.team4373.robot.commands.teleop.ElevatorCommand;
+import org.usfirst.frc.team4373.robot.input.hid.Motors;
 
 /**
  * A programmatic representation of the elevator VerticalExtender. This is the outermost,
