@@ -11,11 +11,12 @@ public class RobotMap {
     public static final double THUMBSTICK_THRESHOLD = 0.5;
     public static final int ELEVATOR_AXIS = 1; // L stick Y
     public static final int INTAKE_OPEN_BUTTON = 6; // RB
-    public static final int INTAKE_RETRACT_BUTTON = 5; // LB
+    public static final int INTAKE_OPEN_PUSH_BUTTON = 5; // LB
     public static final int SCALE_BUTTON = 3; // X button
-    public static final int SWITCH_BUTTON = 1; // A button
+    // public static final int SWITCH_BUTTON = 1; // A button
     public static final int LOWER_BUTTON = 2; // B button
     public static final int CLIMB_BUTTON = 4; // Y button
+    public static final int INTAKE_RETRACT_BUTTON = 1;
 
     // Sensor and OI ports
     public static final int DRIVE_JOYSTICK_PORT = 0;
@@ -47,6 +48,8 @@ public class RobotMap {
     public static final int GRABBER_SOLENOID_BACKWARD_PORT = 3;
     public static final int RELEASE_SOLENOID_FORWARD_PORT = 1;
     public static final int RELEASE_SOLENOID_BACKWARD_PORT = 0;
+    public static final int PUSHER_SOLENOID_FORWARD_PORT = 4;
+    public static final int PUSHER_SOLENOID_BACKWARD_PORT = 5;
 
     // Miscellaneous
     public static final double AUTON_DRIVE_SPEED = 0.25;

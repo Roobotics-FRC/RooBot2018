@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4373.robot.commands.auton;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team4373.robot.subsystems.Elevator;
 import org.usfirst.frc.team4373.robot.subsystems.Intake;
 
 /**
@@ -28,7 +27,7 @@ public class RetainCubeAuton extends Command {
 
     @Override
     protected void execute() {
-        this.intake.retainCube();
+        this.intake.holdCube();
 
     }
 

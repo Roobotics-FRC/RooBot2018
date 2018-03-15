@@ -79,7 +79,6 @@ public class TurnToAngleAuton extends PIDCommand {
         OI.getOI().getGyro().reset();
         this.getPIDController().reset();
         this.drivetrain.setBoth(0);
-        System.out.println("FINISHED TURNTOANGLE");
         SmartDashboard.putBoolean("TTA Finished", true);
     }
 

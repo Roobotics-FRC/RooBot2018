@@ -48,10 +48,14 @@ public class IntakeCommand extends Command {
         } else {
             this.intake.set(0);
         }
-        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_OPEN_BUTTON)) {
+        if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_OPEN_PUSH_BUTTON)) {
+            this.intake.extendPusher();
+            this.intake.releaseCube();
+        } else if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_OPEN_BUTTON)) {
             this.intake.releaseCube();
         } else {
-            this.intake.retainCube();
+            this.intake.holdCube();
+            this.intake.withdrawPusher();
         }
 
         if (OI.getOI().getOperatorJoystick().getRawButton(RobotMap.INTAKE_RETRACT_BUTTON)) {

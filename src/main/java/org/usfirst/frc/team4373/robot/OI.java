@@ -33,15 +33,15 @@ public class OI {
                         new FineGrainedPiecewiseFilter());
         this.gyro = new AnalogGyro(RobotMap.GYRO_CHANNEL);
 
-        scaleButton = new JoystickButton(this.operatorJoystick, RobotMap.SCALE_BUTTON);
-        switchButton = new JoystickButton(this.operatorJoystick, RobotMap.SWITCH_BUTTON);
-        lowerButton = new JoystickButton(this.operatorJoystick, RobotMap.LOWER_BUTTON);
-        climbButton = new JoystickButton(this.operatorJoystick, RobotMap.CLIMB_BUTTON);
-
-        scaleButton.whenPressed(new RaiseToScale());
-        switchButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.SWITCH));
-        lowerButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.LOWER));
-        climbButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.CLIMB));
+        // scaleButton = new JoystickButton(this.operatorJoystick, RobotMap.SCALE_BUTTON);
+        // switchButton = new JoystickButton(this.operatorJoystick, RobotMap.SWITCH_BUTTON);
+        // lowerButton = new JoystickButton(this.operatorJoystick, RobotMap.LOWER_BUTTON);
+        // climbButton = new JoystickButton(this.operatorJoystick, RobotMap.CLIMB_BUTTON);
+        //
+        // scaleButton.whenPressed(new RaiseToScale());
+        // switchButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.SWITCH));
+        // lowerButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.LOWER));
+        // climbButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.CLIMB));
     }
 
     /**
