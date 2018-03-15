@@ -23,8 +23,7 @@ public class DrivetrainCommand extends Command {
     public void execute() {
         double x = OI.getOI().getDriveJoystick().rooGetX();
         double y = OI.getOI().getDriveJoystick().rooGetY();
-        double z = Math.signum(OI.getOI().getDriveJoystick().rooGetZ())
-                * Math.sqrt(Math.abs(OI.getOI().getDriveJoystick().rooGetZ())) / 2;
+        double z = OI.getOI().getDriveJoystick().rooGetZ();
         drivetrain.setRight(y + z);
         drivetrain.setLeft(y - z);
         drivetrain.setMiddle(x);

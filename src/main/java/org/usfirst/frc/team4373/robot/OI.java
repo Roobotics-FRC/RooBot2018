@@ -39,7 +39,8 @@ public class OI {
         // climbButton = new JoystickButton(this.operatorJoystick, RobotMap.CLIMB_BUTTON);
         //
         // scaleButton.whenPressed(new RaiseToScale());
-        // switchButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.SWITCH));
+        // switchButton.whenPressed
+        // (new VerticalExtenderSetter(VerticalExtenderSetter.Preset.SWITCH));
         // lowerButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.LOWER));
         // climbButton.whenPressed(new VerticalExtenderSetter(VerticalExtenderSetter.Preset.CLIMB));
     }
