@@ -23,7 +23,7 @@ public class Elevator extends VerticalExtender {
 
     private Elevator() {
         super("Elevator", RobotMap.ELEVATOR_SAFE_BOTTOM,
-                RobotMap.ELEVATOR_SAFE_TOP);  // bottom: 15, top: 58
+                RobotMap.ELEVATOR_SAFE_TOP);  // bottom: 15, top: 58 | @sam 3/14/18 -> add 2 inches
         this.motor1 = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_1);
         this.motor2 = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_2);
         this.configureMotors();
