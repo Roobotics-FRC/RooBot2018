@@ -23,7 +23,7 @@ public class CaptureSwitchFromCenterAuton extends CommandGroup {
             addSequential(new TimedDriveAuton(1, 250, 0.5));
             addSequential(new TurnToAngleAuton(-57));
         }
-        addSequential(new TimedDriveAuton(2, 250, 0.3));
+        addSequential(new TimedDriveAuton(2.5, 250, 0.2));
         addSequential(new ReleaseCubeAuton());
     }
 }

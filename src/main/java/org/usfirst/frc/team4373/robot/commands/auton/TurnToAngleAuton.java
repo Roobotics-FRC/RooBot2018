@@ -32,6 +32,7 @@ public class TurnToAngleAuton extends PIDCommand {
         this.setpoint = angle;
         requires(this.drivetrain = Drivetrain.getInstance());
         setInterruptible(true);
+        setTimeout(2);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class TurnToAngleAuton extends PIDCommand {
 
     @Override
     protected boolean isFinished() {
-        return this.finished;
+        return this.finished || this.isTimedOut();
     }
 
     @Override
