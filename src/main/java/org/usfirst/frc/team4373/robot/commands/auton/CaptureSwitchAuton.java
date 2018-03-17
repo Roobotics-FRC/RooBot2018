@@ -16,6 +16,7 @@ public class CaptureSwitchAuton extends CommandGroup {
      */
     public CaptureSwitchAuton(boolean startsOnLeft) {
         //addSequential(new DriveDistanceAuton(RobotMap.AUTON_SWITCH_DISTANCE));
+        addParallel(new RetainCubeAuton());
         addParallel(new MoveElevatorAuton(1, 0.5));
         addSequential(new TimedDriveAuton(2.5, 250, 0.5));
         addSequential(new TurnToAngleAuton(startsOnLeft ? 90 : -90));
