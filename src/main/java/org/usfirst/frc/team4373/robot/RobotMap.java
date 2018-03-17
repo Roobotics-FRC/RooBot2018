@@ -66,7 +66,7 @@ public class RobotMap {
 
     // Motor speeds
     public static double ELEVATOR_SPEED = 0.7; // TODO: See below \/
-    public static double INTAKE_SPEED = 0.85;
+    public static double INTAKE_SPEED = 1;
     /* This needs to be different for elevator and intake
 
      */
