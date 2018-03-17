@@ -27,6 +27,7 @@ public class RetainCubeAuton extends Command {
 
     @Override
     protected void execute() {
+        this.intake.withdrawPusher();
         this.intake.holdCube();
 
     }
