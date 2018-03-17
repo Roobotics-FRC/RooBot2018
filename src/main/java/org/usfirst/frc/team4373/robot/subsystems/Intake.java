@@ -21,7 +21,7 @@ public class Intake extends VerticalExtender {
     private DoubleSolenoid intakePiston;
     private DoubleSolenoid releasePiston;
     private DoubleSolenoid pusherPiston;
-    private Compressor compressor;
+    // private Compressor compressor;
     private Potentiometer pot;
 
     private static Intake instance;
@@ -40,7 +40,7 @@ public class Intake extends VerticalExtender {
         this.configureMotors();
         this.motor1.setInverted(true);
 
-        this.compressor = new Compressor(RobotMap.COMPRESSOR_PORT);
+        // this.compressor = new Compressor(RobotMap.COMPRESSOR_PORT);
         this.pot = new AnalogPotentiometer(RobotMap.POT_CHANNEL, 47, 0);
         this.releasePiston = new DoubleSolenoid(RobotMap.PCM_PORT,
                 RobotMap.GRABBER_SOLENOID_FORWARD_PORT, RobotMap.GRABBER_SOLENOID_BACKWARD_PORT);
@@ -92,11 +92,11 @@ public class Intake extends VerticalExtender {
     }
 
     public void startCompressor() {
-        this.compressor.start();
+        // this.compressor.start();
     }
 
     public void stopCompressor() {
-        this.compressor.stop();
+        // this.compressor.stop();
     }
 
     @Override
