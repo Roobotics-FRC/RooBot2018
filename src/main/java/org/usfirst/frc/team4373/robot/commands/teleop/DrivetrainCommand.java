@@ -24,26 +24,11 @@ public class DrivetrainCommand extends Command {
         double x = OI.getOI().getDriveJoystick().rooGetX();
         double y = OI.getOI().getDriveJoystick().rooGetY();
         double z = OI.getOI().getDriveJoystick().rooGetZ();
+        drivetrain.setRight(y + z);
+        drivetrain.setLeft(y - z);
 
-        if (z > 0.25) {
-            drivetrain.setRight(y + z - 0.2);
-            drivetrain.setLeft(y - z - 0.2);
-
-            SmartDashboard.putNumber("drivetrain Right", y + z - 0.2);
-            SmartDashboard.putNumber("drivetrain Left", y - z - 0.2);
-        } else if (z < -0.25) {
-            drivetrain.setRight(y + z + 0.2);
-            drivetrain.setLeft(y - z + 0.2);
-
-            SmartDashboard.putNumber("drivetrain Right", y + z + 0.2);
-            SmartDashboard.putNumber("drivetrain Left", y - z + 0.2);
-        } else {
-            drivetrain.setRight(y + z);
-            drivetrain.setLeft(y - z);
-
-            SmartDashboard.putNumber("drivetrain Right", y + z);
-            SmartDashboard.putNumber("drivetrain Left", y - z);
-        }
+        SmartDashboard.putNumber("drivetrain Right", y + z);
+        SmartDashboard.putNumber("drivetrain Left", y - z);
 
 
         // Logging
