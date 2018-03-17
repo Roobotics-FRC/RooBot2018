@@ -106,6 +106,7 @@ public class Robot extends IterativeRobot {
                     autonCommand = new CaptureSwitchAuton(onLeft);
                 } else if (priority2.equals("scale") && pos == scaleData) {
                     System.out.println("GOING FOR SCALE");
+                    autonCommand = new CaptureScaleAuton(onLeft);
                 } else {
                     System.out.println("DRIVING");
                     //autonCommand = new DriveDistanceAuton(RobotMap.AUTON_DRIVE_DISTANCE);
@@ -117,6 +118,7 @@ public class Robot extends IterativeRobot {
             } else if (priority1.equals("scale")) {
                 if (pos == scaleData) {
                     System.out.println("GOING FOR SCALE");
+                    autonCommand = new CaptureScaleAuton(onLeft);
                 } else if (priority2.equals("switch") && pos == switchData) {
                     System.out.println("GOING FOR SWITCH");
                     autonCommand = new CaptureSwitchAuton(onLeft);
@@ -139,8 +141,9 @@ public class Robot extends IterativeRobot {
 
         //autonCommand = new DropGrabberAuton();
         if (SmartDashboard.getBoolean("Try TurnToAngleAuton", false)) {
-            autonCommand = new TurnToAngleAuton(SmartDashboard.getNumber("Angle to turn to", 57));
-            // autonCommand = new DropGrabberAuton();
+            // autonCommand = new TurnToAngleAuton(
+            // SmartDashboard.getNumber("Angle to turn to", 57));
+            autonCommand = new DriveDistanceAuton(24, 0.25);
         }
 
         if (autonCommand != null) {

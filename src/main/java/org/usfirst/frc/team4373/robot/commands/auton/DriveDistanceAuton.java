@@ -7,9 +7,11 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc.team4373.robot.OI;
 import org.usfirst.frc.team4373.robot.RobotMap;
-import org.usfirst.frc.team4373.robot.input.hid.Motors;
 import org.usfirst.frc.team4373.robot.subsystems.Drivetrain;
 
+/**
+ * An auton command to drive a set distance in a straight line.
+ */
 public class DriveDistanceAuton extends PIDCommand {
 
     private PIDController distancePIDController;
@@ -18,8 +20,8 @@ public class DriveDistanceAuton extends PIDCommand {
 
     private double setpoint;
     private double pidOutput = 1d;
-    private double robotSpeed = 0.0d;
-    private static final double COOLDOWN_THRESHOLD = 0.15;
+    private double robotSpeed = 0.25d;
+    private double cooldownThreshold = 0.0625;
 
     private Drivetrain drivetrain;
 
@@ -27,10 +29,12 @@ public class DriveDistanceAuton extends PIDCommand {
      * Constructs a new DriveDistanceAuton command and initializes the secondary PID controller.
      * @param distance The distance, in inches, that the robot should drive.
      */
-    public DriveDistanceAuton(double distance) {
+    public DriveDistanceAuton(double distance, double speed) {
         super("DriveDistanceAuton", RobotMap.DRIVETRAIN_P, RobotMap.DRIVETRAIN_I,
                 RobotMap.DRIVETRAIN_D);
         this.setpoint = distance;
+        this.robotSpeed = speed;
+        this.cooldownThreshold = this.robotSpeed * 0.25;
         requires(this.drivetrain = Drivetrain.getInstance());
 
         // Distance PID initialization
@@ -53,7 +57,6 @@ public class DriveDistanceAuton extends PIDCommand {
 
         distanceOutput = output -> {
             this.pidOutput = output;
-            robotSpeed = -output;
         };
         this.distancePIDController = new PIDController(RobotMap.DRIVETRAIN_P,
                 RobotMap.DRIVETRAIN_I, RobotMap.DRIVETRAIN_D, 0, distanceSource, distanceOutput);
@@ -62,8 +65,7 @@ public class DriveDistanceAuton extends PIDCommand {
     @Override
     protected void initialize() {
         // Distance PID configuration
-        this.distancePIDController.setOutputRange(-RobotMap.AUTON_DRIVE_SPEED,
-                RobotMap.AUTON_DRIVE_SPEED);
+        this.distancePIDController.setOutputRange(-robotSpeed, robotSpeed);
         this.distancePIDController.setSetpoint(drivetrain.getConvertedAveragePosition()
                 + setpoint);
         this.distancePIDController.enable();
@@ -71,8 +73,7 @@ public class DriveDistanceAuton extends PIDCommand {
         // Angular PID configuration
         this.setSetpoint(0);
         this.setInputRange(-180, 180);
-        this.getPIDController().setOutputRange(-RobotMap.AUTON_DRIVE_SPEED,
-                RobotMap.AUTON_DRIVE_SPEED);
+        this.getPIDController().setOutputRange(-robotSpeed, robotSpeed);
     }
 
     @Override
@@ -82,13 +83,13 @@ public class DriveDistanceAuton extends PIDCommand {
 
     @Override
     protected void usePIDOutput(double output) {
-        this.drivetrain.setRight(pidOutput - output);
-        this.drivetrain.setLeft(pidOutput + output);
+        this.drivetrain.setRight(-pidOutput - output);
+        this.drivetrain.setLeft(-pidOutput + output);
     }
 
     @Override
     protected boolean isFinished() {
-        return Math.abs(this.pidOutput) < COOLDOWN_THRESHOLD;
+        return Math.abs(this.pidOutput) < cooldownThreshold;
     }
 
     @Override
