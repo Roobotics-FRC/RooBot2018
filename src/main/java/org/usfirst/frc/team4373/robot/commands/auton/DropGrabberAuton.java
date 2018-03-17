@@ -29,7 +29,7 @@ public class DropGrabberAuton extends Command {
     protected void execute() {
         this.intake.releaseIntake();
         if (System.currentTimeMillis() - startTime > 400) {
-            this.intake.set(0.7);
+            this.intake.set(0.85);
         } else {
             this.intake.set(-0.7);
         }

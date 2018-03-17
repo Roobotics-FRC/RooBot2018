@@ -36,11 +36,11 @@ public class MoveElevatorAuton extends Command {
 
     @Override
     protected void end() {
-        this.elevator.set(0);
+        this.elevator.set(0.1);
     }
 
     @Override
     protected void interrupted() {
-        this.elevator.set(0);
+        this.elevator.set(0.1);
     }
 }
