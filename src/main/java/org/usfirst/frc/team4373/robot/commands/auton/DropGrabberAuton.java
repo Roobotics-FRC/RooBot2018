@@ -27,10 +27,11 @@ public class DropGrabberAuton extends Command {
 
     @Override
     protected void execute() {
+        this.intake.releaseIntake();
         if (System.currentTimeMillis() - startTime > 400) {
-            this.intake.set(0.6);
+            this.intake.set(0.7);
         } else {
-            this.intake.set(-0.5);
+            this.intake.set(-0.7);
         }
     }
 

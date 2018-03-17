@@ -27,6 +27,7 @@ public class ReleaseCubeAuton extends Command {
 
     @Override
     protected void execute() {
+        this.intake.extendPusher();
         this.intake.releaseCube();
     }
 
