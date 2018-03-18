@@ -15,11 +15,11 @@ public class CaptureScaleAuton extends CommandGroup {
     public CaptureScaleAuton(boolean startsOnLeft) {
         addSequential(new RetainCubeAuton());
         addSequential(new DriveDistanceAuton(315, 1));
+        addSequential(new DropGrabberAuton());
         addParallel(new MoveElevatorAuton(3, 0.7));
-        addParallel(new MoveIntakeAuton(4, 1));
+        addParallel(new MoveIntakeAuton(1, 1));
         addSequential(new TurnToAngleAuton(startsOnLeft ? 90 : -90));
         addSequential(new DriveDistanceAuton(6, 0.25));
-        addSequential(new DropGrabberAuton());
         addSequential(new ReleaseCubeAuton());
     }
 }
