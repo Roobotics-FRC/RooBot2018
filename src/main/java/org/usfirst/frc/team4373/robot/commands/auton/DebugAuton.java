@@ -13,6 +13,10 @@ public class DebugAuton extends Command {
     private boolean executed;
     private String message;
 
+    /**
+     * Creates a DebugAuton with a message.
+     * @param message The message to print.
+     */
     public DebugAuton(String message) {
         this.message = message;
         System.out.println("Debug Auton Constructor Called - Message:");
@@ -23,6 +27,11 @@ public class DebugAuton extends Command {
         this.setTimeout(0.1);
     }
 
+    /**
+     * Creates a DebugAuton that requires subsystems.
+     * @param message The message to print.
+     * @param systemsToRequire The subsystems to require.
+     */
     public DebugAuton(String message, Subsystem[] systemsToRequire) {
         this.message = message;
         System.out.println("Debug Auton Constructor Called - Message:");
