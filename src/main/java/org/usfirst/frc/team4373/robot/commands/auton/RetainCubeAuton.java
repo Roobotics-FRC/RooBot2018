@@ -11,7 +11,6 @@ import org.usfirst.frc.team4373.robot.subsystems.Intake;
 public class RetainCubeAuton extends Command {
 
     private Intake intake;
-    private boolean executed;
 
     /**
      * Creates a new RetainCubeAuton.
@@ -23,19 +22,18 @@ public class RetainCubeAuton extends Command {
 
     @Override
     protected void initialize() {
-        executed = false;
+
     }
 
     @Override
     protected void execute() {
         this.intake.withdrawPusher();
         this.intake.holdCube();
-        executed = true;
     }
 
     @Override
     protected boolean isFinished() {
-        return this.isTimedOut() || this.executed;
+        return this.isTimedOut();
     }
 
     @Override
