@@ -11,6 +11,7 @@ import org.usfirst.frc.team4373.robot.subsystems.Intake;
 public class ReleaseCubeAuton extends Command {
 
     private Intake intake;
+    private boolean executed;
 
     /**
      * Creates a new ReleaseCubeAuton.
@@ -22,18 +23,19 @@ public class ReleaseCubeAuton extends Command {
 
     @Override
     protected void initialize() {
-
+        executed = false;
     }
 
     @Override
     protected void execute() {
         this.intake.extendPusher();
         this.intake.releaseCube();
+        executed = true;
     }
 
     @Override
     protected boolean isFinished() {
-        return this.isTimedOut();
+        return this.isTimedOut() || this.executed;
     }
 
     @Override
