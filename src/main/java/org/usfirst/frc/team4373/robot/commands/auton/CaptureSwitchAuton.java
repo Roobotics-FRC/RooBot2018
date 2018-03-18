@@ -23,7 +23,7 @@ public class CaptureSwitchAuton extends CommandGroup {
         addSequential(new TimedDriveAuton(1, 250, 0.2));
         addSequential(new DropGrabberAuton());
         addSequential(new ReleaseCubeAuton());
-        // addSequential(new TimedDriveAuton(1, 250, 0.2));
+        // addSequential(new TimedDriveAuton(1, 250, -0.2));
         // addSequential(new TurnToAngleAuton(startsOnLeft ? -90 : 90));
     }
 }
