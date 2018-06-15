@@ -24,32 +24,42 @@ public class RooJoystick<F extends DoubleTypeFilter> extends Joystick {
         this.filter = filter;
     }
 
+    /**
+     * Filter a value using the joystick's filter.
+     * @param val The value to filter.
+     * @return The value post-filtering.
+     */
     private double filter(double val) {
         // We don't know the return type because of type erasure...
         return applyDeadzone(this.filter.applyFilter(val));
     }
 
+    /**
+     * Ignores input if it is within the deadzone (if it is negligible).
+     * @param input The input value to be checked.
+     * @return The input value if it is large enough, or 0 if it was negligible.
+     */
     private double applyDeadzone(double input) {
         return Math.abs(input) <= DEADZONE ? 0 : input;
     }
 
-    private double rooGetX() {
+    public double rooGetX() {
         return this.filter(this.getX());
     }
 
-    private double rooGetY() {
+    public double rooGetY() {
         return this.filter(this.getY());
     }
 
-    private double rooGetZ() {
+    public double rooGetZ() {
         return this.filter(this.getZ());
     }
 
-    private double rooGetTwist() {
+    public double rooGetTwist() {
         return this.filter(this.getTwist());
     }
 
-    private double rooGetThrottle() {
+    public double rooGetThrottle() {
         return this.filter(this.getThrottle());
     }
 
@@ -84,7 +94,6 @@ public class RooJoystick<F extends DoubleTypeFilter> extends Joystick {
 
     /**
      * Gets the angle the joystick is facing relative to neutral.
-     *
      * @return the joystick angle
      */
     public double getAngle() {
